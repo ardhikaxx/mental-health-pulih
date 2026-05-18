@@ -51,7 +51,17 @@
             </tbody>
         </table>
     </div>
-    <div class="pagination">{{ $kontens->links() }}</div>
+    @if ($kontens->lastPage() > 1)
+        <nav class="page-numbers" aria-label="Halaman konten edukasi">
+            @for ($page = 1; $page <= $kontens->lastPage(); $page++)
+                @if ($page === $kontens->currentPage())
+                    <span class="active" aria-current="page">{{ $page }}</span>
+                @else
+                    <a href="{{ $kontens->appends(request()->except('page'))->url($page) }}">{{ $page }}</a>
+                @endif
+            @endfor
+        </nav>
+    @endif
 </div>
 
 @include('admin.edukasi.partials.form-modal', ['id' => 'tambah-artikel', 'title' => 'Tambah Artikel', 'action' => route('admin.edukasi.store'), 'method' => 'POST', 'konten' => null, 'tipeDefault' => 'artikel'])

@@ -84,6 +84,10 @@
         .chart-bars { align-items: end; display: flex; gap: 8px; height: 180px; padding-top: 16px; }
         .bar { background: #55cda3; border-radius: 6px 6px 0 0; flex: 1; min-width: 18px; }
         .pagination { margin-top: 14px; }
+        .page-numbers { display: flex; justify-content: flex-end; gap: 8px; margin-top: 18px; }
+        .page-numbers a, .page-numbers span { align-items: center; background: #fff; border: 1px solid #bedecd; border-radius: 8px; color: #185d3d; display: inline-flex; font-size: 14px; font-weight: 800; height: 38px; justify-content: center; min-width: 38px; padding: 0 12px; }
+        .page-numbers a:hover { background: #e9f8ef; border-color: #55cda3; }
+        .page-numbers .active { background: #1e6b46; border-color: #1e6b46; color: #fff; box-shadow: 0 6px 14px rgba(30,107,70,.18); }
         @media (max-width: 1100px) {
             .layout, .main-grid { grid-template-columns: 1fr; }
             .sidebar { min-height: auto; position: static; }
