@@ -44,6 +44,10 @@
         .article-card h3, .video-card h3 { font-size: 24px; line-height: 1.18; margin-bottom: 8px; }
         .article-meta { align-items: center; color: #666; display: flex; gap: 18px; font-size: 18px; margin-top: 16px; }
         .dot { width: 8px; height: 8px; border-radius: 50%; background: #666; display: inline-block; }
+        .page-numbers { display: flex; justify-content: center; gap: 10px; margin: 34px 0 10px; }
+        .page-numbers a, .page-numbers span { align-items: center; background: #fff; border: 1px solid #c8d7cf; border-radius: 10px; color: #005c34; display: inline-flex; font-size: 18px; font-weight: 800; height: 44px; justify-content: center; min-width: 44px; padding: 0 14px; }
+        .page-numbers a:hover { background: #e8f8ef; border-color: #7dcaa4; }
+        .page-numbers .active { background: #005c34; border-color: #005c34; color: #fff; box-shadow: 0 8px 18px rgba(0,92,52,.18); }
         .content-page { display: grid; grid-template-columns: minmax(0, 1fr) 340px; gap: 34px; margin-top: 24px; }
         .content-body { font-size: 19px; line-height: 1.7; }
         .content-body p { margin-bottom: 16px; }

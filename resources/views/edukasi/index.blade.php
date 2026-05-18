@@ -42,7 +42,17 @@
         <div class="card card-body" style="grid-column:1/-1;">Belum ada artikel publish.</div>
     @endforelse
 </div>
-<div class="pagination">{{ $artikels->links() }}</div>
+@if ($artikels->lastPage() > 1)
+    <nav class="page-numbers" aria-label="Halaman artikel">
+        @for ($page = 1; $page <= $artikels->lastPage(); $page++)
+            @if ($page === $artikels->currentPage())
+                <span class="active" aria-current="page">{{ $page }}</span>
+            @else
+                <a href="{{ $artikels->appends(request()->except('artikel_page'))->url($page) }}">{{ $page }}</a>
+            @endif
+        @endfor
+    </nav>
+@endif
 
 @if ($videos->isNotEmpty())
     <h2 class="section-title">Video Edukasi</h2>
