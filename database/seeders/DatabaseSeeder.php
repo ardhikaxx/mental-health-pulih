@@ -74,9 +74,10 @@ class DatabaseSeeder extends Seeder
         });
 
         $pasienData = [
-            ['Leonita Lyta', 'leonita@ruangpulih.test', 22, 'perempuan'],
-            ['Kafi Khaula', 'kafi@ruangpulih.test', 23, 'perempuan'],
-            ['Annida Aulia', 'annida@ruangpulih.test', 21, 'perempuan'],
+            ['Leonita Yulyta Agustin', 'leonita@ruangpulih.test', 22, 'perempuan'],
+            ['Annida Tri Aulia', 'annida@ruangpulih.test', 21, 'perempuan'],
+            ['Kafi Khaula Yukisa Zailina', 'kafi@ruangpulih.test', 23, 'perempuan'],
+            ['Siti Aisa Nur Apriliana', 'siti@ruangpulih.test', 22, 'perempuan'],
         ];
 
         $pasiens = collect($pasienData)->map(function ($data) {
