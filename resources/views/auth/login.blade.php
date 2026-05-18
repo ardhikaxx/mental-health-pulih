@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 
     <style>
 
@@ -347,7 +348,9 @@
         </div>
 
         <div class="quote-box">
-            <div class="quote-mark">“</div>
+            <div class="quote-mark">
+                <i class="fa-solid fa-quote-left"></i>
+            </div>
 
             <div>
                 Kesehatan mental adalah pondasi untuk menjalani<br>
@@ -360,13 +363,13 @@
     <div class="right-panel">
 
         <button type="button" class="dark-mode" onclick="toggleDarkMode()">
-            🌙 Mode Gelap
+            <i class="fa-solid fa-moon"></i> Mode Gelap
         </button>
 
         <div class="login-card">
 
             <h2 class="login-title">
-                Selamat Datang Kembali 👋
+                Selamat Datang Kembali <i class="fa-solid fa-hand"></i>
             </h2>
 
             <p class="login-subtitle">
@@ -383,7 +386,9 @@
 
                     <div class="input-box">
 
-                        <span class="input-icon">✉</span>
+                        <span class="input-icon">
+                            <i class="fa-solid fa-envelope"></i>
+                        </span>
 
                         <input
                             type="email"
@@ -402,7 +407,9 @@
 
                     <div class="input-box">
 
-                        <span class="input-icon">▣</span>
+                        <span class="input-icon">
+                            <i class="fa-solid fa-lock"></i>
+                        </span>
 
                         <input
                             type="password"
@@ -413,7 +420,7 @@
                         >
 
                         <span class="eye-icon" onclick="togglePassword()">
-                            👁
+                            <i class="fa-solid fa-eye"></i>
                         </span>
 
                     </div>
@@ -423,18 +430,18 @@
                 <div class="form-row">
 
                     <label class="remember">
-                        <input type="checkbox">
+                        <input type="checkbox" name="remember" value="1">
                         Remember me
                     </label>
 
-                    <a href="#" class="forgot">
-                        Lupa password?
+                    <a href="{{ route('password.request') }}" class="forgot">
+                        <i class="fa-solid fa-key"></i> Lupa password?
                     </a>
 
                 </div>
 
                 <button type="submit" class="login-submit">
-                    ↪ Login
+                    <i class="fa-solid fa-right-to-bracket"></i> Login
                 </button>
 
                 <div class="divider">
@@ -444,8 +451,9 @@
                 <a href="#" class="google-btn">
 
                     <span class="google-logo">
-                        <span class="g-blue">G</span><span class="g-red">o</span><span class="g-yellow">o</span><span class="g-blue">g</span><span class="g-green">l</span><span class="g-red">e</span>
+                        <i class="fa-brands fa-google"></i>
                     </span>
+                    Google
 
                 </a>
 

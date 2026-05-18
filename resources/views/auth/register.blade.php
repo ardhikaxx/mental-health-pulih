@@ -357,14 +357,14 @@
                 Mulai perjalanan pemulihanmu bersama Ruang Pulih
             </p>
 
-            <form action="#" method="POST">
+            <form action="{{ route('register') }}" method="POST">
                 @csrf
 
                 <div class="form-group">
                     <label>Nama Lengkap</label>
                     <div class="input-box">
                         <span class="input-icon">♙</span>
-                        <input type="text" name="name" placeholder="Masukkan nama lengkap">
+                        <input type="text" name="nama_lengkap" value="{{ old('nama_lengkap') }}" placeholder="Masukkan nama lengkap" required>
                     </div>
                 </div>
 
@@ -372,7 +372,7 @@
                     <label>Email</label>
                     <div class="input-box">
                         <span class="input-icon">✉</span>
-                        <input type="email" name="email" placeholder="Masukkan email">
+                        <input type="email" name="email" value="{{ old('email') }}" placeholder="Masukkan email" required>
                     </div>
                 </div>
 
@@ -380,7 +380,7 @@
                     <label>Password</label>
                     <div class="input-box">
                         <span class="input-icon">▢</span>
-                        <input type="password" id="password" name="password" placeholder="Buat password">
+                        <input type="password" id="password" name="password" placeholder="Buat password" required>
                         <span class="eye-icon" onclick="togglePassword()">⊙</span>
                     </div>
                 </div>
@@ -389,7 +389,7 @@
                     <label>Password</label>
                     <div class="input-box">
                         <span class="input-icon">▢</span>
-                        <input type="password" id="confirmPassword" name="password_confirmation" placeholder="Konfirmasi password">
+                        <input type="password" id="confirmPassword" name="password_confirmation" placeholder="Konfirmasi password" required>
                         <span class="eye-icon" onclick="toggleConfirmPassword()">⊙</span>
                     </div>
                 </div>

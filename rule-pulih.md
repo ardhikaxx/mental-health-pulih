@@ -20,8 +20,7 @@
 | Frontend | Blade Template + Tailwind CSS / Bootstrap |
 | Database | MySQL |
 | Real-time Chat | Laravel Reverb / Pusher |
-| Autentikasi | Laravel Breeze / Fortify |
-| Storage | Laravel Storage (lokal / S3) |
+| Storage | Laravel Storage |
 
 ---
 
