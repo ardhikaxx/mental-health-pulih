@@ -131,12 +131,32 @@
         </a>
 
         {{-- Logout --}}
-        <form action="{{ route('logout') }}" method="POST" style="margin: 0;">
+        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="margin: 0;">
             @csrf
-            <button type="submit" class="header-logout-btn">
+            <button type="button" class="header-logout-btn" onclick="confirmLogout()">
                 <i class="fa-solid fa-power-off"></i>
                 <span>Keluar</span>
             </button>
         </form>
     </div>
 </header>
+
+<script>
+    function confirmLogout() {
+        Swal.fire({
+            title: 'Yakin ingin keluar?',
+            text: "Anda akan mengakhiri sesi saat ini.",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#005c34',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Ya, Keluar',
+            cancelButtonText: 'Batal',
+            reverseButtons: true
+        }).then((result) => {
+            if (result.isConfirmed) {
+                document.getElementById('logout-form').submit();
+            }
+        })
+    }
+</script>

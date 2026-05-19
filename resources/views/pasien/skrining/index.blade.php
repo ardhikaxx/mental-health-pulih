@@ -100,7 +100,7 @@
                 </div>
                 
                 <div class="mt-5 pt-3 border-top text-end">
-                    <button class="btn btn-primary px-5 py-2 fw-bold shadow-sm rounded-pill" type="submit">
+                    <button class="btn btn-primary px-5 py-2 fw-bold shadow-sm rounded-pill" type="submit" id="btnSubmit">
                         Selanjutnya: Pilih Skrining <i class="fa-solid fa-arrow-right ms-2"></i>
                     </button>
                 </div>
@@ -108,6 +108,34 @@
         </form>
     </div>
 </div>
+
+@push('scripts')
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const form = document.querySelector('form');
+        form.addEventListener('submit', function(e) {
+            const requiredFields = form.querySelectorAll('[required]');
+            let allFilled = true;
+            
+            requiredFields.forEach(field => {
+                if (!field.value) {
+                    allFilled = false;
+                }
+            });
+
+            if (!allFilled) {
+                e.preventDefault();
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'Data Belum Lengkap',
+                    text: 'Mohon lengkapi seluruh data identitas dan riwayat kesehatan yang wajib diisi.',
+                    confirmButtonColor: '#005c34',
+                });
+            }
+        });
+    });
+</script>
+@endpush
 
 <style>
     .focus-ring-primary:focus { box-shadow: 0 0 0 0.25rem rgba(0, 92, 52, 0.15) !important; outline: none; }

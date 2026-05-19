@@ -54,7 +54,7 @@
                                 ] as $nilai => [$label, $iconClass, $textColorClass])
                                     <div class="col-sm-6 col-md-3">
                                         <label class="answer-option d-flex flex-column align-items-center justify-content-center h-100 p-4 rounded-4 border border-2 cursor-pointer transition-all bg-light hover-bg-white text-center" style="cursor: pointer;">
-                                            <input type="radio" name="jawaban[{{ $item->id_pertanyaan_pemantauan }}]" value="{{ $nilai }}" class="d-none answer-radio" data-question-index="{{ $index }}" onchange="this.closest('.row').querySelectorAll('.answer-option').forEach(el => { el.classList.remove('border-primary', 'bg-primary', 'bg-opacity-10', 'shadow-sm'); el.classList.add('border-light', 'bg-light'); el.querySelector('i').classList.remove('{{ $textColorClass }}'); el.querySelector('i').classList.add('opacity-50', 'text-secondary'); }); this.closest('.answer-option').classList.remove('border-light', 'bg-light'); this.closest('.answer-option').classList.add('border-primary', 'bg-primary', 'bg-opacity-10', 'shadow-sm'); this.querySelector('i').classList.remove('opacity-50', 'text-secondary'); this.querySelector('i').classList.add('{{ $textColorClass }}'); handleAnswerSelection();">
+                                            <input type="radio" name="jawaban[{{ $item->id_pertanyaan_pemantauan }}]" value="{{ $nilai }}" class="d-none answer-radio" data-question-index="{{ $index }}" data-text-color="{{ $textColorClass }}" onchange="handleAnswerSelection(this)">
                                             <input type="hidden" name="emoji[{{ $item->id_pertanyaan_pemantauan }}]" value=":)">
                                             
                                             <i class="fa-regular {{ $iconClass }} fs-1 mb-3 opacity-50 text-secondary transition-all icon-state"></i>
@@ -86,7 +86,7 @@
                                 Selanjutnya <i class="fa-solid fa-arrow-right ms-2"></i>
                             </button>
                             
-                            <button class="btn btn-success shadow-sm px-5 py-2 fw-bold rounded-pill" id="btnSubmit" type="submit" style="display: none;" onclick="return validateSubmit()">
+                            <button class="btn btn-success shadow-sm px-5 py-2 fw-bold rounded-pill" id="btnSubmit" type="submit" style="display: none;">
                                 <i class="fa-solid fa-paper-plane me-2"></i> Kirim Pemantauan
                             </button>
                         </div>
@@ -101,6 +101,22 @@
     .transition-all { transition: all 0.2s ease; }
     .hover-bg-white:hover { background-color: #fff !important; border-color: #dee2e6 !important; }
     .focus-ring-primary:focus { box-shadow: 0 0 0 0.25rem rgba(0, 92, 52, 0.15) !important; outline: none; }
+    
+    /* Active State for Answer Options */
+    .answer-option.active {
+        background-color: var(--bs-primary-bg-subtle) !important;
+        border-color: var(--primary-green) !important;
+        box-shadow: 0 4px 12px rgba(0, 92, 52, 0.1) !important;
+    }
+    
+    .answer-option.active .icon-state {
+        opacity: 1 !important;
+        transform: scale(1.1);
+    }
+
+    .answer-option.active strong {
+        color: var(--primary-green);
+    }
     
     .fade-enter-active { animation: fadeIn 0.3s ease-out forwards; }
     @keyframes fadeIn {
@@ -123,13 +139,23 @@
         const btnSubmit = document.getElementById('btnSubmit');
         
         // Hide all
-        questionCards.forEach(card => card.style.display = 'none');
+        questionCards.forEach(card => {
+            card.style.display = 'none';
+            card.classList.remove('fade-enter-active');
+        });
 
         // Show current
         const currentCard = document.getElementById('question-' + currentIndex);
         if (currentCard) {
             currentCard.style.display = 'block';
+            void currentCard.offsetWidth; // trigger reflow
             currentCard.classList.add('fade-enter-active');
+
+            // Restore active state for previously selected radio in this card
+            const selectedRadio = currentCard.querySelector('.answer-radio:checked');
+            if (selectedRadio) {
+                applyActiveState(selectedRadio);
+            }
         }
 
         // Progress
@@ -160,32 +186,84 @@
         }
     }
 
-    function navigateQuestion(step) {
-        currentIndex += step;
-        updateUI();
-        window.scrollTo({ top: 0, behavior: 'smooth' });
+    function applyActiveState(input) {
+        const label = input.closest('.answer-option');
+        const row = input.closest('.row');
+        const textColor = input.dataset.textColor;
+
+        // Reset all options in this question
+        row.querySelectorAll('.answer-option').forEach(el => {
+            el.classList.remove('active', 'border-primary', 'bg-primary', 'bg-opacity-10', 'shadow-sm');
+            el.classList.add('border-light', 'bg-light');
+            
+            const icon = el.querySelector('i');
+            icon.classList.remove('text-success', 'text-info', 'text-warning', 'text-danger');
+            icon.classList.add('opacity-50', 'text-secondary');
+        });
+
+        // Set active state
+        label.classList.add('active');
+        label.classList.remove('border-light', 'bg-light');
+        
+        const activeIcon = label.querySelector('i');
+        activeIcon.classList.remove('opacity-50', 'text-secondary');
+        activeIcon.classList.add(textColor);
     }
 
-    window.handleAnswerSelection = function() {
+    window.handleAnswerSelection = function(input) {
+        applyActiveState(input);
         updateUI();
-        if (currentIndex < totalSteps - 1) {
+
+        // Auto-advance
+        if (currentIndex < totalQuestions - 1) {
+            setTimeout(() => {
+                navigateQuestion(1);
+            }, 400);
+        } else if (currentIndex === totalQuestions - 1) {
+            // If it's the last question, wait a bit then go to the "Catatan Tambahan"
             setTimeout(() => {
                 navigateQuestion(1);
             }, 400);
         }
     }
 
-    function validateSubmit() {
+    function validateSubmit(event) {
+        event.preventDefault();
         const answeredCount = document.querySelectorAll('.answer-radio:checked').length;
+        
         if (answeredCount < totalQuestions) {
-            alert('Harap jawab seluruh pertanyaan pemantauan.');
+            Swal.fire({
+                icon: 'warning',
+                title: 'Belum Selesai',
+                text: 'Harap jawab seluruh pertanyaan pemantauan.',
+                confirmButtonColor: '#005c34',
+            });
             return false;
         }
-        return true;
+
+        Swal.fire({
+            title: 'Kirim Pemantauan?',
+            text: "Data ini akan membantu memantau kondisi mentalmu.",
+            icon: 'question',
+            showCancelButton: true,
+            confirmButtonColor: '#005c34',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Ya, Kirim',
+            cancelButtonText: 'Batal'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                document.getElementById('pemantauanForm').submit();
+            }
+        });
     }
 
     document.addEventListener('DOMContentLoaded', function() {
         updateUI();
+        
+        const form = document.getElementById('pemantauanForm');
+        if (form) {
+            form.addEventListener('submit', validateSubmit);
+        }
     });
 </script>
 @endpush

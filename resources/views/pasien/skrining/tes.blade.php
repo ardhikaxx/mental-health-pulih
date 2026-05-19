@@ -63,7 +63,7 @@
                             Selanjutnya <i class="fa-solid fa-arrow-right ms-2"></i>
                         </button>
                         
-                        <button class="btn btn-success shadow-sm px-5 py-2 fw-bold rounded-pill" id="btnSubmit" type="submit" style="display: none;" onclick="return validateSubmit()">
+                        <button class="btn btn-success shadow-sm px-5 py-2 fw-bold rounded-pill" id="btnSubmit" type="submit" style="display: none;">
                             <i class="fa-solid fa-paper-plane me-2"></i> Kirim & Simpan Hasil
                         </button>
                     </div>
@@ -172,18 +172,44 @@
         }
     }
 
-    function validateSubmit() {
+    function validateSubmit(event) {
+        event.preventDefault();
         const answeredCount = document.querySelectorAll('.answer-radio:checked').length;
+        
         if (answeredCount < totalQuestions) {
-            alert('Harap jawab seluruh pertanyaan sebelum mengirim hasil tes.');
+            Swal.fire({
+                icon: 'warning',
+                title: 'Belum Selesai',
+                text: 'Harap jawab seluruh pertanyaan sebelum mengirim hasil tes.',
+                confirmButtonColor: '#005c34',
+            });
             return false;
         }
-        return confirm('Sudah yakin dengan semua jawaban Anda?');
+
+        Swal.fire({
+            title: 'Sudah Yakin?',
+            text: "Pastikan semua jawaban Anda sudah sesuai dengan kondisi Anda.",
+            icon: 'question',
+            showCancelButton: true,
+            confirmButtonColor: '#005c34',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Ya, Kirim Hasil',
+            cancelButtonText: 'Batal'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                event.target.submit();
+            }
+        });
     }
 
     // Initialize UI on load
     document.addEventListener('DOMContentLoaded', function() {
         updateUI();
+        
+        const form = document.getElementById('skriningForm');
+        if (form) {
+            form.addEventListener('submit', validateSubmit);
+        }
     });
 </script>
 @endpush
