@@ -22,6 +22,15 @@
             --radius-xl: 24px;
             --radius-lg: 16px;
             --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            
+            /* Bootstrap 5 Primary Overrides */
+            --bs-primary: #005c34;
+            --bs-primary-rgb: 0, 92, 52;
+            --bs-primary-bg-subtle: rgba(0, 92, 52, 0.1);
+            --bs-primary-border-subtle: rgba(0, 92, 52, 0.25);
+            --bs-primary-text-emphasis: #004a29;
+            --bs-link-color: #005c34;
+            --bs-link-hover-color: #004a29;
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; }
