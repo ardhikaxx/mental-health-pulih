@@ -1,6 +1,36 @@
 @extends('layouts.public', ['title' => 'Bantuan - Ruang Pulih'])
 
 @section('content')
+<style>
+    .help-wrapper { margin: 64px 0; }
+    .help-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(360px, 1fr)); gap: 32px; }
+    
+    .help-card { 
+        background: #ffffff; border: 1px solid #e2e8f0; border-radius: 28px; padding: 48px; 
+        transition: all 0.5s cubic-bezier(0.19, 1, 0.22, 1); 
+        display: flex; flex-direction: column; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.02); 
+    }
+    .help-card:hover { transform: translateY(-10px); box-shadow: 0 25px 30px -10px rgba(0,0,0,0.08); border-color: #005c3444; }
+    
+    .icon-box { 
+        width: 72px; height: 72px; background: linear-gradient(135deg, #e6fffa 0%, #b2f5ea 100%); 
+        border-radius: 24px; color: #005c34; display: flex; align-items: center; justify-content: center; 
+        font-size: 32px; margin-bottom: 32px;
+    }
+    .card-title { font-size: 24px; font-weight: 800; color: #1a202c; margin-bottom: 20px; }
+    .card-text { font-size: 16px; color: #4a5568; line-height: 1.75; margin-bottom: 28px; flex-grow: 1; }
+    
+    .list-item { padding: 8px 0; color: #4a5568; font-size: 15px; font-weight: 500; }
+    .list-item i { color: #005c34; margin-right: 12px; font-size: 14px; }
+    
+    .btn-arrow { 
+        margin-top: 32px; background: #f8fafc; color: #005c34; border-radius: 16px; 
+        width: 56px; height: 56px; display: flex; align-items: center; justify-content: center; 
+        transition: all 0.4s ease; align-self: flex-end; text-decoration: none; font-size: 20px;
+    }
+    .btn-arrow:hover { background: #005c34; color: #ffffff; transform: scale(1.05); }
+</style>
+
 <section class="hero">
     <div>
         <h1>Bantuan untukmu</h1>
@@ -9,29 +39,28 @@
     <img class="hero-img" src="{{ asset('assets/images/banner.png') }}" alt="Bantuan Ruang Pulih">
 </section>
 
-@php
-    $cards = [
-        ['fa-phone-volume', 'Bantuan Darurat', 'Bantuan cepat untuk kondisi emosional darurat atau dukungan segera.', ['Kontak layanan darurat']],
-        ['fa-shield-halved', 'Keamanan Akun', 'Membantu menjaga keamanan akun agar tetap aman.', ['Ganti kata sandi', 'Verifikasi akun', 'Aktivitas login mencurigakan']],
-        ['fa-key', 'Reset Kata Sandi', 'Bantuan untuk memulihkan akses akun jika lupa kata sandi.', ['Lupa password', 'Reset melalui email']],
-        ['fa-circle-question', 'Pusat Bantuan', 'Kumpulan informasi untuk menggunakan aplikasi dengan mudah.', ['FAQ', 'Informasi akun']],
-        ['fa-bug', 'Laporkan Masalah', 'Laporkan kendala atau aktivitas yang tidak sesuai di dalam aplikasi.', ['Laporkan bug aplikasi', 'Konten tidak pantas', 'Penyalahgunaan akun']],
-        ['fa-message', 'Saran & Masukan', 'Berikan masukan untuk meningkatkan kualitas aplikasi.', ['Kritik & saran', 'Penilaian layanan']],
-    ];
-@endphp
-
-<div class="grid-3" style="margin-top:26px;">
-    @foreach ($cards as [$icon, $judul, $teks, $items])
-        <div class="card card-body">
-            <div style="align-items:center;background:#b8efd4;border-radius:50%;color:#005c34;display:flex;font-size:26px;height:62px;justify-content:center;margin-bottom:18px;width:62px;"><i class="fa-solid {{ $icon }}"></i></div>
-            <h2 style="font-size:24px;color:#005c34;margin-bottom:10px;">{{ $judul }}</h2>
-            <p class="muted" style="font-size:17px;line-height:1.45;min-height:74px;">{{ $teks }}</p>
-            <hr style="border:0;border-top:1px solid #e5e5e5;margin:18px 0;">
-            @foreach ($items as $item)
-                <div style="padding:5px 0;"><i class="fa-solid fa-check" style="color:#005c34;margin-right:8px;"></i>{{ $item }}</div>
-            @endforeach
-            <a href="{{ $judul === 'Reset Kata Sandi' ? route('login') : '#' }}" class="btn" style="margin-top:18px;border-radius:50%;width:44px;height:44px;padding:0;float:right;"><i class="fa-solid fa-arrow-right"></i></a>
-        </div>
-    @endforeach
+<div class="help-wrapper">
+    <div class="help-grid">
+        @foreach ([
+            ['fa-phone-volume', 'Bantuan Darurat', 'Bantuan cepat untuk kondisi emosional darurat atau dukungan segera.', ['Kontak layanan darurat']],
+            ['fa-shield-halved', 'Keamanan Akun', 'Membantu menjaga keamanan akun agar tetap aman.', ['Ganti kata sandi', 'Verifikasi akun', 'Aktivitas login mencurigakan']],
+            ['fa-key', 'Reset Kata Sandi', 'Bantuan untuk memulihkan akses akun jika lupa kata sandi.', ['Lupa password', 'Reset melalui email']],
+            ['fa-circle-question', 'Pusat Bantuan', 'Kumpulan informasi untuk menggunakan aplikasi dengan mudah.', ['FAQ', 'Informasi akun']],
+            ['fa-bug', 'Laporkan Masalah', 'Laporkan kendala atau aktivitas yang tidak sesuai di dalam aplikasi.', ['Laporkan bug aplikasi', 'Konten tidak pantas', 'Penyalahgunaan akun']],
+            ['fa-message', 'Saran & Masukan', 'Berikan masukan untuk meningkatkan kualitas aplikasi.', ['Kritik & saran', 'Penilaian layanan']],
+        ] as [$icon, $judul, $teks, $items])
+            <div class="help-card">
+                <div class="icon-box"><i class="fa-solid {{ $icon }}"></i></div>
+                <h3 class="card-title">{{ $judul }}</h3>
+                <p class="card-text">{{ $teks }}</p>
+                <div style="border-top: 2px solid #f1f5f9; padding-top: 24px;">
+                    @foreach ($items as $item)
+                        <div class="list-item"><i class="fa-solid fa-check"></i>{{ $item }}</div>
+                    @endforeach
+                </div>
+                <a href="{{ $judul === 'Reset Kata Sandi' ? route('password.request') : '#' }}" class="btn-arrow"><i class="fa-solid fa-arrow-right"></i></a>
+            </div>
+        @endforeach
+    </div>
 </div>
 @endsection
