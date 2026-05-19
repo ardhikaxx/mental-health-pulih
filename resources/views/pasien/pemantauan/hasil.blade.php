@@ -1,40 +1,127 @@
 @extends('layouts.dashboard', ['title' => 'Hasil Pemantauan'])
 
 @section('content')
-<section class="hero-panel">
-    <h1>Hasil Pemantauan Hari Ini</h1>
-    <p>{{ $pemantauan->tanggal_pemantauan->format('d M Y') }}</p>
+<section class="hero-panel d-flex justify-content-between align-items-center mb-4 p-4 bg-primary text-white rounded-4 position-relative overflow-hidden" style="background: linear-gradient(135deg, var(--primary-green), var(--secondary-green));">
+    <div style="position: relative; z-index: 2;">
+        <h1 class="mb-2 fw-bold"><i class="fa-solid fa-clipboard-check me-2"></i> Hasil Pemantauan Hari Ini</h1>
+        <p class="mb-0 opacity-75">Tercatat pada {{ $pemantauan->tanggal_pemantauan->format('d M Y') }}</p>
+    </div>
+    <a href="{{ route('pasien.dashboard') }}" class="btn btn-light bg-opacity-25 text-white border-0 shadow-none fw-bold" style="position: relative; z-index: 2;">
+        <i class="fa-solid fa-home me-1"></i> Kembali ke Beranda
+    </a>
 </section>
 
-<div class="grid-3">
-    <div class="card"><div class="stat-label">Kondisi Mental</div><div class="stat-value"><i class="fa-solid {{ $pemantauan->kondisi_mental === 'parah' ? 'fa-face-frown' : ($pemantauan->kondisi_mental === 'sedang' ? 'fa-face-meh' : 'fa-face-smile') }}"></i></div><span class="badge {{ $pemantauan->kondisi_mental === 'parah' ? 'red' : 'green' }}">{{ $pemantauan->kondisi_mental }}</span></div>
-    <div class="card"><div class="stat-label">Skor</div><div class="stat-value"><i class="fa-solid fa-gauge-high" style="font-size:24px;"></i> {{ $pemantauan->total_skor }}</div></div>
-    <div class="card"><div class="stat-label">Aksi</div>@if ($pemantauan->kondisi_mental === 'parah')<a class="btn" href="{{ route('pasien.konsultasi.index') }}"><i class="fa-solid fa-user-doctor"></i> Konsultasi Psikolog</a>@else<span class="badge green"><i class="fa-solid fa-clock"></i> Pantau berkala</span>@endif</div>
-</div>
-
-<div class="main-grid" style="margin-top:18px;">
-    <div class="card">
-        <h2 style="margin-bottom:14px;">Ringkasan Jawaban</h2>
-        <div class="table-wrap">
-            <table>
-                <thead><tr><th>Pertanyaan</th><th>Nilai</th></tr></thead>
-                <tbody>
-                @foreach ($pemantauan->jawaban as $jawaban)
-                    <tr><td>{{ $jawaban->pertanyaan->pertanyaan }}</td><td>{{ $jawaban->nilai_jawaban }}</td></tr>
-                @endforeach
-                </tbody>
-            </table>
+<div class="row g-4 mb-4">
+    <div class="col-md-4">
+        <div class="card border-0 p-4 shadow-sm h-100 d-flex flex-row align-items-center gap-3">
+            @php
+                $isParah = $pemantauan->kondisi_mental === 'parah';
+                $isSedang = $pemantauan->kondisi_mental === 'sedang';
+                $colorClass = $isParah ? 'danger' : ($isSedang ? 'warning' : 'success');
+                $iconClass = $isParah ? 'fa-face-frown' : ($isSedang ? 'fa-face-meh' : 'fa-face-smile');
+            @endphp
+            <div class="bg-{{ $colorClass }} bg-opacity-10 text-{{ $colorClass }} rounded-circle d-flex justify-content-center align-items-center flex-shrink-0" style="width: 60px; height: 60px;">
+                <i class="fa-solid {{ $iconClass }} fs-2"></i>
+            </div>
+            <div>
+                <small class="text-muted fw-semibold d-block mb-1">Kondisi Mental</small>
+                <span class="badge bg-{{ $colorClass }} bg-opacity-10 text-{{ $colorClass }} rounded-pill px-3 py-2 text-capitalize shadow-sm">
+                    {{ $pemantauan->kondisi_mental }}
+                </span>
+            </div>
         </div>
     </div>
-    <aside class="card">
-        <h2>Grafik Perkembangan</h2>
-        <div class="chart-bars">
-            @forelse ($riwayat as $item)
-                <div class="bar" title="{{ $item->tanggal_pemantauan->format('d M') }}: {{ $item->total_skor }}" style="height:{{ max(8, $item->total_skor * 12) }}px;"></div>
-            @empty
-                <p class="muted">Belum ada riwayat.</p>
-            @endforelse
+    <div class="col-md-4">
+        <div class="card border-0 p-4 shadow-sm h-100 d-flex flex-row align-items-center gap-3">
+            <div class="bg-primary bg-opacity-10 text-primary rounded-circle d-flex justify-content-center align-items-center flex-shrink-0" style="width: 60px; height: 60px;">
+                <i class="fa-solid fa-gauge-high fs-3"></i>
+            </div>
+            <div>
+                <small class="text-muted fw-semibold d-block mb-1">Total Skor</small>
+                <h3 class="mb-0 fw-bold">{{ $pemantauan->total_skor }}</h3>
+            </div>
         </div>
-    </aside>
+    </div>
+    <div class="col-md-4">
+        <div class="card border-0 p-4 shadow-sm h-100 d-flex flex-row align-items-center gap-3 {{ $isParah ? 'bg-danger bg-opacity-10' : 'bg-success bg-opacity-10' }}">
+            <div class="bg-white bg-opacity-50 text-{{ $isParah ? 'danger' : 'success' }} rounded-circle d-flex justify-content-center align-items-center flex-shrink-0" style="width: 60px; height: 60px;">
+                <i class="fa-solid {{ $isParah ? 'fa-user-doctor' : 'fa-clock' }} fs-3"></i>
+            </div>
+            <div class="flex-grow-1">
+                <small class="text-{{ $isParah ? 'danger' : 'success' }} fw-semibold d-block mb-2">Rekomendasi Aksi</small>
+                @if ($isParah)
+                    <a href="{{ route('pasien.konsultasi.index') }}" class="btn btn-danger w-100 fw-bold shadow-sm rounded-pill text-decoration-none">
+                        Konsultasi Psikolog <i class="fa-solid fa-arrow-right ms-1"></i>
+                    </a>
+                @else
+                    <span class="badge bg-success rounded-pill px-3 py-2 shadow-sm d-block text-center w-100 fs-6">
+                        Terus pantau berkala
+                    </span>
+                @endif
+            </div>
+        </div>
+    </div>
 </div>
+
+<div class="row g-4">
+    <!-- Ringkasan Jawaban -->
+    <div class="col-lg-7">
+        <div class="card border-0 shadow-sm p-4 h-100">
+            <h5 class="fw-bold mb-4 pb-3 border-bottom"><i class="fa-solid fa-list-check text-primary me-2"></i> Ringkasan Jawaban Anda</h5>
+            
+            <div class="table-responsive rounded-3 border">
+                <table class="table table-hover table-borderless align-middle mb-0">
+                    <thead class="table-light text-muted">
+                        <tr>
+                            <th class="py-3 px-4" style="width: 5%">No</th>
+                            <th class="py-3 px-4" style="width: 70%">Pertanyaan</th>
+                            <th class="py-3 px-4 text-center">Nilai</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    @foreach ($pemantauan->jawaban as $jawaban)
+                        <tr class="border-bottom">
+                            <td class="px-4 text-muted fw-semibold">{{ $loop->iteration }}</td>
+                            <td class="px-4 text-dark">{{ $jawaban->pertanyaan->pertanyaan }}</td>
+                            <td class="px-4 text-center fw-bold text-primary">{{ $jawaban->nilai_jawaban }}</td>
+                        </tr>
+                    @endforeach
+                    </tbody>
+                </table>
+            </div>
+            
+            @if($pemantauan->keterangan)
+            <div class="mt-4 p-3 bg-light rounded-4 border-start border-primary border-4">
+                <h6 class="fw-bold text-dark mb-2">Catatan Tambahan Anda:</h6>
+                <p class="text-muted mb-0 small fst-italic">{{ $pemantauan->keterangan }}</p>
+            </div>
+            @endif
+        </div>
+    </div>
+
+    <!-- Grafik Perkembangan -->
+    <div class="col-lg-5">
+        <div class="card border-0 shadow-sm p-4 h-100">
+            <h5 class="fw-bold mb-4 pb-3 border-bottom"><i class="fa-solid fa-chart-bar text-primary me-2"></i> Grafik Perkembangan</h5>
+            <div class="chart-bars d-flex align-items-end gap-2 mt-4" style="height: 300px;">
+                @forelse ($riwayat as $item)
+                    <div class="bar-container flex-grow-1 d-flex flex-column align-items-center group" title="Skor: {{ $item->total_skor }}">
+                        <div class="bar bg-primary rounded-top-3 w-100 opacity-75 hover-opacity-100 transition-all" style="height:{{ max(8, $item->total_skor * 12) }}px; max-height: 100%; min-width: 20px;"></div>
+                        <small class="text-muted mt-2" style="font-size: 0.7rem; transform: rotate(-45deg); white-space: nowrap; margin-top: 15px !important;">{{ $item->tanggal_pemantauan->format('d M') }}</small>
+                    </div>
+                @empty
+                    <div class="w-100 h-100 d-flex align-items-center justify-content-center flex-column text-muted">
+                        <i class="fa-solid fa-chart-line fs-1 opacity-25 mb-3"></i>
+                        <p class="mb-0 fst-italic">Belum ada riwayat pantauan.</p>
+                    </div>
+                @endforelse
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .hover-opacity-100:hover { opacity: 1 !important; cursor: pointer; }
+    .transition-all { transition: all 0.3s ease; }
+</style>
 @endsection

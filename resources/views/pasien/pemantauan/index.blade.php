@@ -1,41 +1,199 @@
 @extends('layouts.dashboard', ['title' => 'Pemantauan Kondisi Mental'])
 
 @section('content')
-<section class="hero-panel">
-    <h1>Pemantauan Kondisi Mental</h1>
-    <p>Isi pertanyaan harian untuk memantau kondisi mentalmu.</p>
+<section class="hero-panel d-flex justify-content-between align-items-center mb-4 p-4 bg-primary text-white rounded-4 position-relative overflow-hidden" style="background: linear-gradient(135deg, var(--primary-green), var(--secondary-green));">
+    <div style="position: relative; z-index: 2;">
+        <h1 class="mb-2 fw-bold"><i class="fa-solid fa-chart-line me-2"></i> Pemantauan Kondisi Mental</h1>
+        <p class="mb-0 opacity-75">Isi pertanyaan harian secara rutin untuk membantu memantau perkembangan kondisi mentalmu.</p>
+    </div>
 </section>
 
 @if ($hariIni)
-    <div class="card">
-        <h2>Pemantauan hari ini sudah tersimpan.</h2>
-        <p class="muted" style="margin:8px 0 16px;">Kamu dapat melihat hasil dan perkembangan kondisi mental hari ini.</p>
-        <a class="btn" href="{{ route('pasien.pemantauan.hasil', $hariIni) }}">Lihat Hasil</a>
+    <div class="card border-0 shadow-sm p-5 rounded-4 text-center">
+        <div class="bg-success bg-opacity-10 text-success rounded-circle d-flex align-items-center justify-content-center mx-auto mb-4" style="width: 100px; height: 100px;">
+            <i class="fa-solid fa-check-double fs-1"></i>
+        </div>
+        <h3 class="fw-bold text-dark mb-3">Pemantauan Hari Ini Selesai</h3>
+        <p class="text-muted mb-4 fs-5" style="max-width: 600px; margin: 0 auto;">Terima kasih telah menyempatkan waktu untuk mengecek kondisi mentalmu. Kamu dapat melihat hasil dan perkembangan kondisi mental hari ini.</p>
+        <div>
+            <a class="btn btn-primary px-5 py-3 fw-bold rounded-pill shadow-sm" href="{{ route('pasien.pemantauan.hasil', $hariIni) }}">
+                Lihat Hasil Pemantauan <i class="fa-solid fa-arrow-right ms-2"></i>
+            </a>
+        </div>
     </div>
 @else
-    <form class="card" method="POST" action="{{ route('pasien.pemantauan.store') }}">
+    <form method="POST" action="{{ route('pasien.pemantauan.store') }}" id="pemantauanForm">
         @csrf
-        <div class="grid">
-            @foreach ($pertanyaan as $item)
-                <div>
-                    <h2 style="margin-bottom:12px;">{{ $loop->iteration }}. {{ $item->pertanyaan }}</h2>
-                    <div class="grid-4">
-                        @foreach ([0 => ['Tidak', ':)'], 1 => ['Ringan', ':|'], 2 => ['Sedang', ':('], 3 => ['Berat', ':(']] as $nilai => [$label, $emoji])
-                            <label class="card" style="box-shadow:none;text-align:center;cursor:pointer;">
-                                <input type="radio" name="jawaban[{{ $item->id_pertanyaan_pemantauan }}]" value="{{ $nilai }}" required>
-                                <input type="hidden" name="emoji[{{ $item->id_pertanyaan_pemantauan }}]" value="{{ $emoji }}">
-                                <strong>{{ $label }}</strong>
-                            </label>
-                        @endforeach
+        <div class="row justify-content-center">
+            <div class="col-lg-10">
+                <!-- Progress Bar -->
+                <div class="card border-0 shadow-sm p-3 mb-4 rounded-4">
+                    <div class="d-flex justify-content-between align-items-center mb-2">
+                        <span class="fw-bold text-primary" id="progressText">Pertanyaan 1 dari {{ count($pertanyaan) }}</span>
+                        <span class="badge bg-primary bg-opacity-10 text-primary rounded-pill px-3" id="progressPercentage">0%</span>
+                    </div>
+                    <div class="progress" style="height: 10px; border-radius: 10px;">
+                        <div class="progress-bar progress-bar-striped progress-bar-animated bg-primary" id="progressBar" role="progressbar" style="width: 0%; transition: width 0.4s ease;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
                     </div>
                 </div>
-            @endforeach
-            <div class="field">
-                <label>Keterangan tambahan</label>
-                <textarea class="textarea" name="keterangan"></textarea>
+
+                <div class="d-flex flex-column gap-4" id="questionsContainer">
+                    @php $totalQuestions = count($pertanyaan); @endphp
+                    @foreach ($pertanyaan as $index => $item)
+                        <div class="card border-0 shadow-sm p-4 rounded-4 question-card" id="question-{{ $index }}" style="{{ $index > 0 ? 'display: none;' : '' }}">
+                            <h4 class="fw-bold mb-4 text-dark" style="line-height: 1.4;">
+                                <span class="text-primary me-2">{{ $loop->iteration }}.</span> {{ $item->pertanyaan }}
+                            </h4>
+                            
+                            <div class="row g-3">
+                                @foreach ([
+                                    0 => ['Tidak Sama Sekali', 'fa-face-smile', 'text-success'], 
+                                    1 => ['Ringan', 'fa-face-meh', 'text-info'], 
+                                    2 => ['Sedang', 'fa-face-frown', 'text-warning'], 
+                                    3 => ['Sangat Berat', 'fa-face-sad-cry', 'text-danger']
+                                ] as $nilai => [$label, $iconClass, $textColorClass])
+                                    <div class="col-sm-6 col-md-3">
+                                        <label class="answer-option d-flex flex-column align-items-center justify-content-center h-100 p-4 rounded-4 border border-2 cursor-pointer transition-all bg-light hover-bg-white text-center" style="cursor: pointer;">
+                                            <input type="radio" name="jawaban[{{ $item->id_pertanyaan_pemantauan }}]" value="{{ $nilai }}" class="d-none answer-radio" data-question-index="{{ $index }}" onchange="this.closest('.row').querySelectorAll('.answer-option').forEach(el => { el.classList.remove('border-primary', 'bg-primary', 'bg-opacity-10', 'shadow-sm'); el.classList.add('border-light', 'bg-light'); el.querySelector('i').classList.remove('{{ $textColorClass }}'); el.querySelector('i').classList.add('opacity-50', 'text-secondary'); }); this.closest('.answer-option').classList.remove('border-light', 'bg-light'); this.closest('.answer-option').classList.add('border-primary', 'bg-primary', 'bg-opacity-10', 'shadow-sm'); this.querySelector('i').classList.remove('opacity-50', 'text-secondary'); this.querySelector('i').classList.add('{{ $textColorClass }}'); handleAnswerSelection();">
+                                            <input type="hidden" name="emoji[{{ $item->id_pertanyaan_pemantauan }}]" value=":)">
+                                            
+                                            <i class="fa-regular {{ $iconClass }} fs-1 mb-3 opacity-50 text-secondary transition-all icon-state"></i>
+                                            <strong class="d-block">{{ $label }}</strong>
+                                        </label>
+                                    </div>
+                                @endforeach
+                            </div>
+                        </div>
+                    @endforeach
+                    
+                    <!-- Keterangan Tambahan (Last Step) -->
+                    <div class="card border-0 shadow-sm p-4 rounded-4 question-card" id="question-{{ $totalQuestions }}" style="display: none;">
+                        <h4 class="fw-bold mb-4 text-dark" style="line-height: 1.4;">
+                            <span class="text-primary me-2"><i class="fa-solid fa-pen-to-square"></i></span> Catatan Tambahan <span class="text-muted fw-normal fs-6">(Opsional)</span>
+                        </h4>
+                        <div class="mb-3">
+                            <textarea class="form-control bg-light border-0 focus-ring-primary p-3" name="keterangan" rows="5" placeholder="Ceritakan lebih detail bagaimana perasaanmu hari ini, apa yang mengganggumu, atau progres apa yang telah kamu rasakan..."></textarea>
+                        </div>
+                    </div>
+
+                    <div class="card border-0 p-3 shadow-sm bg-white sticky-bottom mt-2 d-flex flex-row justify-content-between align-items-center rounded-4" style="bottom: 20px; z-index: 10;">
+                        <button type="button" class="btn btn-light fw-bold text-dark shadow-sm rounded-pill px-4" id="btnPrev" style="display: none;" onclick="navigateQuestion(-1)">
+                            <i class="fa-solid fa-arrow-left me-2"></i> Sebelumnya
+                        </button>
+                        
+                        <div class="ms-auto">
+                            <button type="button" class="btn btn-primary shadow-sm px-5 py-2 fw-bold rounded-pill" id="btnNext" onclick="navigateQuestion(1)" disabled>
+                                Selanjutnya <i class="fa-solid fa-arrow-right ms-2"></i>
+                            </button>
+                            
+                            <button class="btn btn-success shadow-sm px-5 py-2 fw-bold rounded-pill" id="btnSubmit" type="submit" style="display: none;" onclick="return validateSubmit()">
+                                <i class="fa-solid fa-paper-plane me-2"></i> Kirim Pemantauan
+                            </button>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <button class="btn" type="submit">Kirim Pemantauan</button>
         </div>
     </form>
+@endif
+
+<style>
+    .transition-all { transition: all 0.2s ease; }
+    .hover-bg-white:hover { background-color: #fff !important; border-color: #dee2e6 !important; }
+    .focus-ring-primary:focus { box-shadow: 0 0 0 0.25rem rgba(0, 92, 52, 0.15) !important; outline: none; }
+    
+    .fade-enter-active { animation: fadeIn 0.3s ease-out forwards; }
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(10px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+</style>
+
+@if (!$hariIni)
+@push('scripts')
+<script>
+    const totalQuestions = {{ $totalQuestions }};
+    const totalSteps = totalQuestions + 1; // Termasuk halaman catatan tambahan
+    let currentIndex = 0;
+
+    function updateUI() {
+        // Hide all questions
+        document.querySelectorAll('.question-card').forEach(card => {
+            card.style.display = 'none';
+            card.classList.remove('fade-enter-active');
+        });
+
+        // Show current question with animation
+        const currentCard = document.getElementById('question-' + currentIndex);
+        if (currentCard) {
+            currentCard.style.display = 'block';
+            void currentCard.offsetWidth;
+            currentCard.classList.add('fade-enter-active');
+        }
+
+        // Update progress bar
+        const answeredCount = document.querySelectorAll('.answer-radio:checked').length;
+        // Progress dihitung berdasarkan pertanyaan yang dijawab, step terakhir tidak dihitung di progress
+        const percent = Math.min(100, Math.round((answeredCount / totalQuestions) * 100));
+        
+        document.getElementById('progressBar').style.width = percent + '%';
+        document.getElementById('progressPercentage').innerText = percent + '%';
+        
+        if (currentIndex < totalQuestions) {
+            document.getElementById('progressText').innerText = `Pertanyaan ${currentIndex + 1} dari ${totalQuestions}`;
+        } else {
+            document.getElementById('progressText').innerText = `Catatan Tambahan`;
+        }
+
+        // Manage buttons visibility
+        const btnPrev = document.getElementById('btnPrev');
+        const btnNext = document.getElementById('btnNext');
+        const btnSubmit = document.getElementById('btnSubmit');
+
+        btnPrev.style.display = currentIndex > 0 ? 'inline-flex' : 'none';
+
+        if (currentIndex === totalSteps - 1) { // Step Keterangan Tambahan
+            btnNext.style.display = 'none';
+            btnSubmit.style.display = 'inline-flex';
+        } else {
+            const currentAnswered = document.querySelector(`input[name="jawaban[${currentCard.querySelector('.answer-radio').name.match(/\[(\d+)\]/)[1]}]"]:checked`);
+            btnNext.style.display = 'inline-flex';
+            btnSubmit.style.display = 'none';
+            btnNext.disabled = !currentAnswered;
+        }
+    }
+
+    function navigateQuestion(step) {
+        const newIndex = currentIndex + step;
+        if (newIndex >= 0 && newIndex < totalSteps) {
+            currentIndex = newIndex;
+            updateUI();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+    }
+
+    function handleAnswerSelection() {
+        updateUI();
+        if (currentIndex < totalSteps - 1) {
+            setTimeout(() => {
+                navigateQuestion(1);
+            }, 400);
+        }
+    }
+
+    function validateSubmit() {
+        const answeredCount = document.querySelectorAll('.answer-radio:checked').length;
+        if (answeredCount < totalQuestions) {
+            alert('Harap jawab seluruh pertanyaan pemantauan.');
+            return false;
+        }
+        return true;
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+        updateUI();
+    });
+</script>
+@endpush
 @endif
 @endsection
