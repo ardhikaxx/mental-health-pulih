@@ -1,7 +1,7 @@
 <style>
     .sidebar { 
         background: #005c34; border-right: 1px solid #004a29; padding: 24px; 
-        position: sticky; top: 0; height: 100vh; overflow-y: auto;
+        position: sticky; top: 0; height: 100vh; overflow-y: hidden;
     }
     .profile-box { 
         text-align: center; padding: 32px 20px; margin-bottom: 32px;
