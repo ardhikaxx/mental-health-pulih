@@ -1,49 +1,168 @@
 <style>
-    .sidebar { 
-        background: #005c34; border-right: 1px solid #004a29; padding: 24px; 
-        position: sticky; top: 0; height: 100vh; overflow-y: hidden;
+    .floating-sidebar {
+        background: var(--sidebar-bg);
+        height: calc(100vh - 40px);
+        border-radius: 30px;
+        display: flex;
+        flex-direction: column;
+        padding: 20px;
+        color: #fff;
+        box-shadow: 10px 0 30px rgba(0, 92, 52, 0.1);
+        position: relative;
+        overflow: hidden;
     }
-    .profile-box { 
-        text-align: center; padding: 32px 20px; margin-bottom: 32px;
-        background: rgba(255, 255, 255, 0.1); border-radius: 20px;
+
+    /* Decorative Circle */
+    .floating-sidebar::before {
+        content: '';
+        position: absolute;
+        bottom: -50px;
+        right: -50px;
+        width: 150px;
+        height: 150px;
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: 50%;
     }
-    .profile-avatar { 
-        width: 72px; height: 72px; background: #ffffff; color: #005c34; border-radius: 50%;
-        display: flex; align-items: center; justify-content: center; font-size: 36px; 
-        margin: 0 auto 16px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+
+    .sidebar-brand {
+        padding: 10px 15px 30px;
+        display: flex;
+        align-items: center;
+        gap: 12px;
     }
-    .profile-name { font-size: 17px; font-weight: 800; color: #ffffff; }
-    .profile-role { font-size: 13px; color: #c6f6d5; margin-top: 6px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; }
-    
-    .nav-section { 
-        font-size: 11px; font-weight: 800; color: #b2f5ea; text-transform: uppercase;
-        margin: 32px 0 16px; letter-spacing: 0.1em; padding-left: 16px;
+    .brand-logo-img {
+        width: 40px;
+        height: 40px;
+        object-fit: contain;
     }
-    .side-link { 
-        display: flex; align-items: center; gap: 16px; padding: 14px 20px;
-        border-radius: 16px; font-size: 15px; font-weight: 700; color: #e6fffa;
-        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); text-decoration: none; margin-bottom: 6px;
+    .brand-text {
+        font-size: 20px;
+        font-weight: 800;
+        letter-spacing: -0.5px;
     }
-    .side-link:hover { background: rgba(255, 255, 255, 0.15); color: #ffffff; transform: translateX(4px); }
-    .side-link.active { background: #ffffff; color: #005c34; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
-    .side-icon { width: 22px; text-align: center; font-size: 18px; }
+
+    .sidebar-profile {
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 20px;
+        padding: 15px;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin-bottom: 30px;
+    }
+    .profile-avatar-circle {
+        width: 44px;
+        height: 44px;
+        background: #fff;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--primary-green);
+        font-size: 20px;
+    }
+    .profile-meta {
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+    }
+    .profile-name-text {
+        font-weight: 700;
+        font-size: 14px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+    .profile-role-tag {
+        font-size: 11px;
+        font-weight: 600;
+        text-transform: uppercase;
+        opacity: 0.7;
+        letter-spacing: 0.5px;
+    }
+
+    .sidebar-navigation {
+        flex: 1;
+        overflow-y: auto;
+        padding-right: 5px;
+    }
+    .sidebar-navigation::-webkit-scrollbar { width: 4px; }
+    .sidebar-navigation::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.2); border-radius: 10px; }
+
+    .nav-section-label {
+        font-size: 10px;
+        font-weight: 800;
+        text-transform: uppercase;
+        letter-spacing: 1.5px;
+        margin: 25px 0 12px 15px;
+        opacity: 0.6;
+        color: #b2f5ea;
+    }
+
+    .sidebar-link {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 14px 20px;
+        border-radius: 18px;
+        color: rgba(255, 255, 255, 0.8);
+        font-weight: 600;
+        font-size: 14px;
+        margin-bottom: 4px;
+        transition: var(--transition);
+    }
+    .sidebar-link i { font-size: 18px; width: 20px; text-align: center; }
+
+    .sidebar-link:hover {
+        background: rgba(255, 255, 255, 0.1);
+        color: #fff;
+        transform: translateX(5px);
+    }
+
+    .sidebar-link.active {
+        background: #fff;
+        color: var(--primary-green);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    }
+    .sidebar-link.active i { color: var(--primary-green); }
+
+    @media (max-width: 1024px) {
+        .floating-sidebar {
+            height: 100vh;
+            border-radius: 0;
+        }
+    }
 </style>
 
-<aside class="sidebar">
-    <div class="profile-box">
-        <div class="profile-avatar"><i class="fa-solid fa-user-circle"></i></div>
-        <div class="profile-name">{{ $user?->nama_lengkap ?? 'Pengguna' }}</div>
-        <div class="profile-role">{{ ucfirst($role) }}</div>
+<div class="floating-sidebar">
+    <div class="sidebar-brand">
+        <img src="{{ asset('assets/images/logo.png') }}" alt="Ruang Pulih" class="brand-logo-img">
+        <span class="brand-text">Ruang Pulih</span>
     </div>
 
-    @foreach ($menus[$role] ?? $menus['pasien'] as $menu)
-        @if ($menu['section'] && $printedSection !== $menu['section'])
-            <div class="nav-section">{{ $menu['section'] }}</div>
-            @php $printedSection = $menu['section']; @endphp
-        @endif
-        <a class="side-link {{ request()->routeIs($menu['match']) ? 'active' : '' }}" href="{{ route($menu['route']) }}">
-            <span class="side-icon"><i class="fa-solid {{ $menu['icon'] }}"></i></span>
-            <span>{{ $menu['label'] }}</span>
-        </a>
-    @endforeach
-</aside>
+    <div class="sidebar-profile">
+        <div class="profile-avatar-circle">
+            <i class="fa-solid fa-user-circle"></i>
+        </div>
+        <div class="profile-meta">
+            <span class="profile-name-text">{{ $user?->nama_lengkap ?? 'Pengguna' }}</span>
+            <span class="profile-role-tag">{{ ucfirst($role) }}</span>
+        </div>
+    </div>
+
+    <nav class="sidebar-navigation">
+        @php $printedSection = null; @endphp
+        @foreach ($menus[$role] ?? $menus['pasien'] as $menu)
+            @if ($menu['section'] && $printedSection !== $menu['section'])
+                <div class="nav-section-label">{{ $menu['section'] }}</div>
+                @php $printedSection = $menu['section']; @endphp
+            @endif
+            <a href="{{ route($menu['route']) }}" class="sidebar-link {{ request()->routeIs($menu['match']) ? 'active' : '' }}">
+                <i class="fa-solid {{ $menu['icon'] }}"></i>
+                <span>{{ $menu['label'] }}</span>
+            </a>
+        @endforeach
+    </nav>
+</div>

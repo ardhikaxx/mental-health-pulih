@@ -1,29 +1,142 @@
 <style>
-    .topbar { 
-        background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(12px);
-        border-bottom: 1px solid #e2e8f0; display: flex; 
-        align-items: center; justify-content: space-between; padding: 0 40px; height: 80px;
+    .glass-header {
+        background: rgba(255, 255, 255, 0.7);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        height: var(--header-height);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 30px;
+        border-radius: var(--radius-xl);
+        border: 1px solid rgba(255, 255, 255, 0.5);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.02);
+        z-index: 1000;
+        position: sticky;
+        top: 20px;
     }
-    .topbar-brand { display: flex; align-items: center; gap: 20px; font-size: 22px; font-weight: 800; color: #1a202c; text-decoration: none; }
-    .topbar-brand img { width: 48px; height: 48px; border-radius: 14px; object-fit: contain; box-shadow: 0 4px 12px rgba(0,92,52,0.1); }
-    .topbar-actions { display: flex; align-items: center; gap: 20px; }
-    .topbar-btn { 
-        background: #fff; border: 1px solid #e2e8f0; border-radius: 14px; padding: 12px 24px; 
-        font-size: 14px; font-weight: 700; color: #4a5568; cursor: pointer; transition: all 0.4s ease;
-        display: flex; align-items: center; gap: 10px; box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+
+    .header-left {
+        display: flex;
+        align-items: center;
+        gap: 20px;
     }
-    .topbar-btn:hover { background: #fee2e2; border-color: #fecaca; color: #c53030; transform: translateY(-2px); box-shadow: 0 4px 12px rgba(239, 68, 68, 0.1); }
+
+    .mobile-menu-btn {
+        display: none;
+        width: 44px;
+        height: 44px;
+        background: #fff;
+        border: 1px solid #f1f5f9;
+        border-radius: 12px;
+        color: var(--text-main);
+        font-size: 18px;
+        cursor: pointer;
+        transition: var(--transition);
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.02);
+    }
+    .mobile-menu-btn:hover {
+        background: var(--light-green);
+        color: var(--primary-green);
+        border-color: var(--primary-green);
+    }
+
+    .header-page-title {
+        font-size: 18px;
+        font-weight: 700;
+        color: var(--text-main);
+    }
+
+    .header-right {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+    }
+
+    .header-action-btn {
+        width: 44px;
+        height: 44px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 12px;
+        color: var(--text-muted);
+        background: rgba(255, 255, 255, 0.5);
+        transition: var(--transition);
+        position: relative;
+    }
+    .header-action-btn:hover {
+        background: #fff;
+        color: var(--primary-green);
+        box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    }
+    .btn-badge {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        width: 8px;
+        height: 8px;
+        background: #ef4444;
+        border: 2px solid #fff;
+        border-radius: 50%;
+    }
+
+    .header-logout-btn {
+        background: #fff;
+        color: #ef4444;
+        border: 1.5px solid #fee2e2;
+        padding: 10px 18px;
+        border-radius: 12px;
+        font-weight: 700;
+        font-size: 13px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        transition: var(--transition);
+    }
+    .header-logout-btn:hover {
+        background: #fef2f2;
+        border-color: #fca5a5;
+        transform: translateY(-1px);
+        box-shadow: 0 5px 15px rgba(239, 68, 68, 0.08);
+    }
+
+    @media (max-width: 1024px) {
+        .mobile-menu-btn { display: flex; }
+        .header-page-title { display: none; }
+        .glass-header { padding: 0 15px; }
+    }
 </style>
 
-<header class="topbar">
-    <a href="{{ route('dashboard') }}" class="topbar-brand">
-        <img src="{{ asset('assets/images/logo.png') }}" alt="Ruang Pulih">
-        <span>Ruang Pulih</span>
-    </a>
-    <div class="topbar-actions">
-        <form class="logout-form" action="{{ route('logout') }}" method="POST">
+<header class="glass-header">
+    <div class="header-left">
+        <button class="mobile-menu-btn" onclick="toggleSidebar()">
+            <i class="fa-solid fa-bars-staggered"></i>
+        </button>
+        <h1 class="header-page-title">{{ $title ?? 'Dashboard' }}</h1>
+    </div>
+
+    <div class="header-right">
+        {{-- Notification --}}
+        <a href="#" class="header-action-btn">
+            <i class="fa-regular fa-bell"></i>
+            <span class="btn-badge"></span>
+        </a>
+
+        {{-- Search Icon (Optional) --}}
+        <a href="#" class="header-action-btn">
+            <i class="fa-solid fa-magnifying-glass"></i>
+        </a>
+
+        {{-- Logout --}}
+        <form action="{{ route('logout') }}" method="POST" style="margin: 0;">
             @csrf
-            <button class="topbar-btn" type="submit"><i class="fa-solid fa-right-from-bracket"></i> Logout</button>
+            <button type="submit" class="header-logout-btn">
+                <i class="fa-solid fa-power-off"></i>
+                <span>Keluar</span>
+            </button>
         </form>
     </div>
 </header>

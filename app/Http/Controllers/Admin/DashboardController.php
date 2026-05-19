@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\KontenEdukasi;
 use App\Models\Konsultasi;
 use App\Models\TbPasien;
+use App\Models\TbPsikolog;
 
 class DashboardController extends Controller
 {
@@ -15,6 +16,7 @@ class DashboardController extends Controller
             'artikel' => KontenEdukasi::where('tipe_konten', 'artikel')->count(),
             'video' => KontenEdukasi::where('tipe_konten', 'video')->count(),
             'pasien' => TbPasien::count(),
+            'psikolog' => TbPsikolog::count(),
             'konsultasi' => Konsultasi::count(),
         ];
 
