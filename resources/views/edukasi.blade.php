@@ -5,43 +5,41 @@
 <style>
     .edukasi-container { width: min(1200px, 100% - 48px); margin: 0 auto; padding: 24px 0 60px; }
 
-    /* Search Box Premium */
+    /* Search Box Compact Premium */
     .search-box {
-        height: 72px;
-        margin: 40px 0 32px;
+        height: 52px;
+        margin: 32px 0 24px;
         background: #fff;
-        border-radius: 20px;
+        border-radius: 14px;
         display: flex;
         align-items: center;
-        padding: 0 32px;
-        border: 2px solid transparent;
-        box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.08), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
-        transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+        padding: 0 20px;
+        border: 1px solid #e2e8f0;
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+        transition: all 0.3s ease;
     }
     .search-box:focus-within {
         border-color: #005c34;
-        box-shadow: 0 0 0 4px rgba(0, 92, 52, 0.15);
-        transform: translateY(-2px);
+        box-shadow: 0 0 0 3px rgba(0, 92, 52, 0.1);
     }
-    .search-box i { color: #005c34; font-size: 22px; }
+    .search-box i { color: #005c34; font-size: 18px; }
     .search-box input {
-        width: 100%; border: none; outline: none; font-size: 18px; margin-left: 20px; color: #2d3748;
+        width: 100%; border: none; outline: none; font-size: 15px; margin-left: 14px; color: #2d3748;
     }
     .search-box input::placeholder { color: #a0aec0; }
 
-    /* Filter Pills Premium */
-    .category { display: flex; gap: 16px; margin-bottom: 40px; flex-wrap: wrap; }
+    /* Filter Pills Compact Premium */
+    .category { display: flex; gap: 10px; margin-bottom: 32px; flex-wrap: wrap; }
     .category button {
-        padding: 12px 28px;
-        border-radius: 50px;
-        border: 2px solid #edf2f7;
+        padding: 8px 20px;
+        border-radius: 30px;
+        border: 1px solid #e2e8f0;
         background: #fff;
-        font-size: 16px;
+        font-size: 14px;
         font-weight: 600;
         color: #718096;
         cursor: pointer;
-        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        display: flex; align-items: center;
+        transition: all 0.2s;
     }
     .category button:hover {
         border-color: #005c34;
@@ -49,10 +47,10 @@
         background: #f0fdf4;
     }
     .category .selected {
-        background: linear-gradient(135deg, #005c34 0%, #007a45 100%);
+        background: #005c34;
         color: #fff;
-        border: none;
-        box-shadow: 0 4px 15px rgba(0, 92, 52, 0.3);
+        border-color: #005c34;
+        box-shadow: 0 4px 8px rgba(0, 92, 52, 0.2);
     }
     
     /* ... rest of styles */
