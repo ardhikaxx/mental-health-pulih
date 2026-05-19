@@ -1,7 +1,7 @@
 @extends('layouts.auth', ['title' => 'Register'])
 
 @section('form')
-    <h2 class="auth-title">Selamat Datang 👋</h2>
+    <h2 class="auth-title">Selamat Datang</h2>
     <p class="auth-subtitle">Mulai perjalanan pemulihanmu sekarang</p>
 
     <form action="{{ route('register') }}" method="POST">
