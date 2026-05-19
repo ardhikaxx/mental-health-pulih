@@ -40,6 +40,16 @@
     }
     .tabs a:hover { background: #edf2f7; border-color: #cbd5e0; }
     .tabs a.active { background: #005c34; border-color: #005c34; color: #fff; }
+
+    /* Compact & Premium Cards */
+    .card { background: #fff; border: 1px solid #e2e8f0; border-radius: 12px; transition: all 0.2s; overflow: hidden; display: block; }
+    .card:hover { border-color: #cbd5e0; box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
+    .card img { width: 100%; aspect-ratio: 16/9; object-fit: cover; }
+    .card-body { padding: 16px; }
+    .card-body h3 { font-size: 15px; font-weight: 700; color: #2d3748; margin-bottom: 8px; line-height: 1.3; }
+    .card-body p { font-size: 13px; color: #718096; line-height: 1.5; margin-bottom: 12px; }
+    .article-meta { display: flex; align-items: center; gap: 8px; font-size: 12px; color: #a0aec0; }
+    .dot { width: 4px; height: 4px; background: #cbd5e0; border-radius: 50%; }
 </style>
 
 <form class="search-bar" method="GET" action="{{ route('edukasi.index') }}">
@@ -93,7 +103,7 @@
             <a class="card video-card" href="{{ route('edukasi.video', $video->slug) }}">
                 <div style="position:relative;">
                     <img src="{{ $video->thumbnail ? asset('storage/'.$video->thumbnail) : asset('assets/images/artikel12.png') }}" alt="{{ $video->judul_konten }}">
-                    <span style="position:absolute;left:18px;bottom:16px;background:#005c34;color:#fff;border-radius:999px;padding:8px 14px;"><i class="fa-solid fa-play"></i> Play</span>
+                    <span style="position:absolute;left:10px;bottom:10px;background:rgba(0,92,52,0.9);color:#fff;border-radius:6px;padding:4px 8px;font-size:11px;font-weight:600;"><i class="fa-solid fa-play" style="font-size:10px;margin-right:4px;"></i> Play</span>
                 </div>
                 <div class="card-body">
                     <h3>{{ $video->judul_konten }}</h3>
