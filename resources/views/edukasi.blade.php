@@ -5,44 +5,54 @@
 <style>
     .edukasi-container { width: min(1200px, 100% - 48px); margin: 0 auto; padding: 24px 0 60px; }
 
-    /* Banner styles ... (unchanged) */
-
+    /* Search Box Premium */
     .search-box {
-        height: 64px;
-        margin: 32px 0 24px;
-        border: 1px solid #e2e8f0;
-        border-radius: 16px;
+        height: 72px;
+        margin: 40px 0 32px;
+        background: #fff;
+        border-radius: 20px;
         display: flex;
         align-items: center;
-        padding: 0 24px;
-        background: #fff;
-        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
-        transition: all 0.3s ease;
+        padding: 0 32px;
+        border: 2px solid transparent;
+        box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.08), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+        transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
     }
-    .search-box:focus-within { border-color: #005c34; box-shadow: 0 0 0 3px rgba(0, 92, 52, 0.1); }
-    .search-box i { color: #a0aec0; font-size: 20px; }
-    .search-box input {
-        width: 100%; border: none; outline: none; font-size: 16px; margin-left: 16px; color: #4a5568;
-    }
-
-    .category { display: flex; gap: 12px; margin-bottom: 32px; flex-wrap: wrap; }
-    .category button {
-        padding: 10px 24px;
-        border-radius: 50px;
-        border: 1px solid #e2e8f0;
-        background: #fff;
-        font-size: 15px;
-        font-weight: 600;
-        color: #4a5568;
-        cursor: pointer;
-        transition: all 0.2s;
-    }
-    .category button:hover { border-color: #005c34; color: #005c34; }
-    .category .selected {
-        background: #005c34;
-        color: #fff;
+    .search-box:focus-within {
         border-color: #005c34;
-        box-shadow: 0 4px 12px rgba(0, 92, 52, 0.2);
+        box-shadow: 0 0 0 4px rgba(0, 92, 52, 0.15);
+        transform: translateY(-2px);
+    }
+    .search-box i { color: #005c34; font-size: 22px; }
+    .search-box input {
+        width: 100%; border: none; outline: none; font-size: 18px; margin-left: 20px; color: #2d3748;
+    }
+    .search-box input::placeholder { color: #a0aec0; }
+
+    /* Filter Pills Premium */
+    .category { display: flex; gap: 16px; margin-bottom: 40px; flex-wrap: wrap; }
+    .category button {
+        padding: 12px 28px;
+        border-radius: 50px;
+        border: 2px solid #edf2f7;
+        background: #fff;
+        font-size: 16px;
+        font-weight: 600;
+        color: #718096;
+        cursor: pointer;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        display: flex; align-items: center;
+    }
+    .category button:hover {
+        border-color: #005c34;
+        color: #005c34;
+        background: #f0fdf4;
+    }
+    .category .selected {
+        background: linear-gradient(135deg, #005c34 0%, #007a45 100%);
+        color: #fff;
+        border: none;
+        box-shadow: 0 4px 15px rgba(0, 92, 52, 0.3);
     }
     
     /* ... rest of styles */
