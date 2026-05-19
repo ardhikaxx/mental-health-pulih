@@ -60,8 +60,8 @@
                     @endif
                 @empty
                     <div class="m-auto text-center text-muted">
-                        <div class="bg-white p-4 rounded-circle shadow-sm mb-3 mx-auto d-flex align-items-center justify-content-center" style="width: 80px; height: 80px;">
-                            <i class="fa-solid fa-messages fs-2 opacity-50"></i>
+                        <div class="bg-white p-4 rounded-circle shadow-sm mb-3 mx-auto d-flex align-items-center justify-content-center border" style="width: 80px; height: 80px;">
+                            <i class="fa-solid fa-comments fs-2 text-primary opacity-50"></i>
                         </div>
                         <p class="mb-0">Belum ada pesan. Mulai percakapan sekarang.</p>
                     </div>
