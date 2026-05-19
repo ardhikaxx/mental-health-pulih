@@ -18,7 +18,7 @@
             <div class="input-box">
                 <i class="fa-solid fa-lock"></i>
                 <input type="password" id="password" name="password" placeholder="Masukkan password" required>
-                <i class="fa-solid fa-eye eye-icon" onclick="togglePassword('password')"></i>
+                <i class="fa-solid fa-eye eye-icon" id="toggle-password" onclick="togglePassword('password', 'toggle-password')"></i>
             </div>
         </div>
         <button type="submit" class="btn-submit">Login</button>
@@ -32,9 +32,18 @@
     </div>
 
     <script>
-        function togglePassword(id) {
-            const p = document.getElementById(id);
-            p.type = p.type === 'password' ? 'text' : 'password';
+        function togglePassword(inputId, iconId) {
+            const input = document.getElementById(inputId);
+            const icon = document.getElementById(iconId);
+            if (input.type === 'password') {
+                input.type = 'text';
+                icon.classList.remove('fa-eye');
+                icon.classList.add('fa-eye-slash');
+            } else {
+                input.type = 'password';
+                icon.classList.remove('fa-eye-slash');
+                icon.classList.add('fa-eye');
+            }
         }
     </script>
 @endsection

@@ -25,7 +25,7 @@
             <div class="input-box">
                 <i class="fa-solid fa-lock"></i>
                 <input type="password" id="password" name="password" placeholder="Buat password" required>
-                <i class="fa-solid fa-eye eye-icon" onclick="togglePassword('password')"></i>
+                <i class="fa-solid fa-eye eye-icon" id="toggle-password" onclick="togglePassword('password', 'toggle-password')"></i>
             </div>
         </div>
         <div class="form-group">
@@ -33,7 +33,7 @@
             <div class="input-box">
                 <i class="fa-solid fa-lock"></i>
                 <input type="password" id="password_confirmation" name="password_confirmation" placeholder="Ulangi password" required>
-                <i class="fa-solid fa-eye eye-icon" onclick="togglePassword('password_confirmation')"></i>
+                <i class="fa-solid fa-eye eye-icon" id="toggle-confirm" onclick="togglePassword('password_confirmation', 'toggle-confirm')"></i>
             </div>
         </div>
         <button type="submit" class="btn-submit">Daftar sekarang</button>
@@ -47,9 +47,18 @@
     </div>
 
     <script>
-        function togglePassword(id) {
-            const p = document.getElementById(id);
-            p.type = p.type === 'password' ? 'text' : 'password';
+        function togglePassword(inputId, iconId) {
+            const input = document.getElementById(inputId);
+            const icon = document.getElementById(iconId);
+            if (input.type === 'password') {
+                input.type = 'text';
+                icon.classList.remove('fa-eye');
+                icon.classList.add('fa-eye-slash');
+            } else {
+                input.type = 'password';
+                icon.classList.remove('fa-eye-slash');
+                icon.classList.add('fa-eye');
+            }
         }
     </script>
 @endsection
