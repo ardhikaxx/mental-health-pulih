@@ -119,17 +119,6 @@
     </div>
 
     <div class="header-right">
-        {{-- Notification --}}
-        <a href="#" class="header-action-btn">
-            <i class="fa-regular fa-bell"></i>
-            <span class="btn-badge"></span>
-        </a>
-
-        {{-- Search Icon (Optional) --}}
-        <a href="#" class="header-action-btn">
-            <i class="fa-solid fa-magnifying-glass"></i>
-        </a>
-
         {{-- Logout --}}
         <form id="logout-form" action="{{ route('logout') }}" method="POST" style="margin: 0;">
             @csrf
