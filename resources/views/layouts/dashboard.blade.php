@@ -221,6 +221,7 @@
             ['label' => 'Psikolog', 'route' => 'admin.psikolog.index', 'match' => 'admin.psikolog.*', 'section' => null, 'icon' => 'fa-user-doctor'],
             ['label' => 'Admin', 'route' => 'admin.admin.index', 'match' => 'admin.admin.*', 'section' => null, 'icon' => 'fa-user-shield'],
             ['label' => 'Skrining', 'route' => 'admin.skrining.index', 'match' => 'admin.skrining.*', 'section' => 'Layanan', 'icon' => 'fa-clipboard-question'],
+            ['label' => 'Profil Saya', 'route' => 'admin.profile.edit', 'match' => 'admin.profile.*', 'section' => 'Pengaturan', 'icon' => 'fa-user-gear'],
         ],
         'psikolog' => [
             ['label' => 'Dashboard', 'route' => 'psikolog.dashboard', 'match' => 'psikolog.dashboard', 'section' => 'Menu Utama', 'icon' => 'fa-chart-pie'],

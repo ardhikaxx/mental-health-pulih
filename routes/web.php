@@ -90,6 +90,10 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
 
     Route::get('/skrining/{skrining}/pertanyaan', [AdminPertanyaanController::class, 'edit'])->name('skrining.pertanyaan.edit');
     Route::put('/skrining/{skrining}/pertanyaan', [AdminPertanyaanController::class, 'update'])->name('skrining.pertanyaan.update');
+
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
 Route::middleware(['auth', 'role:psikolog'])->prefix('psikolog')->name('psikolog.')->group(function () {

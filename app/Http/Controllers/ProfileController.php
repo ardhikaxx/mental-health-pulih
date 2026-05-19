@@ -16,7 +16,11 @@ class ProfileController extends Controller
      */
     public function edit(Request $request): View
     {
-        return view('pasien.profile.edit', [
+        $role = $request->user()->role;
+        $view = $role === 'admin' ? 'admin.profile.edit' : 
+               ($role === 'psikolog' ? 'psikolog.profile.edit' : 'pasien.profile.edit');
+
+        return view($view, [
             'user' => $request->user(),
         ]);
     }
@@ -34,9 +38,11 @@ class ProfileController extends Controller
 
         $request->user()->save();
 
-        $target = $request->is('profile') ? '/profile' : route('pasien.profile.edit');
+        $role = $request->user()->role;
+        $target = $role === 'admin' ? route('admin.profile.edit') : 
+                 ($role === 'psikolog' ? route('psikolog.profile.edit') : route('pasien.profile.edit'));
 
-        return Redirect::to($target)->with('status', 'profile-updated');
+        return Redirect::to($target)->with('success', 'Profil berhasil diperbarui.');
     }
 
     /**
