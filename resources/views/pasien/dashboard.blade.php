@@ -7,7 +7,7 @@
         <h1 class="mb-2 fw-bold">Bagaimana Perasaanmu Hari Ini?</h1>
         <p class="mb-0 opacity-75">Setiap langkah kecil sangat berarti. Yuk, luangkan waktu sejenak untuk mengecek kondisi mentalmu.</p>
     </div>
-    <div class="bg-white bg-opacity-10 p-3 rounded-4 backdrop-blur shadow-sm d-flex flex-row align-items-start gap-3" style="position: relative; z-index: 2; max-width: 350px; backdrop-filter: blur(10px);">
+    <div class="bg-white bg-opacity-10 p-3 rounded-4 backdrop-blur shadow-sm d-flex flex-row align-items-start gap-3" style="position: relative; z-index: 2; width: 100%; max-width: 350px; backdrop-filter: blur(10px);">
         <i class="fa-solid fa-quote-left fs-3 opacity-50 mt-1"></i>
         <p class="mb-0 fst-italic fw-medium" style="line-height: 1.5; font-size: 0.95rem;">"Kesehatan mental bukan tujuan, melainkan sebuah proses."</p>
     </div>
@@ -67,19 +67,19 @@
                     <span class="badge bg-info bg-opacity-10 text-info px-3 py-1 rounded-pill">Terbaru</span>
                 </div>
                 
-                <div class="position-relative ps-4 ps-md-5 pe-2 py-2">
+<div class="position-relative ps-1 ps-md-5 pe-2 py-2">
                     <!-- Vertical Line -->
-                    <div class="position-absolute top-0 bottom-0 bg-light" style="left: 45px; width: 2px;"></div>
+                    <div class="position-absolute top-0 bottom-0 bg-light d-none d-md-block" style="left: 45px; width: 2px;"></div>
                     
                     @forelse ($aktivitas as $item)
-                        <div class="position-relative mb-4">
-                            <!-- Time & Dot -->
-                            <div class="position-absolute d-flex flex-column align-items-center text-center" style="left: -40px; top: 0; width: 50px;">
-                                <div class="bg-white border border-3 border-primary rounded-circle shadow-sm" style="width: 14px; height: 14px; margin-top: 6px;"></div>
+                        <div class="position-relative mb-4 ps-md-0 ps-3 border-start border-3 border-primary border-md-0">
+                            <!-- Time & Dot (Desktop Only) -->
+                            <div class="position-absolute d-none d-md-flex flex-column align-items-center text-center" style="left: -40px; top: 0; width: 3.125rem;">
+                                <div class="bg-white border border-3 border-primary rounded-circle shadow-sm" style="width: 0.875rem; height: 0.875rem; margin-top: 0.375rem;">
                             </div>
                             
-                            <div class="ps-4">
-                                <div class="d-flex align-items-baseline gap-2 mb-1">
+                            <div class="ps-md-4">
+                                <div class="d-flex flex-column flex-sm-row align-items-start align-items-sm-baseline gap-1 gap-sm-2 mb-1">
                                     <h6 class="fw-bold mb-0 text-dark text-capitalize">{{ str_replace('_', ' ', $item->jenis_aktivitas) }}</h6>
                                     <small class="text-muted" style="font-size: 0.75rem;"><i class="fa-regular fa-clock me-1"></i> {{ optional($item->tanggal_aktivitas)->format('H:i') }} • {{ optional($item->tanggal_aktivitas)->format('d M') }}</small>
                                 </div>
@@ -106,7 +106,7 @@
             <div class="card border-0 shadow-sm p-4 text-center overflow-hidden position-relative" style="background-color: #f0fdf4;">
                 <i class="fa-solid fa-leaf text-success opacity-10" style="font-size: 150px; position: absolute; right: -20px; bottom: -20px;"></i>
                 <div style="position: relative; z-index: 2;">
-                    <div class="bg-success bg-opacity-10 text-success rounded-circle d-inline-flex justify-content-center align-items-center mb-3" style="width: 50px; height: 50px;">
+                    <div class="bg-success bg-opacity-10 text-success rounded-circle d-inline-flex justify-content-center align-items-center mb-3" style="width: 3.125rem; height: 3.125rem;">
                         <i class="fa-solid fa-leaf fs-4"></i>
                     </div>
                     <h5 class="fw-bold text-success mb-3">Tips Kesehatan Mental</h5>
@@ -122,7 +122,7 @@
             <!-- Support Card -->
             <div class="card border-0 shadow-sm p-4 text-white rounded-4" style="background: linear-gradient(135deg, var(--primary-green), var(--secondary-green));">
                 <div class="d-flex align-items-center gap-3 mb-3">
-                    <div class="bg-white bg-opacity-25 rounded-circle d-flex align-items-center justify-content-center" style="width: 45px; height: 45px;">
+                    <div class="bg-white bg-opacity-25 rounded-circle d-flex align-items-center justify-content-center" style="width: 2.8125rem; height: 2.8125rem;">
                         <i class="fa-solid fa-hand-holding-heart fs-4"></i>
                     </div>
                     <h5 class="fw-bold mb-0">Butuh Bantuan?</h5>
@@ -141,7 +141,7 @@
                         <div class="p-3 bg-light rounded-4 border border-light-subtle transition-hover">
                             <div class="d-flex justify-content-between align-items-center mb-2">
                                 <strong class="text-dark small d-block">{{ $item->judul_notifikasi }}</strong>
-                                <span class="bg-primary rounded-circle d-inline-block" style="width: 8px; height: 8px;"></span>
+                                <span class="bg-primary rounded-circle d-inline-block" style="width: 0.5rem; height: 0.5rem;"></span>
                             </div>
                             <p class="text-muted mb-0" style="font-size: 0.8rem; line-height: 1.5;">{{ $item->isi_notifikasi }}</p>
                         </div>

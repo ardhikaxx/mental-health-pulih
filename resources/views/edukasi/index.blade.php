@@ -52,6 +52,17 @@
         color: #ffffff; border-radius: 8px; padding: 6px 12px; font-size: 11px; font-weight: 700;
         text-transform: uppercase; letter-spacing: 0.05em; backdrop-filter: blur(4px);
     }
+
+    /* Mobile Responsiveness */
+    @media (max-width: 768px) {
+        .grid-3 { grid-template-columns: 1fr; gap: 20px; }
+        .tabs { gap: 8px; margin-bottom: 24px; }
+        .tabs a { padding: 6px 16px; font-size: 13px; }
+        .section-title { font-size: 20px; margin-top: 32px; }
+        .card img { height: 160px; }
+        .card-body h3 { font-size: 16px; }
+        .search-bar { height: 48px; margin: 24px 0; }
+    }
 </style>
 
 <form class="search-bar" method="GET" action="{{ route('edukasi.index') }}">

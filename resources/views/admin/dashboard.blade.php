@@ -249,14 +249,15 @@
         border: 1px solid rgba(255,255,255,0.1);
         box-shadow: 0 20px 40px rgba(0, 92, 52, 0.15);
     }
-    .dashboard-banner::after {
+.dashboard-banner::after {
         content: '';
         position: absolute;
         top: -50%; right: -20%;
-        width: 500px; height: 500px;
+        width: 30vw; height: 30vw;
+        max-width: 500px; max-height: 500px;
         background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
         border-radius: 50%;
-    }
+}
 
     .banner-content { flex: 1; position: relative; z-index: 2; }
     .welcome-tag {
@@ -412,13 +413,13 @@
     .modern-table td { padding: 16px; border-bottom: 1px solid #f8fafc; vertical-align: middle; }
 
     .content-cell { display: flex; align-items: center; gap: 12px; }
-    .content-img {
-        width: 36px; height: 36px;
+.content-img {
+        width: 2.25rem; height: 2.25rem;
         background: #f1f5f9;
         border-radius: 10px;
         display: flex; align-items: center; justify-content: center;
-        color: #94a3b8; font-size: 16px;
-    }
+        color: #94a3b8; font-size: 1rem;
+}
     .content-img.video { background: #fff1f2; color: #f43f5e; }
     .content-title { font-weight: 700; font-size: 14px; color: var(--text-main); display: block; max-width: 250px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 
@@ -435,15 +436,15 @@
     .status-pill.published { background: #dcfce7; color: #166534; }
     .status-pill.draft { background: #f1f5f9; color: #475569; }
 
-    .btn-icon-action {
-        width: 32px; height: 32px;
+.btn-icon-action {
+        width: 2rem; height: 2rem;
         border-radius: 8px;
         background: #f8fafc;
         display: inline-flex;
         align-items: center; justify-content: center;
         color: #94a3b8;
         transition: var(--transition);
-    }
+}
     .btn-icon-action:hover { background: var(--primary-green); color: #fff; }
 
     /* Side Components */
@@ -480,14 +481,14 @@
         background: #f1f5f9;
     }
     .timeline-entry { position: relative; display: flex; gap: 15px; }
-    .entry-marker {
-        width: 10px; height: 10px;
+.entry-marker {
+        width: 0.625rem; height: 0.625rem;
         border-radius: 50%;
         background: #cbd5e1;
         margin-top: 6px;
         position: relative; z-index: 2;
         box-shadow: 0 0 0 4px #fff;
-    }
+}
     .entry-marker.blue { background: #3b82f6; }
     .entry-marker.green { background: #10b981; }
     .entry-marker.amber { background: #f59e0b; }
@@ -500,16 +501,23 @@
         .dashboard-main-grid { grid-template-columns: 1fr; }
         .dashboard-banner { padding: 40px; }
     }
-    @media (max-width: 768px) {
-        .dashboard-banner { flex-direction: column; text-align: center; gap: 30px; }
-        .banner-content p { margin: 0 auto; }
-        .banner-actions { justify-content: center; display: flex; flex-wrap: wrap; gap: 10px; }
-        .btn-glass { margin-right: 0; }
-        .grid-4 { grid-template-columns: 1fr 1fr; }
+    @media (max-width: 992px) {
+        .dashboard-banner { flex-direction: column; text-align: center; gap: 30px; padding: 30px 20px; }
+        .banner-content p { margin: 0 auto 20px; }
+        .banner-actions { justify-content: center; display: flex; flex-direction: column; gap: 10px; }
+        .btn-glass { margin-right: 0; width: 100%; justify-content: center; }
+        .banner-visual { width: 100%; }
+        .glass-widget { min-width: unset; width: 100%; }
+        .grid-4 { grid-template-columns: repeat(2, 1fr); gap: 15px !important; }
     }
-    @media (max-width: 480px) {
+    @media (max-width: 576px) {
         .grid-4 { grid-template-columns: 1fr; }
-        .dashboard-banner h1 { font-size: 28px; }
+        .banner-content h1 { font-size: 28px; }
+        .premium-table-wrapper { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+        .modern-table { min-width: 600px; }
+        .premium-card { padding: 20px 15px; }
+        .card-header-flex { flex-direction: column; gap: 10px; }
+        .action-grid-premium { grid-template-columns: 1fr; }
     }
 </style>
 @endsection

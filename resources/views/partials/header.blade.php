@@ -11,7 +11,7 @@
         border-radius: var(--radius-xl);
         border: 1px solid rgba(255, 255, 255, 0.5);
         box-shadow: 0 10px 30px rgba(0, 0, 0, 0.02);
-        z-index: 1000;
+        z-index: 100;
         position: sticky;
         top: 20px;
     }

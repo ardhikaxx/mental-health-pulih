@@ -95,17 +95,48 @@
         .content-cover { width: 100%; max-height: 460px; object-fit: cover; border-radius: 12px; margin: 16px 0 24px; }
         .footer-space { height: 40px; }
         @media (max-width: 1000px) {
-            .public-wrap { width: min(100% - 28px, 900px); }
-            .public-nav { height: auto; padding: 16px 0; flex-wrap: wrap; }
-            .public-menu { order: 3; width: 100%; gap: 8px; justify-content: space-between; font-size: 17px; }
-            .public-menu a { padding: 8px 12px; }
-            .brand { min-width: 0; }
-            .hero { grid-template-columns: 1fr; padding: 34px 24px 0; }
-            .hero h1 { font-size: 34px; }
+            .public-wrap { width: calc(100% - 30px); }
+            .public-nav { 
+                padding: 12px 20px; 
+                border-radius: 15px;
+                top: 10px;
+                height: auto;
+            }
+            .brand img { width: 36px; height: 36px; }
+            .brand-title { font-size: 18px; }
+            
+            .public-menu { 
+                order: 3; 
+                width: 100%; 
+                margin-top: 15px; 
+                padding-top: 15px;
+                border-top: 1px solid #f0fdf4;
+                justify-content: center;
+                gap: 5px;
+            }
+            .public-menu a { padding: 8px 10px; font-size: 13px; }
+            
+            .hero { grid-template-columns: 1fr; padding: 40px 30px 0; text-align: center; }
+            .hero-img { justify-self: center; max-height: 240px; margin-top: 30px; }
+            .hero h1 { font-size: 32px; }
             .hero p { font-size: 18px; }
-            .grid-2, .grid-3, .grid-4, .content-page { grid-template-columns: 1fr; }
-            .tabs a { min-width: auto; flex: 1; font-size: 17px; }
-            .login-link { font-size: 16px; padding: 10px 14px; }
+            
+            .grid-2, .grid-3, .grid-4, .content-page { grid-template-columns: 1fr; gap: 24px; }
+            .tabs a { min-width: auto; flex: 1; font-size: 15px; padding: 8px 15px; }
+            .login-link { font-size: 14px; padding: 8px 16px; }
+            
+            .search-bar { height: 60px; padding: 0 20px; }
+            .search-bar input { font-size: 18px; }
+            .section-title { font-size: 26px; }
+        }
+
+        @media (max-width: 480px) {
+            .public-menu { flex-wrap: wrap; }
+            .public-menu a { flex: 1 1 40%; text-align: center; }
+            .hero { padding: 30px 20px 0; }
+            .hero h1 { font-size: 28px; }
+            .hero p { font-size: 16px; }
+            .btn { width: 100%; padding: 14px 20px; font-size: 17px; }
         }
     </style>
 </head>

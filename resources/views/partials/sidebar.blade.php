@@ -10,6 +10,7 @@
         box-shadow: 10px 0 30px rgba(0, 92, 52, 0.1);
         position: relative;
         overflow: hidden;
+        z-index: 1000;
     }
 
     /* Decorative Circle */

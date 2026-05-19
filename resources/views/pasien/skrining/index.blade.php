@@ -6,7 +6,7 @@
         <h1 class="mb-2 fw-bold"><i class="fa-solid fa-clipboard-question me-2"></i> Skrining Kesehatan Mental</h1>
         <p class="mb-0 opacity-75">Lengkapi identitas dan riwayat kesehatan sebelum memilih tes skrining.</p>
     </div>
-    <div class="bg-white bg-opacity-10 p-3 rounded-4 backdrop-blur shadow-sm d-flex flex-row align-items-center gap-3" style="position: relative; z-index: 2; max-width: 350px; backdrop-filter: blur(10px);">
+    <div class="bg-white bg-opacity-10 p-3 rounded-4 backdrop-blur shadow-sm d-flex flex-row align-items-center gap-3" style="position: relative; z-index: 2; width: 100%; max-width: 350px; backdrop-filter: blur(10px);">
         <i class="fa-solid fa-circle-info fs-3 opacity-75"></i>
         <p class="mb-0 fst-italic fw-medium" style="line-height: 1.4; font-size: 0.9rem;">Informasi ini membantu psikolog memahami kondisimu dengan lebih baik.</p>
     </div>

@@ -16,8 +16,8 @@
         body {
             width: 100%;
             height: 100%;
-            overflow: hidden;
             font-family: Arial, sans-serif;
+            background-color: #f6fcf8;
         }
 
         .home-page {
@@ -28,102 +28,77 @@
             background-size: cover;
             display: flex;
             flex-direction: column;
-            height: 100vh;
-            justify-content: flex-start;
-            min-height: 720px;
-            padding: 38px 24px 48px;
+            min-height: 100vh;
+            justify-content: center;
+            padding: 40px 24px;
             text-align: center;
+            width: 100%;
+            overflow-y: auto;
         }
 
         .home-title {
             color: #2b7d4f;
-            font-size: clamp(44px, 4.6vw, 72px);
+            font-size: clamp(32px, 5vw, 72px);
             font-weight: 800;
-            line-height: 1.08;
+            line-height: 1.2;
             margin-top: 0;
+            text-shadow: 0 2px 4px rgba(255,255,255,0.5);
         }
 
         .home-subtitle {
             color: #2b7d4f;
-            font-size: clamp(24px, 2.1vw, 36px);
-            line-height: 1.25;
-            margin-top: 26px;
+            font-size: clamp(18px, 2.5vw, 36px);
+            line-height: 1.4;
+            margin-top: 20px;
             max-width: 760px;
         }
 
         .home-logo {
             background: #fff;
             border-radius: 50%;
-            height: clamp(180px, 18vw, 310px);
-            margin-top: 26px;
+            height: clamp(150px, 20vw, 310px);
+            margin-top: 30px;
             object-fit: contain;
-            width: clamp(180px, 18vw, 310px);
+            width: clamp(150px, 20vw, 310px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
         }
 
         .start-button {
             align-items: center;
             background: #2f8658;
-            border-radius: 36px;
-            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.22);
+            border-radius: 50px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
             color: #fff;
             display: inline-flex;
-            font-size: clamp(22px, 1.7vw, 30px);
+            font-size: clamp(18px, 2vw, 24px);
             font-weight: 800;
             gap: 14px;
             justify-content: center;
-            margin-top: 28px;
-            min-width: min(360px, 82vw);
-            padding: 17px 38px;
+            margin-top: 40px;
+            min-width: min(320px, 100%);
+            padding: 16px 40px;
             text-decoration: none;
+            transition: all 0.3s ease;
         }
 
         .start-button:hover {
             background: #267348;
+            transform: translateY(-3px);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
         }
 
-        @media (max-height: 820px) {
+        @media (max-width: 576px) {
             .home-page {
-                min-height: 640px;
-                padding-top: 28px;
+                padding: 30px 20px;
             }
-
-            .home-subtitle {
-                margin-top: 16px;
-            }
-
-            .home-logo {
-                margin-top: 18px;
-            }
-
-            .start-button {
-                margin-top: 20px;
-                padding: 15px 34px;
-            }
-        }
-
-        @media (max-width: 640px) {
-            .home-page {
-                min-height: 100vh;
-                padding-top: 42px;
-            }
-
             .home-title {
-                font-size: 40px;
+                font-size: 32px;
             }
-
             .home-subtitle {
-                font-size: 22px;
+                font-size: 18px;
             }
-
-            .home-logo {
-                height: 180px;
-                width: 180px;
-            }
-
             .start-button {
-                border-radius: 22px;
-                font-size: 22px;
-                min-width: 0;
+                width: 100%;
                 padding: 14px 28px;
             }
         }

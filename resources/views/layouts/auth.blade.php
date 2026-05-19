@@ -65,6 +65,22 @@
 
         .auth-footer { text-align:center; margin-top: 24px; font-size: 14px; color: #718096; }
         .auth-footer a { color: #005c34; font-weight: 700; text-decoration: none; }
+
+        /* Mobile Responsiveness */
+        @media (max-width: 992px) {
+            .auth-container { grid-template-columns: 1fr; }
+            .left-panel { display: none; }
+            .right-panel { padding: 30px 20px; }
+            .auth-title { font-size: 28px; }
+            .auth-card { max-width: 100%; }
+        }
+
+        @media (max-width: 576px) {
+            .auth-title { font-size: 24px; }
+            .auth-subtitle { font-size: 14px; margin-bottom: 24px; }
+            .input-box { height: 48px; }
+            .btn-submit { height: 48px; }
+        }
     </style>
 </head>
 <body>

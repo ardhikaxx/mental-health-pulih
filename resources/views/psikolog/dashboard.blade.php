@@ -1,7 +1,7 @@
 @extends('layouts.dashboard', ['title' => 'Dashboard Psikolog'])
 
 @section('content')
-<section class="hero-panel d-flex flex-column flex-md-row justify-content-between align-items-md-center mb-4 gap-3 p-4 bg-primary text-white rounded-4 position-relative overflow-hidden" style="background: linear-gradient(135deg, var(--primary-green), var(--secondary-green));">
+<section class="hero-panel d-flex flex-column flex-lg-row justify-content-between align-items-lg-center mb-4 gap-3 p-4 bg-primary text-white rounded-4 position-relative overflow-hidden" style="background: linear-gradient(135deg, var(--primary-green), var(--secondary-green));">
     <div style="position: relative; z-index: 2;">
         <p class="mb-1 fw-medium opacity-75">Halo, {{ $psikolog->user->nama_lengkap }}</p>
         <h1 class="mb-2 fw-bold">Selamat Datang Kembali</h1>
@@ -18,47 +18,47 @@
     </div>
 </section>
 
-<div class="row g-4 mb-4">
-    <div class="col-sm-6 col-xl-3">
-        <div class="card border-0 p-4 shadow-sm h-100 d-flex flex-row align-items-center gap-3">
-            <div class="bg-primary bg-opacity-10 text-primary rounded-4 d-flex justify-content-center align-items-center" style="width: 60px; height: 60px;">
-                <i class="fa-solid fa-calendar-day fs-3"></i>
+<div class="row g-3 g-md-4 mb-4">
+    <div class="col-6 col-md-6 col-xl-3">
+        <div class="card border-0 p-3 p-md-4 shadow-sm h-100 d-flex flex-column flex-md-row align-items-center text-center text-md-start gap-3">
+            <div class="bg-primary bg-opacity-10 text-primary rounded-4 d-flex justify-content-center align-items-center flex-shrink-0" style="width: 50px; height: 50px; font-size: 1.2rem;">
+                <i class="fa-solid fa-calendar-day"></i>
             </div>
             <div>
-                <small class="text-muted fw-semibold d-block mb-1">Konsultasi Hari Ini</small>
+                <small class="text-muted fw-semibold d-block mb-1" style="font-size: 0.75rem;">Konsultasi Hari Ini</small>
                 <h4 class="mb-0 fw-bold">{{ $stats['hari_ini'] }}</h4>
             </div>
         </div>
     </div>
-    <div class="col-sm-6 col-xl-3">
-        <div class="card border-0 p-4 shadow-sm h-100 d-flex flex-row align-items-center gap-3">
-            <div class="bg-success bg-opacity-10 text-success rounded-4 d-flex justify-content-center align-items-center" style="width: 60px; height: 60px;">
-                <i class="fa-solid fa-users fs-3"></i>
+    <div class="col-6 col-md-6 col-xl-3">
+        <div class="card border-0 p-3 p-md-4 shadow-sm h-100 d-flex flex-column flex-md-row align-items-center text-center text-md-start gap-3">
+            <div class="bg-success bg-opacity-10 text-success rounded-4 d-flex justify-content-center align-items-center flex-shrink-0" style="width: 50px; height: 50px; font-size: 1.2rem;">
+                <i class="fa-solid fa-users"></i>
             </div>
             <div>
-                <small class="text-muted fw-semibold d-block mb-1">Pasien Aktif</small>
+                <small class="text-muted fw-semibold d-block mb-1" style="font-size: 0.75rem;">Pasien Aktif</small>
                 <h4 class="mb-0 fw-bold">{{ $stats['pasien'] }}</h4>
             </div>
         </div>
     </div>
-    <div class="col-sm-6 col-xl-3">
-        <div class="card border-0 p-4 shadow-sm h-100 d-flex flex-row align-items-center gap-3">
-            <div class="bg-info bg-opacity-10 text-info rounded-4 d-flex justify-content-center align-items-center" style="width: 60px; height: 60px;">
-                <i class="fa-solid fa-comment-dots fs-3"></i>
+    <div class="col-6 col-md-6 col-xl-3">
+        <div class="card border-0 p-3 p-md-4 shadow-sm h-100 d-flex flex-column flex-md-row align-items-center text-center text-md-start gap-3">
+            <div class="bg-info bg-opacity-10 text-info rounded-4 d-flex justify-content-center align-items-center flex-shrink-0" style="width: 50px; height: 50px; font-size: 1.2rem;">
+                <i class="fa-solid fa-comment-dots"></i>
             </div>
             <div>
-                <small class="text-muted fw-semibold d-block mb-1">Chat Aktif</small>
+                <small class="text-muted fw-semibold d-block mb-1" style="font-size: 0.75rem;">Chat Aktif</small>
                 <h4 class="mb-0 fw-bold">{{ $stats['chat_aktif'] }}</h4>
             </div>
         </div>
     </div>
-    <div class="col-sm-6 col-xl-3">
-        <div class="card border-0 p-4 shadow-sm h-100 d-flex flex-row align-items-center gap-3">
-            <div class="bg-danger bg-opacity-10 text-danger rounded-4 d-flex justify-content-center align-items-center" style="width: 60px; height: 60px;">
-                <i class="fa-solid fa-triangle-exclamation fs-3"></i>
+    <div class="col-6 col-md-6 col-xl-3">
+        <div class="card border-0 p-3 p-md-4 shadow-sm h-100 d-flex flex-column flex-md-row align-items-center text-center text-md-start gap-3">
+            <div class="bg-danger bg-opacity-10 text-danger rounded-4 d-flex justify-content-center align-items-center flex-shrink-0" style="width: 50px; height: 50px; font-size: 1.2rem;">
+                <i class="fa-solid fa-triangle-exclamation"></i>
             </div>
             <div>
-                <small class="text-muted fw-semibold d-block mb-1">Risiko Tinggi</small>
+                <small class="text-muted fw-semibold d-block mb-1" style="font-size: 0.75rem;">Risiko Tinggi</small>
                 <h4 class="mb-0 fw-bold">{{ $stats['risiko_tinggi'] }}</h4>
             </div>
         </div>
@@ -71,13 +71,13 @@
         <div class="d-flex flex-column gap-4">
             
             <!-- Jadwal Hari Ini -->
-            <div class="card border-0 shadow-sm p-4">
-                <div class="d-flex justify-content-between align-items-center border-bottom pb-3 mb-4">
+            <div class="card border-0 shadow-sm p-3 p-md-4">
+                <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center border-bottom pb-3 mb-4 gap-2">
                     <h5 class="fw-bold mb-0"><i class="fa-solid fa-calendar-check text-primary me-2"></i> Jadwal Konsultasi Hari Ini</h5>
-                    <a href="{{ route('psikolog.konsultasi.index') }}" class="btn btn-sm btn-light fw-semibold text-primary">Lihat Semua</a>
+                    <a href="{{ route('psikolog.konsultasi.index') }}" class="btn btn-sm btn-light fw-semibold text-primary px-3 py-2">Lihat Semua</a>
                 </div>
                 <div class="table-responsive rounded-3 border">
-                    <table class="table table-hover table-borderless align-middle mb-0">
+                    <table class="table table-hover table-borderless align-middle mb-0" style="min-width: 600px;">
                         <thead class="table-light text-muted">
                             <tr>
                                 <th class="py-3 px-4">Waktu</th>
@@ -125,13 +125,13 @@
             </div>
 
             <!-- Ringkasan Pasien -->
-            <div class="card border-0 shadow-sm p-4">
-                <div class="d-flex justify-content-between align-items-center border-bottom pb-3 mb-4">
+            <div class="card border-0 shadow-sm p-3 p-md-4">
+                <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center border-bottom pb-3 mb-4 gap-2">
                     <h5 class="fw-bold mb-0"><i class="fa-solid fa-chart-line text-primary me-2"></i> Ringkasan Kondisi Pasien</h5>
-                    <a href="{{ route('psikolog.pemantauan.index') }}" class="btn btn-sm btn-light fw-semibold text-primary">Lihat Pemantauan</a>
+                    <a href="{{ route('psikolog.pemantauan.index') }}" class="btn btn-sm btn-light fw-semibold text-primary px-3 py-2">Lihat Pemantauan</a>
                 </div>
                 <div class="table-responsive rounded-3 border">
-                    <table class="table table-hover table-borderless align-middle mb-0">
+                    <table class="table table-hover table-borderless align-middle mb-0" style="min-width: 600px;">
                         <thead class="table-light text-muted">
                             <tr>
                                 <th class="py-3 px-4">Pasien</th>
@@ -179,10 +179,10 @@
                     @forelse ($perhatian as $item)
                         <div class="d-flex justify-content-between align-items-center p-3 bg-light rounded-4 border">
                             <div>
-                                <strong class="d-block text-dark mb-1">{{ $item->pasien->user->nama_lengkap ?? '-' }}</strong>
-                                <span class="text-muted small">Skor skrining meningkat</span>
+                                <strong class="d-block text-dark mb-1 small">{{ $item->pasien->user->nama_lengkap ?? '-' }}</strong>
+                                <span class="text-muted small" style="font-size: 0.75rem;">Skor skrining meningkat</span>
                             </div>
-                            <span class="badge {{ $item->prioritas === 'tinggi' ? 'bg-danger' : 'bg-warning' }} rounded-pill text-capitalize px-3 py-2">
+                            <span class="badge {{ $item->prioritas === 'tinggi' ? 'bg-danger' : 'bg-warning' }} rounded-pill text-capitalize px-3 py-2" style="font-size: 0.7rem;">
                                 {{ $item->prioritas }}
                             </span>
                         </div>
@@ -204,9 +204,9 @@
                                 <i class="fa-solid fa-bell"></i>
                             </div>
                             <div>
-                                <strong class="d-block text-dark mb-1">{{ $item->judul_notifikasi }}</strong>
-                                <p class="text-muted small mb-1" style="line-height: 1.4;">{{ $item->isi_notifikasi }}</p>
-                                <span class="text-secondary opacity-75" style="font-size: 0.7rem; font-weight: 600;">BARU SAJA</span>
+                                <strong class="d-block text-dark mb-1 small">{{ $item->judul_notifikasi }}</strong>
+                                <p class="text-muted small mb-1" style="line-height: 1.4; font-size: 0.8rem;">{{ $item->isi_notifikasi }}</p>
+                                <span class="text-secondary opacity-75" style="font-size: 0.65rem; font-weight: 600;">BARU SAJA</span>
                             </div>
                         </div>
                     @empty

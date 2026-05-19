@@ -108,13 +108,35 @@
                 top: 0;
                 bottom: 0;
                 margin: 0;
-                z-index: 999;
+                z-index: 1100;
                 width: 300px;
             }
             .sidebar-container.open {
                 left: 0;
             }
-            .main-wrapper { margin-left: 0; }
+            .main-wrapper { 
+                margin-left: 0;
+            }
+            .glass-header {
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                z-index: 1000;
+                margin: 0;
+                border-radius: 0;
+                background: rgba(255, 255, 255, 0.9);
+                width: 100%;
+            }
+        }
+
+        /* Responsive UI Improvements */
+        @media (max-width: 576px) {
+            .hero-panel { padding: 30px 20px; }
+            .hero-panel h1 { font-size: 26px; }
+            .hero-panel p { font-size: 14px; }
+            .card { padding: 20px 15px; }
+            .btn { width: 100%; padding: 14px 20px; }
         }
 
         /* --- MODERN UI COMPONENTS --- */
