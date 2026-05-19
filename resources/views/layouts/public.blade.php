@@ -7,19 +7,60 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; }
-        body { background: #f8fbf8; color: #111; font-family: Arial, sans-serif; }
+        body { background: #f8fbf8; color: #111; font-family: 'Inter', system-ui, -apple-system, sans-serif; }
         a { color: inherit; text-decoration: none; }
-        .public-wrap { width: min(1820px, calc(100% - 96px)); margin: 0 auto; }
-        .public-nav { height: 92px; display: flex; align-items: center; justify-content: space-between; gap: 28px; }
-        .brand { display: flex; align-items: center; gap: 16px; min-width: 330px; }
-        .brand img { width: 72px; height: 72px; object-fit: contain; }
-        .brand-title { font-size: 26px; font-weight: 800; }
-        .brand-subtitle { color: #636363; font-size: 14px; font-weight: 700; margin-top: 4px; }
-        .public-menu { display: flex; align-items: center; gap: 64px; font-size: 24px; }
-        .public-menu a { padding: 10px 28px; border-radius: 10px; }
-        .public-menu a.active { background: #b8efd4; }
-        .login-link { border: 1px solid #005c34; border-radius: 14px; color: #005c34; display: inline-flex; align-items: center; gap: 10px; font-size: 22px; font-weight: 800; padding: 14px 24px; }
-        .fa-inline { margin-right: 8px; }
+        
+        .public-wrap { width: min(1820px, calc(100% - 48px)); margin: 0 auto; }
+        
+        /* Modern Navbar Styling */
+        .public-nav { 
+            height: 80px; 
+            display: flex; 
+            align-items: center; 
+            justify-content: space-between; 
+            margin: 16px 0;
+            padding: 0 32px;
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(12px);
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 4px 20px rgba(0, 92, 52, 0.08);
+            position: sticky;
+            top: 16px;
+            z-index: 1000;
+        }
+
+        .brand { display: flex; align-items: center; gap: 12px; }
+        .brand img { width: 48px; height: 48px; object-fit: contain; }
+        .brand-title { font-size: 20px; font-weight: 800; color: #005c34; }
+        .brand-subtitle { display: none; }
+
+        .public-menu { display: flex; align-items: center; gap: 8px; }
+        .public-menu a { 
+            padding: 10px 20px; 
+            border-radius: 12px; 
+            font-size: 16px; 
+            font-weight: 600; 
+            color: #4a5568;
+            transition: all 0.2s ease;
+        }
+        .public-menu a:hover { background: #f0fdf4; color: #005c34; }
+        .public-menu a.active { background: #b8efd4; color: #005c34; }
+
+        .nav-right { display: flex; align-items: center; gap: 12px; }
+        .login-link { 
+            background: #005c34; 
+            color: #fff; 
+            padding: 10px 24px; 
+            border-radius: 12px; 
+            font-size: 16px; 
+            font-weight: 700; 
+            transition: transform 0.2s;
+        }
+        .login-link:hover { transform: translateY(-1px); }
+        .fa-inline { margin-right: 6px; }
+
+        /* Existing Styles ... */
         .hero { border-radius: 14px; background: linear-gradient(90deg, #cfffe0 0%, #a9edc7 42%, #55cda3 100%); display: grid; grid-template-columns: 1fr 0.9fr; min-height: 320px; overflow: hidden; padding: 54px 64px 0; margin-bottom: 10px; }
         .hero h1 { color: #005c34; font-size: 42px; line-height: 1.15; margin-bottom: 24px; }
         .hero p { color: #111; font-size: 22px; line-height: 1.35; max-width: 720px; }
@@ -73,10 +114,7 @@
         <nav class="public-nav">
             <a href="{{ route('home') }}" class="brand">
                 <img src="{{ asset('assets/images/logo.png') }}" alt="Ruang Pulih">
-                <span>
-                    <span class="brand-title">Ruang Pulih</span>
-                    <span class="brand-subtitle">Tempat aman untuk kesehatan mentalmu</span>
-                </span>
+                <span class="brand-title">Ruang Pulih</span>
             </a>
 
             <div class="public-menu">
@@ -85,11 +123,13 @@
                 <a class="{{ request()->routeIs('bantuan.*') ? 'active' : '' }}" href="{{ route('bantuan.index') }}"><i class="fa-solid fa-headset fa-inline"></i>Bantuan</a>
             </div>
 
-            @auth
-                <a class="login-link" href="{{ route('dashboard') }}"><i class="fa-solid fa-table-columns"></i> Dashboard</a>
-            @else
-                <a class="login-link" href="{{ route('login') }}"><i class="fa-regular fa-circle-user"></i> Login / Daftar</a>
-            @endauth
+            <div class="nav-right">
+                @auth
+                    <a class="login-link" href="{{ route('dashboard') }}"><i class="fa-solid fa-table-columns fa-inline"></i> Dashboard</a>
+                @else
+                    <a class="login-link" href="{{ route('login') }}"><i class="fa-regular fa-circle-user fa-inline"></i> Login</a>
+                @endauth
+            </div>
         </nav>
 
         @yield('content')
