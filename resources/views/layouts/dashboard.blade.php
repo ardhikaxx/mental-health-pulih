@@ -236,6 +236,7 @@
             ['label' => 'Dashboard', 'route' => 'psikolog.dashboard', 'match' => 'psikolog.dashboard', 'section' => 'Menu Utama', 'icon' => 'fa-chart-pie'],
             ['label' => 'Konsultasi Online', 'route' => 'psikolog.konsultasi.index', 'match' => 'psikolog.konsultasi.*', 'section' => 'Layanan', 'icon' => 'fa-comments'],
             ['label' => 'Pemantauan Mental', 'route' => 'psikolog.pemantauan.index', 'match' => 'psikolog.pemantauan.*', 'section' => null, 'icon' => 'fa-chart-line'],
+            ['label' => 'Profil Saya', 'route' => 'psikolog.profile.edit', 'match' => 'psikolog.profile.*', 'section' => 'Pengaturan', 'icon' => 'fa-user-gear'],
         ],
         'pasien' => [
             ['label' => 'Dashboard', 'route' => 'pasien.dashboard', 'match' => 'pasien.dashboard', 'section' => 'Menu Utama', 'icon' => 'fa-chart-pie'],
