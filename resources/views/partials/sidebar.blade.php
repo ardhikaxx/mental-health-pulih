@@ -1,34 +1,36 @@
-@php
-    $user = auth()->user();
-    $role = $user?->role ?? 'pasien';
-    $menus = [
-        'admin' => [
-            ['label' => 'Home', 'route' => 'admin.dashboard', 'match' => 'admin.dashboard', 'section' => null, 'icon' => 'fa-house'],
-            ['label' => 'Edukasi', 'route' => 'admin.edukasi.index', 'match' => 'admin.edukasi.*', 'section' => 'Management Konten', 'icon' => 'fa-newspaper'],
-            ['label' => 'Pasien', 'route' => 'admin.pasien.index', 'match' => 'admin.pasien.*', 'section' => 'Management User', 'icon' => 'fa-users'],
-            ['label' => 'Psikolog', 'route' => 'admin.psikolog.index', 'match' => 'admin.psikolog.*', 'section' => null, 'icon' => 'fa-user-doctor'],
-            ['label' => 'Admin', 'route' => 'admin.admin.index', 'match' => 'admin.admin.*', 'section' => null, 'icon' => 'fa-user-shield'],
-            ['label' => 'Skrining', 'route' => 'admin.skrining.index', 'match' => 'admin.skrining.*', 'section' => 'Layanan', 'icon' => 'fa-clipboard-question'],
-        ],
-        'psikolog' => [
-            ['label' => 'Home', 'route' => 'psikolog.dashboard', 'match' => 'psikolog.dashboard', 'section' => null, 'icon' => 'fa-house'],
-            ['label' => 'Konsultasi Online', 'route' => 'psikolog.konsultasi.index', 'match' => 'psikolog.konsultasi.*', 'section' => null, 'icon' => 'fa-comments'],
-            ['label' => 'Pemantauan Kondisi Mental', 'route' => 'psikolog.pemantauan.index', 'match' => 'psikolog.pemantauan.*', 'section' => null, 'icon' => 'fa-chart-line'],
-        ],
-        'pasien' => [
-            ['label' => 'Home', 'route' => 'pasien.dashboard', 'match' => 'pasien.dashboard', 'section' => null, 'icon' => 'fa-house'],
-            ['label' => 'Skrining Kesehatan Mental', 'route' => 'pasien.skrining.index', 'match' => 'pasien.skrining.*', 'section' => null, 'icon' => 'fa-clipboard-list'],
-            ['label' => 'Konsultasi Online', 'route' => 'pasien.konsultasi.index', 'match' => 'pasien.konsultasi.*', 'section' => null, 'icon' => 'fa-comment-dots'],
-            ['label' => 'Pemantauan Kondisi Mental', 'route' => 'pasien.pemantauan.index', 'match' => 'pasien.pemantauan.*', 'section' => null, 'icon' => 'fa-chart-simple'],
-            ['label' => 'Profil', 'route' => 'pasien.profile.edit', 'match' => 'pasien.profile.*', 'section' => null, 'icon' => 'fa-user'],
-        ],
-    ];
-    $printedSection = null;
-@endphp
+<style>
+    .sidebar { 
+        background: #ffffff; border-right: 1px solid #e2e8f0; padding: 24px; 
+        position: sticky; top: 0; height: calc(100vh - 72px); overflow-y: auto;
+    }
+    .profile-box { 
+        text-align: center; padding: 24px 16px; margin-bottom: 24px;
+        background: #f8fafc; border-radius: 16px;
+    }
+    .profile-avatar { 
+        width: 64px; height: 64px; background: #e6fffa; color: #005c34; border-radius: 50%;
+        display: flex; align-items: center; justify-content: center; font-size: 32px; margin: 0 auto 12px;
+    }
+    .profile-name { font-size: 16px; font-weight: 700; color: #1a202c; }
+    .profile-role { font-size: 13px; color: #718096; margin-top: 4px; }
+    
+    .nav-section { 
+        font-size: 11px; font-weight: 800; color: #a0aec0; text-transform: uppercase;
+        margin: 24px 0 12px; letter-spacing: 0.05em; padding-left: 12px;
+    }
+    .side-link { 
+        display: flex; align-items: center; gap: 14px; padding: 12px 16px;
+        border-radius: 12px; font-size: 14px; font-weight: 600; color: #4a5568;
+        transition: all 0.3s; text-decoration: none; margin-bottom: 4px;
+    }
+    .side-link:hover { background: #f0fff4; color: #005c34; }
+    .side-link.active { background: #005c34; color: #ffffff; }
+    .side-icon { width: 20px; text-align: center; font-size: 16px; }
+</style>
 
 <aside class="sidebar">
     <div class="profile-box">
-        <div class="profile-avatar"><i class="fa-solid fa-circle-user"></i></div>
+        <div class="profile-avatar"><i class="fa-solid fa-user-circle"></i></div>
         <div class="profile-name">{{ $user?->nama_lengkap ?? 'Pengguna' }}</div>
         <div class="profile-role">{{ ucfirst($role) }}</div>
     </div>
