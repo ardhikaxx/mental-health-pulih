@@ -1,7 +1,7 @@
 <div class="question-row card border-0 p-4 mb-4 shadow-sm" data-index="{{ $qIndex }}">
     <input type="hidden" name="pertanyaan[{{ $qIndex }}][id]" value="{{ $pertanyaan?->id_pertanyaan }}">
     <div class="mb-3">
-        <label class="form-label fw-bold"><i class="fa-solid fa-circle-question text-primary me-2"></i> Pertanyaan {{ $qIndex + 1 }}</label>
+        <label class="form-label fw-bold"><i class="fa-solid fa-circle-question text-primary me-2"></i> Pertanyaan {{ (int)$qIndex + 1 }}</label>
         <textarea class="form-control bg-light border-0" name="pertanyaan[{{ $qIndex }}][teks]" rows="2" required>{{ $pertanyaan?->pertanyaan }}</textarea>
     </div>
     
