@@ -2,65 +2,105 @@
 
 @section('content')
 <section class="hero-panel">
-    <h1>Manajemen Edukasi</h1>
+    <h1><i class="fa-solid fa-newspaper me-2"></i> Manajemen Edukasi</h1>
     <p>Kelola artikel dan video edukasi untuk halaman publik Ruang Pulih.</p>
 </section>
 
-<div class="card">
-    <div class="section-head">
-        <form class="filters" method="GET">
-            <input class="input" style="max-width:340px;" name="search" value="{{ $search }}" placeholder="Cari judul konten...">
-            <select class="select" style="max-width:210px;" name="tipe_konten">
-                <option value="">Semua tipe</option>
+<div class="card border-0">
+    <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center mb-4 gap-3">
+        <form class="d-flex flex-wrap gap-2 align-items-center" method="GET">
+            <div class="input-group" style="max-width:300px;">
+                <span class="input-group-text bg-light border-0"><i class="fa-solid fa-magnifying-glass text-muted"></i></span>
+                <input class="form-control border-0 bg-light" name="search" value="{{ $search }}" placeholder="Cari judul konten...">
+            </div>
+            <select class="form-select border-0 bg-light w-auto" name="tipe_konten">
+                <option value="">Semua Tipe</option>
                 <option value="artikel" @selected($tipe === 'artikel')>Artikel</option>
                 <option value="video" @selected($tipe === 'video')>Video</option>
             </select>
-            <button class="btn" type="submit">Filter</button>
+            <button class="btn btn-primary shadow-sm" type="submit">Filter</button>
         </form>
-        <div class="actions">
-            <a class="btn" href="#tambah-artikel">Tambah Artikel</a>
-            <a class="btn secondary" href="#tambah-video">Tambah Video</a>
+        <div class="d-flex gap-2">
+            <a class="btn btn-primary shadow-sm" href="#tambah-artikel" data-bs-toggle="modal" data-bs-target="#tambah-artikel">
+                <i class="fa-solid fa-plus me-1"></i> Artikel
+            </a>
+            <a class="btn btn-secondary border-0 bg-light text-dark shadow-sm" href="#tambah-video" data-bs-toggle="modal" data-bs-target="#tambah-video">
+                <i class="fa-solid fa-video me-1"></i> Video
+            </a>
         </div>
     </div>
 
-    <div class="table-wrap">
-        <table>
-            <thead><tr><th>No</th><th>Judul Konten</th><th>Tipe</th><th>Kategori</th><th>Penulis</th><th>Tanggal</th><th>Status</th><th>Aksi</th></tr></thead>
+    <div class="table-responsive rounded-3 border">
+        <table class="table table-hover table-borderless align-middle mb-0">
+            <thead class="table-light text-muted">
+                <tr>
+                    <th class="py-3 px-4 text-center" style="width: 5%">No</th>
+                    <th class="py-3 px-4" style="width: 25%">Judul Konten</th>
+                    <th class="py-3 px-4 text-center">Tipe</th>
+                    <th class="py-3 px-4">Kategori</th>
+                    <th class="py-3 px-4">Penulis</th>
+                    <th class="py-3 px-4">Tanggal</th>
+                    <th class="py-3 px-4 text-center">Status</th>
+                    <th class="py-3 px-4 text-center" style="width: 15%">Aksi</th>
+                </tr>
+            </thead>
             <tbody>
             @forelse ($kontens as $konten)
-                <tr>
-                    <td>{{ $kontens->firstItem() + $loop->index }}</td>
-                    <td>{{ $konten->judul_konten }}</td>
-                    <td>{{ $konten->tipe_konten }}</td>
-                    <td>{{ $konten->kategori->nama_kategori ?? '-' }}</td>
-                    <td>{{ $konten->penulis->nama_lengkap ?? '-' }}</td>
-                    <td>{{ $konten->created_at->format('d M Y') }}</td>
-                    <td><span class="badge {{ $konten->status === 'publish' ? 'green' : 'gray' }}">{{ $konten->status }}</span></td>
-                    <td class="actions">
-                        <a class="btn secondary" href="{{ route('admin.edukasi.show', $konten) }}">Detail</a>
-                        <a class="btn muted" href="#edit-konten-{{ $konten->id_konten }}">Edit</a>
-                        <form action="{{ route('admin.edukasi.destroy', $konten) }}" method="POST" onsubmit="return confirm('Hapus konten ini?')">
-                            @csrf @method('DELETE')
-                            <button class="btn danger" type="submit">Hapus</button>
-                        </form>
+                <tr class="border-bottom">
+                    <td class="px-4 text-center fw-medium">{{ $kontens->firstItem() + $loop->index }}</td>
+                    <td class="px-4 fw-bold text-dark">{{ $konten->judul_konten }}</td>
+                    <td class="px-4 text-center">
+                        @if($konten->tipe_konten == 'artikel')
+                            <span class="badge bg-info bg-opacity-10 text-info px-3 py-2 rounded-pill"><i class="fa-solid fa-file-lines me-1"></i> Artikel</span>
+                        @else
+                            <span class="badge bg-warning bg-opacity-10 text-warning px-3 py-2 rounded-pill"><i class="fa-solid fa-play me-1"></i> Video</span>
+                        @endif
+                    </td>
+                    <td class="px-4">{{ $konten->kategori->nama_kategori ?? '-' }}</td>
+                    <td class="px-4">{{ $konten->penulis->nama_lengkap ?? '-' }}</td>
+                    <td class="px-4 text-muted small">{{ $konten->created_at->format('d M Y') }}</td>
+                    <td class="px-4 text-center">
+                        @if($konten->status === 'publish')
+                            <span class="badge bg-success bg-opacity-10 text-success px-3 py-2 rounded-pill"><i class="fa-solid fa-check-circle me-1"></i> Publish</span>
+                        @else
+                            <span class="badge bg-secondary bg-opacity-10 text-secondary px-3 py-2 rounded-pill"><i class="fa-solid fa-clock me-1"></i> Draft</span>
+                        @endif
+                    </td>
+                    <td class="px-4">
+                        <div class="d-flex gap-2 justify-content-center">
+                            <a class="btn btn-sm btn-light text-primary rounded-circle" style="width: 35px; height: 35px; display: flex; align-items: center; justify-content: center;" href="{{ route('admin.edukasi.show', $konten) }}" title="Detail">
+                                <i class="fa-solid fa-eye"></i>
+                            </a>
+                            <a class="btn btn-sm btn-light text-warning rounded-circle" style="width: 35px; height: 35px; display: flex; align-items: center; justify-content: center;" href="#edit-konten-{{ $konten->id_konten }}" data-bs-toggle="modal" data-bs-target="#edit-konten-{{ $konten->id_konten }}" title="Edit">
+                                <i class="fa-solid fa-pen-to-square"></i>
+                            </a>
+                            <form action="{{ route('admin.edukasi.destroy', $konten) }}" method="POST" onsubmit="return confirm('Hapus konten ini secara permanen?')">
+                                @csrf @method('DELETE')
+                                <button class="btn btn-sm btn-light text-danger rounded-circle" style="width: 35px; height: 35px; display: flex; align-items: center; justify-content: center;" type="submit" title="Hapus">
+                                    <i class="fa-solid fa-trash"></i>
+                                </button>
+                            </form>
+                        </div>
                     </td>
                 </tr>
             @empty
-                <tr><td colspan="8" class="empty">Belum ada konten edukasi.</td></tr>
+                <tr>
+                    <td colspan="8" class="text-center py-5 text-muted">
+                        <div class="d-inline-flex align-items-center justify-content-center bg-light rounded-circle mb-3" style="width: 60px; height: 60px;">
+                            <i class="fa-solid fa-folder-open fs-3 text-secondary"></i>
+                        </div>
+                        <br>Belum ada konten edukasi.
+                    </td>
+                </tr>
             @endforelse
             </tbody>
         </table>
     </div>
-    @if ($kontens->lastPage() > 1)
-        <nav class="page-numbers" aria-label="Halaman konten edukasi">
-            @for ($page = 1; $page <= $kontens->lastPage(); $page++)
-                @if ($page === $kontens->currentPage())
-                    <span class="active" aria-current="page">{{ $page }}</span>
-                @else
-                    <a href="{{ $kontens->appends(request()->except('page'))->url($page) }}">{{ $page }}</a>
-                @endif
-            @endfor
-        </nav>
+    
+    @if ($kontens->hasPages())
+        <div class="mt-4 d-flex justify-content-end">
+            {{ $kontens->links('pagination::bootstrap-5') }}
+        </div>
     @endif
 </div>
 
