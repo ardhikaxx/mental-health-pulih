@@ -10,8 +10,40 @@
     <img class="hero-img" src="{{ asset('assets/images/banner.png') }}" alt="Edukasi kesehatan mental">
 </section>
 
+<style>
+    /* Compact & Premium UI */
+    .search-bar { 
+        align-items: center; 
+        background: #fff; 
+        border: 1px solid #e2e8f0; 
+        border-radius: 12px; 
+        display: flex; 
+        height: 44px; 
+        margin: 24px 0; 
+        padding: 0 16px; 
+        transition: all 0.2s;
+    }
+    .search-bar:focus-within { border-color: #005c34; box-shadow: 0 0 0 2px rgba(0, 92, 52, 0.08); }
+    .search-bar input { border: 0; flex: 1; font-size: 14px; outline: 0; padding-left: 12px; }
+    .search-bar i { color: #cbd5e0; font-size: 16px; }
+
+    .tabs { display: flex; gap: 8px; flex-wrap: wrap; margin: 16px 0 28px; }
+    .tabs a { 
+        border: 1px solid #e2e8f0; 
+        border-radius: 20px; 
+        padding: 6px 16px; 
+        text-align: center; 
+        font-size: 13px; 
+        font-weight: 500;
+        background: #f7fafc;
+        transition: all 0.2s;
+    }
+    .tabs a:hover { background: #edf2f7; border-color: #cbd5e0; }
+    .tabs a.active { background: #005c34; border-color: #005c34; color: #fff; }
+</style>
+
 <form class="search-bar" method="GET" action="{{ route('edukasi.index') }}">
-    <i class="fa-solid fa-magnifying-glass" style="font-size:30px;"></i>
+    <i class="fa-solid fa-magnifying-glass"></i>
     <input name="search" value="{{ $search }}" placeholder="Cari artikel, tips, atau video edukasi...">
     <input type="hidden" name="filter" value="{{ $filter }}">
 </form>
