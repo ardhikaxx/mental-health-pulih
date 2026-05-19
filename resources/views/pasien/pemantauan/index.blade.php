@@ -156,7 +156,8 @@
             btnNext.style.display = 'none';
             btnSubmit.style.display = 'inline-flex';
         } else {
-            const currentAnswered = document.querySelector(`input[name="jawaban[${currentCard.querySelector('.answer-radio').name.match(/\[(\d+)\]/)[1]}]"]:checked`);
+            // Perbaikan logika untuk mengecek apakah pertanyaan saat ini sudah dijawab
+            const currentAnswered = currentCard.querySelector('.answer-radio:checked');
             btnNext.style.display = 'inline-flex';
             btnSubmit.style.display = 'none';
             btnNext.disabled = !currentAnswered;
