@@ -45,26 +45,27 @@
     .card { 
         background: #fff; 
         border: 1px solid #e2e8f0; 
-        border-radius: 12px; 
-        transition: all 0.3s ease; 
+        border-radius: 14px; 
+        transition: all 0.25s ease; 
         overflow: hidden; 
         display: flex;
         flex-direction: column;
     }
     .card:hover { border-color: #cbd5e0; box-shadow: 0 8px 16px -4px rgba(0,0,0,0.08); }
-    .card img { width: 100%; height: 160px; object-fit: cover; }
-    .card-body { padding: 14px; flex-grow: 1; display: flex; flex-direction: column; }
+    .card img { width: 100%; height: 140px; object-fit: cover; }
+    .card-body { padding: 12px; flex-grow: 1; display: flex; flex-direction: column; }
     .card-body h3 { font-size: 14px; font-weight: 700; color: #1a202c; margin-bottom: 6px; line-height: 1.3; }
-    .card-body p { font-size: 12px; color: #718096; line-height: 1.4; margin-bottom: 12px; flex-grow: 1; }
+    .card-body p.muted { font-size: 12px; color: #718096; line-height: 1.4; margin-bottom: 12px; flex-grow: 1; }
     
     /* Meta elements */
-    .article-meta { display: flex; align-items: center; gap: 6px; font-size: 11px; color: #a0aec0; font-weight: 500; }
+    .article-meta { display: flex; align-items: center; gap: 8px; font-size: 11px; color: #a0aec0; font-weight: 500; }
     .dot { width: 3px; height: 3px; background: #cbd5e0; border-radius: 50%; }
     
     /* Video Specific */
-    .video-card .play-btn { 
-        position: absolute; left: 10px; top: 10px; background: rgba(0, 92, 52, 0.9); 
+    .play-btn { 
+        position: absolute; left: 8px; top: 8px; background: rgba(0, 92, 52, 0.9); 
         color: #fff; border-radius: 6px; padding: 3px 8px; font-size: 10px; font-weight: 600;
+        text-transform: uppercase; letter-spacing: 0.02em;
     }
 </style>
 
@@ -123,7 +124,7 @@
                 </div>
                 <div class="card-body">
                     <h3>{{ $video->judul_konten }}</h3>
-                    <p>{{ $video->kategori->nama_kategori ?? 'Video Edukasi' }} • {{ $video->durasi_video }}</p>
+                    <p class="muted">{{ $video->kategori->nama_kategori ?? 'Video Edukasi' }} • {{ $video->durasi_video }}</p>
                 </div>
             </a>
         @endforeach
