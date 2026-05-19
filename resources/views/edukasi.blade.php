@@ -5,52 +5,50 @@
 <style>
     .edukasi-container { width: min(1200px, 100% - 48px); margin: 0 auto; padding: 24px 0 60px; }
 
-    /* Search Box Compact Premium */
+    /* Search Box: Minimalist & Refined */
     .search-box {
-        height: 52px;
-        margin: 32px 0 24px;
+        height: 44px;
+        margin: 24px 0;
         background: #fff;
-        border-radius: 14px;
+        border-radius: 12px;
         display: flex;
         align-items: center;
-        padding: 0 20px;
+        padding: 0 16px;
         border: 1px solid #e2e8f0;
-        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
-        transition: all 0.3s ease;
+        transition: all 0.2s ease;
     }
     .search-box:focus-within {
         border-color: #005c34;
-        box-shadow: 0 0 0 3px rgba(0, 92, 52, 0.1);
+        box-shadow: 0 0 0 2px rgba(0, 92, 52, 0.08);
     }
-    .search-box i { color: #005c34; font-size: 18px; }
+    .search-box i { color: #cbd5e0; font-size: 16px; margin-right: 12px; }
     .search-box input {
-        width: 100%; border: none; outline: none; font-size: 15px; margin-left: 14px; color: #2d3748;
+        width: 100%; border: none; outline: none; font-size: 14px; color: #2d3748;
     }
     .search-box input::placeholder { color: #a0aec0; }
 
-    /* Filter Pills Compact Premium */
-    .category { display: flex; gap: 10px; margin-bottom: 32px; flex-wrap: wrap; }
+    /* Filter Pills: Light & Modern */
+    .category { display: flex; gap: 8px; margin-bottom: 28px; flex-wrap: wrap; }
     .category button {
-        padding: 8px 20px;
-        border-radius: 30px;
+        padding: 6px 16px;
+        border-radius: 20px;
         border: 1px solid #e2e8f0;
-        background: #fff;
-        font-size: 14px;
-        font-weight: 600;
-        color: #718096;
+        background: #f7fafc;
+        font-size: 13px;
+        font-weight: 500;
+        color: #4a5568;
         cursor: pointer;
         transition: all 0.2s;
     }
     .category button:hover {
-        border-color: #005c34;
-        color: #005c34;
-        background: #f0fdf4;
+        background: #edf2f7;
+        border-color: #cbd5e0;
     }
     .category .selected {
         background: #005c34;
         color: #fff;
         border-color: #005c34;
-        box-shadow: 0 4px 8px rgba(0, 92, 52, 0.2);
+        font-weight: 600;
     }
     
     /* ... rest of styles */
@@ -70,8 +68,7 @@
         <button>Tips Stres</button>
         <button>Video Edukasi</button>
     </div>
-    
-    <!-- ... -->
+
 </div>
 
     <div class="card-container">
