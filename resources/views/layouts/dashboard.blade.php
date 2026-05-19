@@ -125,40 +125,10 @@
     $printedSection = null;
 @endphp
 <div class="shell">
-    <header class="topbar">
-        <a href="{{ route('dashboard') }}" class="topbar-brand">
-            <img src="{{ asset('assets/images/logo.png') }}" alt="Ruang Pulih">
-            <span>Ruang Pulih</span>
-        </a>
-        <div class="topbar-actions">
-            <a class="topbar-btn" href="{{ route('about.index') }}"><i class="fa-solid fa-circle-info"></i> About</a>
-            <a class="topbar-btn" href="{{ route('bantuan.index') }}"><i class="fa-solid fa-headset"></i> Bantuan</a>
-            <form class="logout-form" action="{{ route('logout') }}" method="POST">
-                @csrf
-                <button class="topbar-btn" type="submit"><i class="fa-solid fa-right-from-bracket"></i> Logout</button>
-            </form>
-        </div>
-    </header>
+    @include('partials.header')
 
     <div class="layout">
-        <aside class="sidebar">
-            <div class="profile-box">
-                <div class="profile-avatar"><i class="fa-solid fa-circle-user"></i></div>
-                <div class="profile-name">{{ $user?->nama_lengkap ?? 'Pengguna' }}</div>
-                <div class="profile-role">{{ ucfirst($role) }}</div>
-            </div>
-
-            @foreach ($menus[$role] ?? $menus['pasien'] as $menu)
-                @if ($menu['section'] && $printedSection !== $menu['section'])
-                    <div class="nav-section">{{ $menu['section'] }}</div>
-                    @php $printedSection = $menu['section']; @endphp
-                @endif
-                <a class="side-link {{ request()->routeIs($menu['match']) ? 'active' : '' }}" href="{{ route($menu['route']) }}">
-                    <span class="side-icon"><i class="fa-solid {{ $menu['icon'] }}"></i></span>
-                    <span>{{ $menu['label'] }}</span>
-                </a>
-            @endforeach
-        </aside>
+        @include('partials.sidebar')
 
         <main class="content">
             @if (session('success'))
