@@ -117,25 +117,24 @@
     let currentIndex = 0;
 
     function updateUI() {
-        // Hide all questions
-        document.querySelectorAll('.question-card').forEach(card => {
-            card.style.display = 'none';
-            card.classList.remove('fade-enter-active');
-        });
+        const questionCards = document.querySelectorAll('.question-card');
+        const btnPrev = document.getElementById('btnPrev');
+        const btnNext = document.getElementById('btnNext');
+        const btnSubmit = document.getElementById('btnSubmit');
+        
+        // Hide all
+        questionCards.forEach(card => card.style.display = 'none');
 
-        // Show current question with animation
+        // Show current
         const currentCard = document.getElementById('question-' + currentIndex);
         if (currentCard) {
             currentCard.style.display = 'block';
-            void currentCard.offsetWidth;
             currentCard.classList.add('fade-enter-active');
         }
 
-        // Update progress bar
+        // Progress
         const answeredCount = document.querySelectorAll('.answer-radio:checked').length;
-        // Progress dihitung berdasarkan pertanyaan yang dijawab, step terakhir tidak dihitung di progress
         const percent = Math.min(100, Math.round((answeredCount / totalQuestions) * 100));
-        
         document.getElementById('progressBar').style.width = percent + '%';
         document.getElementById('progressPercentage').innerText = percent + '%';
         
@@ -145,35 +144,29 @@
             document.getElementById('progressText').innerText = `Catatan Tambahan`;
         }
 
-        // Manage buttons visibility
-        const btnPrev = document.getElementById('btnPrev');
-        const btnNext = document.getElementById('btnNext');
-        const btnSubmit = document.getElementById('btnSubmit');
-
+        // Nav Buttons
         btnPrev.style.display = currentIndex > 0 ? 'inline-flex' : 'none';
 
-        if (currentIndex === totalSteps - 1) { // Step Keterangan Tambahan
+        if (currentIndex === totalSteps - 1) {
             btnNext.style.display = 'none';
             btnSubmit.style.display = 'inline-flex';
         } else {
-            // Perbaikan logika untuk mengecek apakah pertanyaan saat ini sudah dijawab
-            const currentAnswered = currentCard.querySelector('.answer-radio:checked');
             btnNext.style.display = 'inline-flex';
             btnSubmit.style.display = 'none';
-            btnNext.disabled = !currentAnswered;
+            
+            // Check if current question answered
+            const isAnswered = currentCard && currentCard.querySelector('.answer-radio:checked');
+            btnNext.disabled = !isAnswered;
         }
     }
 
     function navigateQuestion(step) {
-        const newIndex = currentIndex + step;
-        if (newIndex >= 0 && newIndex < totalSteps) {
-            currentIndex = newIndex;
-            updateUI();
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
+        currentIndex += step;
+        updateUI();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
-    function handleAnswerSelection() {
+    window.handleAnswerSelection = function() {
         updateUI();
         if (currentIndex < totalSteps - 1) {
             setTimeout(() => {
