@@ -73,6 +73,16 @@ class ProfileController extends Controller
         return Redirect::to($target)->with('success', 'Profil berhasil diperbarui.');
     }
 
+    public function toggleTwoFactor(Request $request): RedirectResponse
+    {
+        $user = $request->user();
+        $user->two_factor_enabled = !$user->two_factor_enabled;
+        $user->save();
+
+        $status = $user->two_factor_enabled ? 'diaktifkan' : 'dinonaktifkan';
+        return back()->with('success', "Autentikasi 2 Langkah berhasil {$status}.");
+    }
+
     /**
      * Delete the user's account.
      */

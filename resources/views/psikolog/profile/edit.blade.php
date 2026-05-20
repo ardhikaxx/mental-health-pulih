@@ -111,6 +111,20 @@
                 <p class="text-muted small mt-3 mb-0">Akun Anda diverifikasi sebagai tenaga profesional psikolog Ruang Pulih.</p>
             </div>
 
+            <!-- Autentikasi 2 Langkah -->
+            <div class="card border-0 shadow-sm p-4 rounded-4 bg-primary bg-opacity-10">
+                <h5 class="fw-bold mb-3 text-primary"><i class="fa-solid fa-shield-halved me-2"></i> Keamanan Akun</h5>
+                <p class="text-dark opacity-75 mb-3 small" style="line-height: 1.6;">
+                    Status: {!! $user->two_factor_enabled ? '<span class="fw-bold text-success">Aktif</span>' : '<span class="fw-bold text-muted">Nonaktif</span>' !!}
+                </p>
+                <form action="{{ route('psikolog.profile.two-factor') }}" method="POST">
+                    @csrf
+                    <button type="submit" class="btn {{ $user->two_factor_enabled ? 'btn-outline-danger' : 'btn-primary' }} w-100 fw-bold rounded-pill shadow-sm">
+                        {{ $user->two_factor_enabled ? 'Nonaktifkan 2FA' : 'Aktifkan 2FA' }}
+                    </button>
+                </form>
+            </div>
+
             <!-- Danger Zone -->
             <div class="card border-0 shadow-sm p-4 rounded-4 bg-danger bg-opacity-10 mt-auto">
                 <h5 class="fw-bold mb-3 text-danger"><i class="fa-solid fa-triangle-exclamation me-2"></i> Hapus Akun</h5>

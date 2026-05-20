@@ -16,6 +16,7 @@ use App\Models\TbPasien;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class SkriningController extends Controller
 {
@@ -165,6 +166,20 @@ class SkriningController extends Controller
         $hasil->load(['jenisSkrining', 'detail.pertanyaan', 'detail.jawaban']);
 
         return view('pasien.skrining.hasil', compact('hasil'));
+    }
+
+    public function downloadPdf(HasilSkrining $hasil)
+    {
+        abort_unless($hasil->id_pasien === $this->pasien()->id_pasien, 403);
+
+        $pasien = $this->pasien();
+        $hasil->load(['jenisSkrining', 'detail.pertanyaan', 'detail.jawaban']);
+
+        $pdf = Pdf::loadView('pasien.skrining.pdf', compact('hasil', 'pasien'));
+        
+        $filename = 'Hasil_Skrining_' . str_replace(' ', '_', $hasil->jenisSkrining->nama_skrining) . '_' . $hasil->tanggal_skrining->format('Ymd') . '.pdf';
+        
+        return $pdf->download($filename);
     }
 
     private function kategoriHasil(JenisSkrining $skrining, int $total): array

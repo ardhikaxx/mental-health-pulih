@@ -14,6 +14,7 @@ use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Auth\EmailVerificationPromptController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\Auth\RegisteredUserController;
+use App\Http\Controllers\Auth\TwoFactorController;
 use App\Http\Controllers\Auth\VerifyEmailController;
 use App\Http\Controllers\BantuanController;
 use App\Http\Controllers\BantuanDetailController;
@@ -57,6 +58,10 @@ Route::middleware('guest')->group(function () {
     Route::post('/forgot-password', [ForgotPasswordController::class, 'verifyEmail'])->name('password.email');
     Route::get('/reset-password-custom', [ForgotPasswordController::class, 'showResetForm'])->name('password.reset.custom');
     Route::post('/reset-password-custom', [ForgotPasswordController::class, 'reset'])->name('password.update.custom');
+
+    Route::get('/two-factor-challenge', [TwoFactorController::class, 'showChallenge'])->name('two-factor.login');
+    Route::post('/two-factor-challenge', [TwoFactorController::class, 'verify']);
+    Route::post('/two-factor-resend', [TwoFactorController::class, 'resend'])->name('two-factor.resend');
 });
 
 Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])
@@ -71,6 +76,7 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::post('/profile/two-factor', [ProfileController::class, 'toggleTwoFactor'])->name('profile.two-factor');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
@@ -103,6 +109,7 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
 
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::post('/profile/two-factor', [ProfileController::class, 'toggleTwoFactor'])->name('profile.two-factor');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
@@ -122,6 +129,7 @@ Route::middleware(['auth', 'role:psikolog'])->prefix('psikolog')->name('psikolog
 
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::post('/profile/two-factor', [ProfileController::class, 'toggleTwoFactor'])->name('profile.two-factor');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
@@ -135,6 +143,7 @@ Route::middleware(['auth', 'role:pasien'])->prefix('pasien')->name('pasien.')->g
     Route::get('/skrining/{skrining}/tes', [PasienSkriningController::class, 'tes'])->name('skrining.tes');
     Route::post('/skrining/{skrining}/tes', [PasienSkriningController::class, 'submit'])->name('skrining.submit');
     Route::get('/skrining/hasil/{hasil}', [PasienSkriningController::class, 'hasil'])->name('skrining.hasil');
+    Route::get('/skrining/hasil/{hasil}/download', [PasienSkriningController::class, 'downloadPdf'])->name('skrining.hasil.download');
 
     Route::get('/konsultasi', [PasienKonsultasiController::class, 'index'])->name('konsultasi.index');
     Route::post('/konsultasi', [PasienKonsultasiController::class, 'storePendaftaran'])->name('konsultasi.store');
@@ -152,5 +161,6 @@ Route::middleware(['auth', 'role:pasien'])->prefix('pasien')->name('pasien.')->g
 
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::post('/profile/two-factor', [ProfileController::class, 'toggleTwoFactor'])->name('profile.two-factor');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });

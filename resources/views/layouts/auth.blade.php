@@ -4,9 +4,16 @@
     <meta charset="UTF-8">
     <title>{{ $title }} - Ruang Pulih</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
     <style>
+        :root {
+            --primary-green: #005c34;
+            --secondary-green: #00874e;
+            --bs-primary: #005c34;
+            --bs-primary-rgb: 0, 92, 52;
+        }
         * { margin:0; padding:0; box-sizing:border-box; }
         html,body { width:100%; height:100%; font-family:'Inter',sans-serif; background:#fff; color:#1a202c; }
         .auth-container { width: 100vw; height: 100vh; display: grid; grid-template-columns: 45% 55%; overflow: hidden; }
@@ -107,5 +114,6 @@
             </div>
         </div>
     </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

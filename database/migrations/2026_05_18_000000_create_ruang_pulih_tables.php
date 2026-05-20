@@ -19,6 +19,9 @@ return new class extends Migration
             $table->enum('role', ['admin', 'psikolog', 'pasien', 'pengunjung'])->default('pengunjung');
             $table->string('foto_profil')->nullable();
             $table->enum('status_akun', ['aktif', 'nonaktif', 'pending'])->default('aktif');
+            $table->boolean('two_factor_enabled')->default(false);
+            $table->string('two_factor_code')->nullable();
+            $table->timestamp('two_factor_expires_at')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

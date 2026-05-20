@@ -55,6 +55,23 @@
                 </div>
             </form>
         </div>
+
+        {{-- Autentikasi 2 Langkah --}}
+        <div class="card border-0 shadow-sm p-4 mt-4">
+            <h5 class="fw-bold mb-4 pb-3 border-bottom"><i class="fa-solid fa-shield-halved text-primary me-2"></i> Keamanan Login</h5>
+            <div class="d-flex flex-column flex-md-row align-items-md-center justify-content-between gap-3">
+                <div>
+                    <p class="mb-1 fw-bold text-dark">Autentikasi 2 Langkah: {!! $user->two_factor_enabled ? '<span class="text-success">Aktif</span>' : '<span class="text-muted">Nonaktif</span>' !!}</p>
+                    <p class="text-muted small mb-0">Wajibkan verifikasi kode email setiap kali Anda masuk ke dashboard admin.</p>
+                </div>
+                <form action="{{ route('admin.profile.two-factor') }}" method="POST">
+                    @csrf
+                    <button type="submit" class="btn {{ $user->two_factor_enabled ? 'btn-outline-danger' : 'btn-primary' }} px-4 fw-bold shadow-sm">
+                        {{ $user->two_factor_enabled ? 'Nonaktifkan 2FA' : 'Aktifkan 2FA' }}
+                    </button>
+                </form>
+            </div>
+        </div>
     </div>
     
     <div class="col-lg-4">
