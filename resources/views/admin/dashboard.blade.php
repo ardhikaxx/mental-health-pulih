@@ -502,22 +502,34 @@
         .dashboard-banner { padding: 40px; }
     }
     @media (max-width: 992px) {
-        .dashboard-banner { flex-direction: column; text-align: center; gap: 30px; padding: 30px 20px; }
-        .banner-content p { margin: 0 auto 20px; }
-        .banner-actions { justify-content: center; display: flex; flex-direction: column; gap: 10px; }
+        .dashboard-banner { flex-direction: column; text-align: center; gap: 30px; padding: 30px 20px; border-radius: 24px; }
+        .banner-content p { margin: 0 auto 20px; font-size: 14px; }
+        .banner-actions { justify-content: center; display: flex; flex-direction: column; gap: 10px; width: 100%; }
         .btn-glass { margin-right: 0; width: 100%; justify-content: center; }
         .banner-visual { width: 100%; }
-        .glass-widget { min-width: unset; width: 100%; }
-        .grid-4 { grid-template-columns: repeat(2, 1fr); gap: 15px !important; }
+        .glass-widget { min-width: unset; width: 100%; padding: 20px; }
+        .grid-4 { grid-template-columns: repeat(2, 1fr) !important; gap: 15px !important; }
+        .premium-stat-card { padding: 20px; gap: 12px; }
     }
     @media (max-width: 576px) {
-        .grid-4 { grid-template-columns: 1fr; }
+        .grid-4 { grid-template-columns: 1fr !important; }
         .banner-content h1 { font-size: 28px; }
-        .premium-table-wrapper { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+        .premium-table-wrapper { overflow-x: auto; -webkit-overflow-scrolling: touch; border-radius: 12px; }
         .modern-table { min-width: 600px; }
         .premium-card { padding: 20px 15px; }
-        .card-header-flex { flex-direction: column; gap: 10px; }
+        .card-header-flex { flex-direction: column; gap: 10px; align-items: flex-start; }
+        .action-grid-premium { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+        .quick-btn { padding: 15px 10px; }
+        .quick-btn i { font-size: 18px; }
+        .quick-btn span { font-size: 11px; }
+        .premium-stat-card { flex-direction: row; text-align: left; }
+    }
+    @media (max-width: 400px) {
         .action-grid-premium { grid-template-columns: 1fr; }
+        .dashboard-banner { padding: 25px 15px; }
+        .banner-content h1 { font-size: 24px; }
+        .card-icon { width: 44px; height: 44px; font-size: 18px; }
+        .data-value { font-size: 20px; }
     }
 </style>
 @endsection
