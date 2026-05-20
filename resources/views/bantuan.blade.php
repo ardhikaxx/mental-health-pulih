@@ -41,14 +41,18 @@
 
 <div class="help-wrapper">
     <div class="help-grid">
-        @foreach ([
-            ['fa-phone-volume', 'Bantuan Darurat', 'Bantuan cepat untuk kondisi emosional darurat atau dukungan segera.', ['Kontak layanan darurat']],
-            ['fa-shield-halved', 'Keamanan Akun', 'Membantu menjaga keamanan akun agar tetap aman.', ['Ganti kata sandi', 'Verifikasi akun', 'Aktivitas login mencurigakan']],
-            ['fa-key', 'Reset Kata Sandi', 'Bantuan untuk memulihkan akses akun jika lupa kata sandi.', ['Lupa password', 'Reset melalui email']],
-            ['fa-circle-question', 'Pusat Bantuan', 'Kumpulan informasi untuk menggunakan aplikasi dengan mudah.', ['FAQ', 'Informasi akun']],
-            ['fa-bug', 'Laporkan Masalah', 'Laporkan kendala atau aktivitas yang tidak sesuai di dalam aplikasi.', ['Laporkan bug aplikasi', 'Konten tidak pantas', 'Penyalahgunaan akun']],
-            ['fa-message', 'Saran & Masukan', 'Berikan masukan untuk meningkatkan kualitas aplikasi.', ['Kritik & saran', 'Penilaian layanan']],
-        ] as [$icon, $judul, $teks, $items])
+        @php
+            $help_items = [
+                ['fa-phone-volume', 'Bantuan Darurat', 'Bantuan cepat untuk kondisi emosional darurat atau dukungan segera.', ['Kontak layanan darurat'], route('bantuan.darurat')],
+                ['fa-shield-halved', 'Keamanan Akun', 'Membantu menjaga keamanan akun agar tetap aman.', ['Ganti kata sandi', 'Verifikasi akun'], route('bantuan.keamanan')],
+                ['fa-key', 'Reset Kata Sandi', 'Bantuan untuk memulihkan akses akun jika lupa kata sandi.', ['Lupa password', 'Reset melalui email'], route('password.request')],
+                ['fa-circle-question', 'Pusat Bantuan', 'Kumpulan informasi untuk menggunakan aplikasi dengan mudah.', ['FAQ', 'Informasi akun'], route('bantuan.pusat-bantuan')],
+                ['fa-bug', 'Laporkan Masalah', 'Laporkan kendala atau aktivitas yang tidak sesuai di dalam aplikasi.', ['Laporkan bug aplikasi', 'Penyalahgunaan akun'], route('bantuan.lapor')],
+                ['fa-message', 'Saran & Masukan', 'Berikan masukan untuk meningkatkan kualitas aplikasi.', ['Kritik & saran', 'Penilaian layanan'], route('bantuan.saran')],
+            ];
+        @endphp
+
+        @foreach ($help_items as [$icon, $judul, $teks, $items, $link])
             <div class="help-card">
                 <div class="icon-box"><i class="fa-solid {{ $icon }}"></i></div>
                 <h3 class="card-title">{{ $judul }}</h3>
@@ -58,7 +62,7 @@
                         <div class="list-item"><i class="fa-solid fa-check"></i>{{ $item }}</div>
                     @endforeach
                 </div>
-                <a href="{{ $judul === 'Reset Kata Sandi' ? route('password.request') : '#' }}" class="btn-arrow"><i class="fa-solid fa-arrow-right"></i></a>
+                <a href="{{ $link }}" class="btn-arrow"><i class="fa-solid fa-arrow-right"></i></a>
             </div>
         @endforeach
     </div>

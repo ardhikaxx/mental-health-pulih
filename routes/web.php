@@ -14,6 +14,7 @@ use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\Auth\VerifyEmailController;
 use App\Http\Controllers\BantuanController;
+use App\Http\Controllers\BantuanDetailController;
 use App\Http\Controllers\EdukasiPublikController;
 use App\Http\Controllers\Pasien\DashboardController as PasienDashboardController;
 use App\Http\Controllers\Pasien\KonsultasiController as PasienKonsultasiController;
@@ -32,6 +33,17 @@ Route::get('/edukasi/video/{slug}', [EdukasiPublikController::class, 'video'])->
 Route::get('/edukasi/{slug}', [EdukasiPublikController::class, 'show'])->name('edukasi.show');
 Route::get('/about', [AboutController::class, 'index'])->name('about.index');
 Route::get('/bantuan', [BantuanController::class, 'index'])->name('bantuan.index');
+
+// Bantuan Details
+Route::prefix('bantuan')->name('bantuan.')->group(function () {
+    Route::get('/darurat', [BantuanDetailController::class, 'darurat'])->name('darurat');
+    Route::get('/keamanan', [BantuanDetailController::class, 'keamanan'])->name('keamanan');
+    Route::get('/pusat-bantuan', [BantuanDetailController::class, 'pusatBantuan'])->name('pusat-bantuan');
+    Route::get('/lapor', [BantuanDetailController::class, 'lapor'])->name('lapor');
+    Route::get('/saran', [BantuanDetailController::class, 'saran'])->name('saran');
+    Route::post('/lapor', [BantuanDetailController::class, 'simpanLaporan'])->name('lapor.store');
+    Route::post('/saran', [BantuanDetailController::class, 'simpanSaran'])->name('saran.store');
+});
 
 Route::middleware('guest')->group(function () {
     Route::get('/login', [AuthenticatedSessionController::class, 'create'])->name('login');

@@ -78,6 +78,7 @@
     <a class="{{ $filter === 'video' ? 'active' : '' }}" href="{{ route('edukasi.index', ['filter' => 'video', 'search' => $search]) }}">Video Edukasi</a>
 </div>
 
+@if(blank($filter) || $filter === 'artikel' || $filter === 'tips-stres')
 <h2 id="artikel" class="section-title">Artikel Terbaru</h2>
 <div class="grid-3">
     @forelse ($artikels as $artikel)
@@ -108,8 +109,9 @@
         @endfor
     </nav>
 @endif
+@endif
 
-@if ($videos->isNotEmpty())
+@if ((blank($filter) || $filter === 'video' || $filter === 'tips-stres') && $videos->isNotEmpty())
     <h2 class="section-title">Video Edukasi</h2>
     <div class="grid-3">
         @foreach ($videos as $video)
