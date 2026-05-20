@@ -20,39 +20,42 @@
                     <p class="text-muted mb-5">Keamanan data Anda adalah prioritas kami. Gunakan panduan di bawah ini untuk memastikan akun Anda tetap terlindungi.</p>
 
                     <div class="accordion" id="securityAccordion">
+                        <!-- Item 1 -->
                         <div class="accordion-item border-0 mb-3 shadow-sm rounded-4 overflow-hidden">
-                            <h2 class="accordion-header">
-                                <button class="accordion-button fw-bold" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne">
+                            <h2 class="accordion-header" id="headingOne">
+                                <button class="accordion-button fw-bold" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
                                     <i class="fa-solid fa-key me-3 text-primary"></i> Gunakan Password yang Kuat
                                 </button>
                             </h2>
-                            <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#securityAccordion">
+                            <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#securityAccordion">
                                 <div class="accordion-body text-muted">
                                     Gunakan kombinasi minimal 8 karakter yang terdiri dari huruf besar, huruf kecil, angka, dan simbol. Hindari menggunakan informasi pribadi seperti tanggal lahir atau nama hewan peliharaan.
                                 </div>
                             </div>
                         </div>
 
+                        <!-- Item 2 -->
                         <div class="accordion-item border-0 mb-3 shadow-sm rounded-4 overflow-hidden">
-                            <h2 class="accordion-header">
-                                <button class="accordion-button collapsed fw-bold" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo">
+                            <h2 class="accordion-header" id="headingTwo">
+                                <button class="accordion-button collapsed fw-bold" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
                                     <i class="fa-solid fa-envelope-circle-check me-3 text-primary"></i> Verifikasi Email
                                 </button>
                             </h2>
-                            <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#securityAccordion">
+                            <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#securityAccordion">
                                 <div class="accordion-body text-muted">
                                     Pastikan email Anda sudah terverifikasi. Email yang terverifikasi memudahkan Anda memulihkan akun jika lupa kata sandi dan menerima notifikasi keamanan penting.
                                 </div>
                             </div>
                         </div>
 
+                        <!-- Item 3 -->
                         <div class="accordion-item border-0 mb-3 shadow-sm rounded-4 overflow-hidden">
-                            <h2 class="accordion-header">
-                                <button class="accordion-button collapsed fw-bold" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree">
+                            <h2 class="accordion-header" id="headingThree">
+                                <button class="accordion-button collapsed fw-bold" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
                                     <i class="fa-solid fa-user-secret me-3 text-primary"></i> Aktivitas Mencurigakan
                                 </button>
                             </h2>
-                            <div id="collapseThree" class="accordion-collapse collapse" data-bs-parent="#securityAccordion">
+                            <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#securityAccordion">
                                 <div class="accordion-body text-muted">
                                     Jika Anda menerima notifikasi login dari perangkat yang tidak dikenal, segera ganti kata sandi Anda dan hubungi tim bantuan melalui fitur "Laporkan Masalah".
                                 </div>

@@ -17,12 +17,6 @@
                     <h2 class="fw-bold mb-0">Saran & Masukan</h2>
                 </div>
                 <div class="card-body p-4 p-md-5">
-                    @if (session('success'))
-                        <div class="alert alert-success border-0 rounded-4 mb-4">
-                            <i class="fa-solid fa-face-smile me-2"></i> {{ session('success') }}
-                        </div>
-                    @endif
-
                     <p class="text-muted mb-4 text-center">Bantu kami menjadi lebih baik. Suara Anda sangat berarti bagi pengembangan layanan Ruang Pulih kedepannya.</p>
 
                     <form action="{{ route('bantuan.saran.store') }}" method="POST">
@@ -53,4 +47,17 @@
         </div>
     </div>
 </div>
+
+@push('scripts')
+<script>
+    @if(session('success'))
+        Swal.fire({
+            icon: 'success',
+            title: 'Terima Kasih',
+            text: "{{ session('success') }}",
+            confirmButtonColor: '#005c34',
+        });
+    @endif
+</script>
+@endpush
 @endsection

@@ -13,8 +13,8 @@
     .help-card:hover { transform: translateY(-10px); box-shadow: 0 25px 30px -10px rgba(0,0,0,0.08); border-color: #005c3444; }
     
     .icon-box { 
-        width: 72px; height: 72px; background: linear-gradient(135deg, #e6fffa 0%, #b2f5ea 100%); 
-        border-radius: 24px; color: #005c34; display: flex; align-items: center; justify-content: center; 
+        width: 72px; height: 72px; background: var(--bs-primary-bg-subtle); 
+        border-radius: 24px; color: var(--primary-green); display: flex; align-items: center; justify-content: center; 
         font-size: 32px; margin-bottom: 32px;
     }
     .card-title { font-size: 24px; font-weight: 800; color: #1a202c; margin-bottom: 20px; }

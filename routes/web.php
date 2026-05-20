@@ -5,6 +5,8 @@ use App\Http\Controllers\Admin\AdminController as AdminUserController;
 use App\Http\Controllers\Admin\DashboardController as AdminDashboardController;
 use App\Http\Controllers\Admin\EdukasiController as AdminEdukasiController;
 use App\Http\Controllers\Admin\PasienController as AdminPasienController;
+use App\Http\Controllers\Admin\LaporanMasalahController;
+use App\Http\Controllers\Admin\SaranMasukanController;
 use App\Http\Controllers\Admin\PertanyaanController as AdminPertanyaanController;
 use App\Http\Controllers\Admin\PsikologController as AdminPsikologController;
 use App\Http\Controllers\Admin\SkriningController as AdminSkriningController;
@@ -82,6 +84,13 @@ Route::get('/dashboard', function () {
 
 Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->group(function () {
     Route::get('/dashboard', [AdminDashboardController::class, 'index'])->name('dashboard');
+
+    Route::get('/laporan', [LaporanMasalahController::class, 'index'])->name('laporan.index');
+    Route::patch('/laporan/{laporan}/status', [LaporanMasalahController::class, 'updateStatus'])->name('laporan.status');
+    Route::delete('/laporan/{laporan}', [LaporanMasalahController::class, 'destroy'])->name('laporan.destroy');
+    
+    Route::get('/saran', [SaranMasukanController::class, 'index'])->name('saran.index');
+    Route::delete('/saran/{saran}', [SaranMasukanController::class, 'destroy'])->name('saran.destroy');
 
     Route::resource('pasien', AdminPasienController::class)->only(['index', 'show']);
     Route::resource('psikolog', AdminPsikologController::class)->except(['create', 'edit']);

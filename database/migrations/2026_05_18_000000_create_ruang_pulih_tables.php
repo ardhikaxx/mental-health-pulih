@@ -337,10 +337,35 @@ return new class extends Migration
 
             $table->foreign('id_admin')->references('id_admin')->on('tb_admin');
         });
+
+        Schema::create('tb_laporan_masalah', function (Blueprint $table) {
+            $table->id('id_laporan');
+            $table->unsignedBigInteger('id_user')->nullable();
+            $table->string('kategori');
+            $table->string('judul');
+            $table->text('deskripsi');
+            $table->enum('status_laporan', ['pending', 'diproses', 'selesai'])->default('pending');
+            $table->timestamps();
+
+            $table->foreign('id_user')->references('id_user')->on('tb_user')->onDelete('set null');
+        });
+
+        Schema::create('tb_saran_masukan', function (Blueprint $table) {
+            $table->id('id_saran');
+            $table->unsignedBigInteger('id_user')->nullable();
+            $table->string('nama')->nullable();
+            $table->string('email')->nullable();
+            $table->text('pesan');
+            $table->timestamps();
+
+            $table->foreign('id_user')->references('id_user')->on('tb_user')->onDelete('set null');
+        });
     }
 
     public function down(): void
     {
+        Schema::dropIfExists('tb_saran_masukan');
+        Schema::dropIfExists('tb_laporan_masalah');
         Schema::dropIfExists('tb_log_aktivitas_admin');
         Schema::dropIfExists('tb_notifikasi');
         Schema::dropIfExists('tb_mood_harian');

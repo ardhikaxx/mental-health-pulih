@@ -12,17 +12,11 @@
             </nav>
 
             <div class="card border-0 shadow-sm rounded-4 overflow-hidden mb-5">
-                <div class="bg-dark p-4 text-white text-center" style="background-color: #2d3748 !important;">
+                <div class="bg-primary p-4 text-white text-center">
                     <i class="fa-solid fa-bug fs-1 mb-3"></i>
                     <h2 class="fw-bold mb-0">Laporkan Masalah</h2>
                 </div>
                 <div class="card-body p-4 p-md-5">
-                    @if (session('success'))
-                        <div class="alert alert-success border-0 rounded-4 mb-4">
-                            <i class="fa-solid fa-circle-check me-2"></i> {{ session('success') }}
-                        </div>
-                    @endif
-
                     <p class="text-muted mb-4">Menemukan kendala teknis atau konten yang tidak pantas? Informasikan kepada kami agar kami dapat segera menindaklanjutinya.</p>
 
                     <form action="{{ route('bantuan.lapor.store') }}" method="POST">
@@ -59,4 +53,17 @@
         </div>
     </div>
 </div>
+
+@push('scripts')
+<script>
+    @if(session('success'))
+        Swal.fire({
+            icon: 'success',
+            title: 'Laporan Diterima',
+            text: "{{ session('success') }}",
+            confirmButtonColor: '#005c34',
+        });
+    @endif
+</script>
+@endpush
 @endsection

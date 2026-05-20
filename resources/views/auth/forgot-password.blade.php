@@ -1,8 +1,8 @@
-@extends('layouts.auth', ['title' => 'Lupa Password'])
+@extends('layouts.auth', ['title' => 'Reset Kata Sandi'])
 
 @section('form')
-    <h2 class="auth-title">Lupa Password?</h2>
-    <p class="auth-subtitle">Masukkan email Anda untuk memverifikasi akun</p>
+    <h2 class="auth-title">Reset Kata Sandi</h2>
+    <p class="auth-subtitle">Masukkan email Anda untuk memulihkan akses akun</p>
 
     <form action="{{ route('password.email') }}" method="POST">
         @csrf
@@ -17,7 +17,7 @@
     </form>
 
     <div class="auth-footer">
-        Ingat password Anda? <a href="{{ route('login') }}">Kembali ke Login</a>
+        Ingat kata sandi Anda? <a href="{{ route('login') }}">Kembali ke Login</a>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>

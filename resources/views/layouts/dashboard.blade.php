@@ -253,6 +253,8 @@
             ['label' => 'Psikolog', 'route' => 'admin.psikolog.index', 'match' => 'admin.psikolog.*', 'section' => null, 'icon' => 'fa-user-doctor'],
             ['label' => 'Admin', 'route' => 'admin.admin.index', 'match' => 'admin.admin.*', 'section' => null, 'icon' => 'fa-user-shield'],
             ['label' => 'Skrining', 'route' => 'admin.skrining.index', 'match' => 'admin.skrining.*', 'section' => 'Layanan', 'icon' => 'fa-clipboard-question'],
+            ['label' => 'Laporan', 'route' => 'admin.laporan.index', 'match' => 'admin.laporan.*', 'section' => 'Support', 'icon' => 'fa-bug'],
+            ['label' => 'Kritik & Saran', 'route' => 'admin.saran.index', 'match' => 'admin.saran.*', 'section' => null, 'icon' => 'fa-message'],
             ['label' => 'Profil Saya', 'route' => 'admin.profile.edit', 'match' => 'admin.profile.*', 'section' => 'Pengaturan', 'icon' => 'fa-user-gear'],
         ],
         'psikolog' => [

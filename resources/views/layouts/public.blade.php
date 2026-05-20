@@ -4,8 +4,22 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ $title ?? 'Ruang Pulih' }}</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <style>
+        :root {
+            --primary-green: #005c34;
+            --secondary-green: #00874e;
+            --bs-primary: #005c34;
+            --bs-primary-rgb: 0, 92, 52;
+            --bs-primary-bg-subtle: rgba(0, 92, 52, 0.1);
+            --bs-primary-border-subtle: rgba(0, 92, 52, 0.25);
+            --bs-primary-text-emphasis: #004a29;
+            --bs-link-color: #005c34;
+            --bs-link-hover-color: #004a29;
+        }
+
         * { box-sizing: border-box; margin: 0; padding: 0; }
         body { background: #f8fbf8; color: #111; font-family: 'Inter', system-ui, -apple-system, sans-serif; }
         a { color: inherit; text-decoration: none; }
@@ -166,5 +180,7 @@
         @yield('content')
         <div class="footer-space"></div>
     </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    @stack('scripts')
 </body>
 </html>

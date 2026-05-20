@@ -21,7 +21,7 @@
                 <i class="fa-solid fa-eye eye-icon" id="toggle-password" onclick="togglePassword('password', 'toggle-password')"></i>
             </div>
             <div style="text-align: right; margin-top: 8px;">
-                <a href="{{ route('password.request') }}" style="color: #005c34; font-size: 13px; font-weight: 600; text-decoration: none;">Lupa Password?</a>
+                <a href="{{ route('password.request') }}" style="color: #005c34; font-size: 13px; font-weight: 600; text-decoration: none;">Reset Password?</a>
             </div>
         </div>
         <button type="submit" class="btn-submit">Login</button>
