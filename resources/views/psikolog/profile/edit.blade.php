@@ -98,7 +98,7 @@
     </div>
     
     <div class="col-lg-4">
-        <div class="d-flex flex-column gap-4 h-100">
+        <div class="d-flex flex-column gap-4">
             <!-- Account Status -->
             <div class="card border-0 shadow-sm p-4 rounded-4 text-center">
                 <div class="bg-primary bg-opacity-10 text-primary rounded-circle d-flex align-items-center justify-content-center mx-auto mb-3" style="width: 80px; height: 80px;">
@@ -126,7 +126,7 @@
             </div>
 
             <!-- Danger Zone -->
-            <div class="card border-0 shadow-sm p-4 rounded-4 bg-danger bg-opacity-10 mt-auto">
+            <div class="card border-0 shadow-sm p-4 rounded-4 bg-danger bg-opacity-10">
                 <h5 class="fw-bold mb-3 text-danger"><i class="fa-solid fa-triangle-exclamation me-2"></i> Hapus Akun</h5>
                 <p class="text-danger opacity-75 mb-4 small" style="line-height: 1.6;">
                     Menghapus akun akan menghilangkan semua data profesional dan riwayat konsultasi Anda secara permanen.

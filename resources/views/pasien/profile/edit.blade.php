@@ -10,7 +10,7 @@
 
 <div class="row g-4 mb-4">
     <div class="col-lg-8">
-        <div class="card border-0 shadow-sm p-4 rounded-4 h-100">
+        <div class="card border-0 shadow-sm p-4 rounded-4">
             <h5 class="fw-bold mb-4 pb-3 border-bottom"><i class="fa-solid fa-address-card text-primary me-2"></i> Informasi Profil</h5>
             
             <form method="POST" action="{{ route('pasien.profile.update') }}">
@@ -83,7 +83,7 @@
     </div>
     
     <div class="col-lg-4">
-        <div class="card border-0 shadow-sm p-4 rounded-4 bg-danger bg-opacity-10 h-100">
+        <div class="card border-0 shadow-sm p-4 rounded-4 bg-danger bg-opacity-10">
             <h5 class="fw-bold mb-3 text-danger"><i class="fa-solid fa-triangle-exclamation me-2"></i> Hapus Akun</h5>
             <p class="text-danger opacity-75 mb-4 small" style="line-height: 1.6;">
                 Setelah akun kamu dihapus, semua riwayat skrining, konsultasi, dan pemantauan mental akan dihapus secara permanen. Silakan masukkan password kamu untuk mengonfirmasi.
