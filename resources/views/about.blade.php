@@ -63,10 +63,10 @@
     <h2 class="section-title">Fitur Kami</h2>
     <div class="grid-4">
         @foreach ([
-            ['fa-clipboard-list', 'Skrining Mental', 'Tes skrining yang mudah dan cepat.'],
+            ['fa-clipboard-list', 'Skrining Kesehatan Mental', 'Tes skrining yang mudah dan cepat.'],
             ['fa-comments', 'Konsultasi Online', 'Bicara dengan psikolog profesional.'],
             ['fa-chart-line', 'Pemantauan Kondisi', 'Pantau perkembangan emosimu.'],
-            ['fa-newspaper', 'Edukasi & Info', 'Artikel, tips, dan video edukasi.'],
+            ['fa-newspaper', 'Edukasi & Informasi', 'Artikel, tips, dan video edukasi.'],
         ] as [$icon, $judul, $teks])
             <div class="about-card" style="padding: 28px;">
                 <div class="icon-box" style="width:52px; height:52px; font-size:20px; margin-bottom:20px;"><i class="fa-solid {{ $icon }}"></i></div>
