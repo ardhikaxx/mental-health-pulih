@@ -8,9 +8,9 @@
         body { font-family: 'Helvetica', 'Arial', sans-serif; color: #333; line-height: 1.5; font-size: 12px; }
         
         /* Letterhead / Kop Surat */
-        .kop-surat { border-bottom: 3px double #005c34; padding-bottom: 20px; margin-bottom: 30px; position: relative; min-height: 100px; }
-        .kop-logo { position: absolute; left: 0; top: -10px; width: 110px; height: 110px; }
-        .kop-detail { text-align: center; margin-left: 110px; margin-right: 10px; }
+        .kop-surat { border-bottom: 3px double #005c34; padding-bottom: 25px; margin-bottom: 35px; position: relative; min-height: 125px; }
+        .kop-logo { position: absolute; left: 0; top: -15px; width: 130px; height: 130px; }
+        .kop-detail { text-align: center; margin-left: 135px; margin-right: 10px; }
         .kop-title { font-size: 22px; font-weight: bold; color: #005c34; margin-bottom: 5px; text-transform: uppercase; }
         .kop-subtitle { font-size: 11px; color: #555; margin-bottom: 3px; }
         .kop-contact { font-size: 10px; color: #777; font-style: italic; }
