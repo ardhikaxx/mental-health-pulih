@@ -11,7 +11,7 @@
         .kop-surat { border-bottom: 3px double #005c34; padding-bottom: 25px; margin-bottom: 35px; position: relative; min-height: 125px; }
         .kop-logo { position: absolute; left: 0; top: -15px; width: 130px; height: 130px; }
         .kop-detail { text-align: center; margin-left: 135px; margin-right: 10px; }
-        .kop-title { font-family: 'Arial', sans-serif; font-size: 22px; font-weight: bold; color: #005c34; margin-bottom: 5px; text-transform: uppercase; }
+        .kop-title { font-family: 'Times New Roman', Times, serif; font-size: 24px; font-weight: bold; color: #005c34; margin-bottom: 5px; text-transform: uppercase; }
         .kop-subtitle { font-size: 11px; color: #555; margin-bottom: 3px; }
         .kop-contact { font-size: 10px; color: #777; font-style: italic; }
 
