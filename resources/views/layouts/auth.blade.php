@@ -23,7 +23,7 @@
         /* Left Panel */
         .left-panel {
             position: relative; height: 100vh; padding: 48px 64px;
-            background: linear-gradient(135deg, rgba(0,92,52,0.95), rgba(0,0,0,0.85)), url("{{ asset('assets/images/login.png') }}");
+            background: linear-gradient(135deg, rgba(0, 92, 52, 0.6), rgba(0, 0, 0, 0.4)), url("{{ asset('assets/images/login.png') }}");
             background-size: cover; background-position: center;
         }
         .brand { display:flex; align-items:center; gap:20px; }
