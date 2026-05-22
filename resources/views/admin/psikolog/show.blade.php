@@ -2,11 +2,20 @@
 
 @section('content')
 <section class="hero-panel d-flex justify-content-between align-items-center">
-    <div style="position: relative; z-index: 2;">
-        <h1 class="mb-2"><i class="fa-solid fa-user-doctor me-2"></i> {{ $psikolog->user->nama_lengkap }}</h1>
-        <div class="d-flex align-items-center gap-2 mt-2">
-            <span class="badge bg-light bg-opacity-25 text-white px-3 py-2 rounded-pill"><i class="fa-solid fa-stethoscope me-1"></i> {{ $psikolog->spesialisasi ?? 'Psikolog' }}</span>
-            <span class="badge bg-light bg-opacity-25 text-white px-3 py-2 rounded-pill"><i class="fa-solid fa-id-card me-1"></i> SIPA: {{ $psikolog->nomor_sipa }}</span>
+    <div class="d-flex align-items-center gap-4" style="position: relative; z-index: 2;">
+        @if ($psikolog->user->foto_profil)
+            <img src="{{ $psikolog->user->foto_profil_url }}" alt="{{ $psikolog->user->nama_lengkap }}" class="rounded-circle object-fit-cover border border-light-subtle shadow" style="width: 100px; height: 100px;">
+        @else
+            <div class="bg-white bg-opacity-25 text-white rounded-circle d-flex justify-content-center align-items-center shadow" style="width: 100px; height: 100px;">
+                <i class="fa-solid fa-user-doctor fs-1"></i>
+            </div>
+        @endif
+        <div>
+            <h1 class="mb-1 fw-bold">{{ $psikolog->user->nama_lengkap }}</h1>
+            <div class="d-flex align-items-center gap-2 mt-2">
+                <span class="badge bg-light bg-opacity-25 text-white px-3 py-2 rounded-pill"><i class="fa-solid fa-stethoscope me-1"></i> {{ $psikolog->spesialisasi ?? 'Psikolog' }}</span>
+                <span class="badge bg-light bg-opacity-25 text-white px-3 py-2 rounded-pill"><i class="fa-solid fa-id-card me-1"></i> SIPA: {{ $psikolog->nomor_sipa }}</span>
+            </div>
         </div>
     </div>
     <a href="{{ route('admin.psikolog.index') }}" class="btn btn-light shadow-sm fw-bold" style="position: relative; z-index: 2;">

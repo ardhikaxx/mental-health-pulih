@@ -59,9 +59,13 @@
         <div class="col-lg-4">
             <div class="d-flex flex-column gap-4 sticky-top" style="top: 20px;">
                 <div class="card border-0 shadow-sm p-4 rounded-4 text-center">
-                    <div class="bg-primary bg-opacity-10 text-primary rounded-circle d-flex align-items-center justify-content-center mx-auto mb-3" style="width: 80px; height: 80px;">
-                        <i class="fa-solid fa-user-doctor fs-1"></i>
-                    </div>
+                    @if ($psikolog->user->foto_profil)
+                        <img src="{{ $psikolog->user->foto_profil_url }}" alt="{{ $psikolog->user->nama_lengkap }}" class="rounded-circle mx-auto mb-3 object-fit-cover border border-light-subtle shadow-sm" style="width: 80px; height: 80px;">
+                    @else
+                        <div class="bg-primary bg-opacity-10 text-primary rounded-circle d-flex align-items-center justify-content-center mx-auto mb-3" style="width: 80px; height: 80px;">
+                            <i class="fa-solid fa-user-doctor fs-1"></i>
+                        </div>
+                    @endif
                     <h5 class="fw-bold text-dark mb-1">{{ $psikolog->user->nama_lengkap }}</h5>
                     <p class="text-primary fw-medium mb-3 small">{{ $psikolog->spesialisasi ?? 'Psikolog Umum' }}</p>
                     

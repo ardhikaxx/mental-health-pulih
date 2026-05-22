@@ -17,9 +17,13 @@
             <!-- Chat Header -->
             <div class="card-header bg-white border-bottom p-3 d-flex justify-content-between align-items-center rounded-top-4">
                 <div class="d-flex align-items-center gap-3">
-                    <div class="bg-primary bg-opacity-10 text-primary rounded-circle d-flex align-items-center justify-content-center" style="width: 45px; height: 45px;">
-                        <i class="fa-solid fa-user-doctor fs-5"></i>
-                    </div>
+                    @if ($konsultasi->psikolog->user->foto_profil)
+                        <img src="{{ $konsultasi->psikolog->user->foto_profil_url }}" alt="{{ $konsultasi->psikolog->user->nama_lengkap }}" class="rounded-circle object-fit-cover border border-light-subtle shadow-sm" style="width: 45px; height: 45px;">
+                    @else
+                        <div class="bg-primary bg-opacity-10 text-primary rounded-circle d-flex align-items-center justify-content-center" style="width: 45px; height: 45px;">
+                            <i class="fa-solid fa-user-doctor fs-5"></i>
+                        </div>
+                    @endif
                     <div>
                         <h6 class="mb-0 fw-bold">{{ $konsultasi->psikolog->user->nama_lengkap }}</h6>
                         <small class="text-success fw-medium"><i class="fa-solid fa-circle me-1" style="font-size: 8px;"></i>Online</small>

@@ -6,10 +6,26 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form action="{{ $action }}" method="POST">
+                <form action="{{ $action }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     @if ($method !== 'POST') @method($method) @endif
                     <div class="row g-3">
+                        <div class="col-12">
+                            <label class="form-label fw-semibold">Foto Profil</label>
+                            <div class="d-flex align-items-center gap-3 p-3 bg-light rounded-4">
+                                @if($psikolog?->user?->foto_profil)
+                                    <img src="{{ $psikolog->user->foto_profil_url }}" alt="Preview" class="rounded-circle object-fit-cover shadow-sm" style="width: 60px; height: 60px;">
+                                @else
+                                    <div class="bg-white text-primary rounded-circle d-flex align-items-center justify-content-center shadow-sm" style="width: 60px; height: 60px;">
+                                        <i class="fa-solid fa-user-doctor fs-3"></i>
+                                    </div>
+                                @endif
+                                <div class="flex-grow-1">
+                                    <input type="file" name="foto_profil" class="form-control bg-white border-0" accept="image/jpeg,image/png,image/webp">
+                                    <small class="text-muted d-block mt-1">JPG, PNG, atau WebP. Maksimal 2MB.</small>
+                                </div>
+                            </div>
+                        </div>
                         <div class="col-md-6">
                             <label class="form-label fw-semibold">Nama Lengkap</label>
                             <input class="form-control bg-light border-0" name="nama_lengkap" value="{{ old('nama_lengkap', $psikolog?->user?->nama_lengkap) }}" required>

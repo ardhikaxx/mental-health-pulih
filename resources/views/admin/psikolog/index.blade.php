@@ -47,9 +47,13 @@
                     <td class="px-4 text-center fw-medium">{{ $psikologs->firstItem() + $loop->index }}</td>
                     <td class="px-4 fw-bold text-dark">
                         <div class="d-flex align-items-center gap-2">
-                            <div class="bg-primary bg-opacity-10 text-primary rounded-circle d-flex align-items-center justify-content-center" style="width: 35px; height: 35px;">
-                                <i class="fa-solid fa-user-doctor"></i>
-                            </div>
+                            @if ($psikolog->user->foto_profil)
+                                <img src="{{ $psikolog->user->foto_profil_url }}" alt="{{ $psikolog->user->nama_lengkap }}" class="rounded-circle object-fit-cover border border-light-subtle shadow-sm" style="width: 35px; height: 35px;">
+                            @else
+                                <div class="bg-primary bg-opacity-10 text-primary rounded-circle d-flex align-items-center justify-content-center" style="width: 35px; height: 35px;">
+                                    <i class="fa-solid fa-user-doctor"></i>
+                                </div>
+                            @endif
                             {{ $psikolog->user->nama_lengkap }}
                         </div>
                     </td>

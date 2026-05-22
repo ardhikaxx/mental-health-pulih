@@ -22,9 +22,13 @@
         <div class="col-md-6 col-xl-4">
             <div class="card border border-light-subtle h-100 p-4 rounded-4 shadow-sm transition-hover d-flex flex-column">
                 <div class="d-flex align-items-center gap-3 mb-3">
-                    <div class="bg-primary bg-opacity-10 text-primary rounded-circle d-flex align-items-center justify-content-center flex-shrink-0" style="width: 60px; height: 60px;">
-                        <i class="fa-solid fa-user-doctor fs-3"></i>
-                    </div>
+                    @if ($psikolog->user->foto_profil)
+                        <img src="{{ $psikolog->user->foto_profil_url }}" alt="{{ $psikolog->user->nama_lengkap }}" class="rounded-circle flex-shrink-0 object-fit-cover border border-light-subtle" style="width: 60px; height: 60px;">
+                    @else
+                        <div class="bg-primary bg-opacity-10 text-primary rounded-circle d-flex align-items-center justify-content-center flex-shrink-0" style="width: 60px; height: 60px;">
+                            <i class="fa-solid fa-user-doctor fs-3"></i>
+                        </div>
+                    @endif
                     <div>
                         <h6 class="fw-bold mb-1 text-dark">{{ $psikolog->user->nama_lengkap }}</h6>
                         <span class="badge bg-success bg-opacity-10 text-success rounded-pill fw-medium"><i class="fa-solid fa-stethoscope me-1"></i> {{ $psikolog->spesialisasi ?? 'Psikolog Umum' }}</span>

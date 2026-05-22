@@ -9,6 +9,7 @@ use App\Models\TbPsikolog;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Hash;
 
 class PsikologController extends Controller
@@ -50,6 +51,7 @@ class PsikologController extends Controller
             'password' => 'required|string|min:6',
             'nomor_telepon' => 'nullable|string|max:30',
             'jenis_kelamin' => 'nullable|in:laki-laki,perempuan',
+            'foto_profil' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048',
             'spesialisasi' => 'nullable|string|max:120',
             'nomor_sipa' => 'required|string|max:120|unique:tb_psikolog,nomor_sipa',
             'pendidikan' => 'nullable|string|max:255',
@@ -57,7 +59,7 @@ class PsikologController extends Controller
             'bio' => 'nullable|string',
         ]);
 
-        DB::transaction(function () use ($validated) {
+        DB::transaction(function () use ($validated, $request) {
             $user = User::create([
                 'nama_lengkap' => $validated['nama_lengkap'],
                 'email' => $validated['email'],
@@ -67,6 +69,11 @@ class PsikologController extends Controller
                 'role' => 'psikolog',
                 'status_akun' => 'aktif',
             ]);
+
+            if ($request->hasFile('foto_profil')) {
+                $user->foto_profil = $this->uploadPhoto($request->file('foto_profil'), $user);
+                $user->save();
+            }
 
             $admin = TbAdmin::where('id_user', auth()->id())->first();
 
@@ -95,6 +102,7 @@ class PsikologController extends Controller
             'password' => 'nullable|string|min:6',
             'nomor_telepon' => 'nullable|string|max:30',
             'jenis_kelamin' => 'nullable|in:laki-laki,perempuan',
+            'foto_profil' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048',
             'spesialisasi' => 'nullable|string|max:120',
             'nomor_sipa' => 'required|string|max:120|unique:tb_psikolog,nomor_sipa,'.$psikolog->id_psikolog.',id_psikolog',
             'pendidikan' => 'nullable|string|max:255',
@@ -102,13 +110,25 @@ class PsikologController extends Controller
             'bio' => 'nullable|string',
         ]);
 
-        DB::transaction(function () use ($validated, $psikolog) {
-            $psikolog->user->update([
+        DB::transaction(function () use ($validated, $psikolog, $request) {
+            $user = $psikolog->user;
+            $userData = [
                 'nama_lengkap' => $validated['nama_lengkap'],
                 'email' => $validated['email'],
                 'nomor_telepon' => $validated['nomor_telepon'] ?? null,
                 'jenis_kelamin' => $validated['jenis_kelamin'] ?? null,
-            ] + (filled($validated['password'] ?? null) ? ['password' => Hash::make($validated['password'])] : []));
+            ];
+
+            if (filled($validated['password'] ?? null)) {
+                $userData['password'] = Hash::make($validated['password']);
+            }
+
+            if ($request->hasFile('foto_profil')) {
+                $this->deletePhoto($user->foto_profil);
+                $userData['foto_profil'] = $this->uploadPhoto($request->file('foto_profil'), $user);
+            }
+
+            $user->update($userData);
 
             $psikolog->update([
                 'spesialisasi' => $validated['spesialisasi'] ?? null,
@@ -164,6 +184,33 @@ class PsikologController extends Controller
                     'status_jadwal' => 'tersedia',
                 ]);
             }
+        }
+    }
+
+    private function uploadPhoto($file, $user): string
+    {
+        $directory = storage_path('uploads/profiles/psikolog');
+
+        if (! File::exists($directory)) {
+            File::makeDirectory($directory, 0755, true);
+        }
+
+        $filename = 'profile_'.$user->id_user.'_'.time().'_'.uniqid().'.'.$file->extension();
+        $file->move($directory, $filename);
+
+        return 'psikolog/'.$filename;
+    }
+
+    private function deletePhoto(?string $filename): void
+    {
+        if (! $filename) {
+            return;
+        }
+
+        $path = storage_path('uploads/profiles/'.$filename);
+
+        if (File::exists($path) && File::isFile($path)) {
+            File::delete($path);
         }
     }
 }

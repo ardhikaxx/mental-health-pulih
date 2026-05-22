@@ -36,9 +36,13 @@
                     </td>
                     <td class="px-4 fw-bold text-primary">
                         <div class="d-flex align-items-center gap-2">
-                            <div class="bg-primary bg-opacity-10 rounded-circle d-flex align-items-center justify-content-center" style="width: 30px; height: 30px;">
-                                <i class="fa-solid fa-user-doctor"></i>
-                            </div>
+                            @if ($item->psikolog->user->foto_profil)
+                                <img src="{{ $item->psikolog->user->foto_profil_url }}" alt="{{ $item->psikolog->user->nama_lengkap }}" class="rounded-circle object-fit-cover border border-light-subtle shadow-sm" style="width: 30px; height: 30px;">
+                            @else
+                                <div class="bg-primary bg-opacity-10 rounded-circle d-flex align-items-center justify-content-center" style="width: 30px; height: 30px;">
+                                    <i class="fa-solid fa-user-doctor"></i>
+                                </div>
+                            @endif
                             {{ $item->psikolog->user->nama_lengkap ?? '-' }}
                         </div>
                     </td>
