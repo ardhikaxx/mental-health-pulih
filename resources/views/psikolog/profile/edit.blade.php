@@ -10,9 +10,14 @@
 
 <div class="row g-4 mb-4">
     <div class="col-lg-8">
-        <form method="POST" action="{{ route('psikolog.profile.update') }}">
+        <form method="POST" action="{{ route('psikolog.profile.update') }}" enctype="multipart/form-data">
             @csrf @method('PATCH')
             
+            <div class="card border-0 shadow-sm p-4 rounded-4 mb-4">
+                <h5 class="fw-bold mb-4 pb-3 border-bottom"><i class="fa-solid fa-camera text-primary me-2"></i> Foto Profil</h5>
+                @include('profile.partials.photo-field')
+            </div>
+
             <!-- Personal Information -->
             <div class="card border-0 shadow-sm p-4 rounded-4 mb-4">
                 <h5 class="fw-bold mb-4 pb-3 border-bottom"><i class="fa-solid fa-address-card text-primary me-2"></i> Informasi Pribadi</h5>

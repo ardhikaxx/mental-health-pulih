@@ -62,6 +62,11 @@ class User extends Authenticatable
         return $this->id_user;
     }
 
+    public function getFotoProfilUrlAttribute(): ?string
+    {
+        return $this->foto_profil ? url('uploads/profiles/'.$this->foto_profil) : null;
+    }
+
     public function pasien()
     {
         return $this->hasOne(TbPasien::class, 'id_user', 'id_user');

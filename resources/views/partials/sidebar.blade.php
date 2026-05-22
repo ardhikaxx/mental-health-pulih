@@ -63,6 +63,13 @@
         justify-content: center;
         color: var(--primary-green);
         font-size: 20px;
+        overflow: hidden;
+        flex-shrink: 0;
+    }
+    .profile-avatar-circle img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
     }
     .profile-meta {
         display: flex;
@@ -145,7 +152,11 @@
 
     <div class="sidebar-profile">
         <div class="profile-avatar-circle">
-            <i class="fa-solid fa-user-circle"></i>
+            @if($user?->foto_profil_url)
+                <img src="{{ $user->foto_profil_url }}" alt="Foto profil {{ $user->nama_lengkap }}">
+            @else
+                <i class="fa-solid fa-user-circle"></i>
+            @endif
         </div>
         <div class="profile-meta">
             <span class="profile-name-text">{{ $user?->nama_lengkap ?? 'Pengguna' }}</span>

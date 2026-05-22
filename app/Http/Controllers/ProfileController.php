@@ -6,11 +6,13 @@ use App\Http\Requests\ProfileUpdateRequest;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
 
 use App\Models\TbPsikolog;
 use App\Models\TbPasien;
+use App\Models\User;
 
 class ProfileController extends Controller
 {
@@ -41,11 +43,16 @@ class ProfileController extends Controller
     public function update(ProfileUpdateRequest $request): RedirectResponse
     {
         $user = $request->user();
-        $user->fill($request->validated());
+        $validated = $request->validated();
+        unset($validated['foto_profil'], $validated['hapus_foto_profil']);
+
+        $user->fill($validated);
 
         if ($user->isDirty('email')) {
             $user->email_verified_at = null;
         }
+
+        $this->syncProfilePhoto($request, $user);
 
         $user->save();
 
@@ -96,11 +103,63 @@ class ProfileController extends Controller
 
         Auth::logout();
 
+        $this->deleteProfilePhotoFile($user->foto_profil);
         $user->delete();
 
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
         return Redirect::to('/');
+    }
+
+    private function syncProfilePhoto(ProfileUpdateRequest $request, User $user): void
+    {
+        if ($request->hasFile('foto_profil')) {
+            $directory = storage_path('uploads/profiles/'.$user->role);
+
+            if (! File::exists($directory)) {
+                File::makeDirectory($directory, 0755, true);
+            }
+
+            $this->deleteProfilePhotoFile($user->foto_profil);
+
+            $file = $request->file('foto_profil');
+            $filename = 'profile_'.$user->id_user.'_'.time().'_'.uniqid().'.'.$file->extension();
+            $file->move($directory, $filename);
+
+            $user->foto_profil = $user->role.'/'.$filename;
+            return;
+        }
+
+        if ($request->boolean('hapus_foto_profil')) {
+            $this->deleteProfilePhotoFile($user->foto_profil);
+            $user->foto_profil = null;
+        }
+    }
+
+    private function deleteProfilePhotoFile(?string $filename): void
+    {
+        if (! $filename) {
+            return;
+        }
+
+        $filename = str_replace('\\', '/', $filename);
+        $segments = explode('/', $filename);
+
+        if (count($segments) === 1) {
+            $path = storage_path('uploads/profiles/'.$segments[0]);
+        } elseif (
+            count($segments) === 2
+            && in_array($segments[0], ['admin', 'psikolog', 'pasien'], true)
+            && $segments[1] === basename($segments[1])
+        ) {
+            $path = storage_path('uploads/profiles/'.$segments[0].'/'.$segments[1]);
+        } else {
+            return;
+        }
+
+        if (File::exists($path) && File::isFile($path)) {
+            File::delete($path);
+        }
     }
 }

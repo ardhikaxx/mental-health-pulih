@@ -27,9 +27,42 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Psikolog\DashboardController as PsikologDashboardController;
 use App\Http\Controllers\Psikolog\KonsultasiController as PsikologKonsultasiController;
 use App\Http\Controllers\Psikolog\PemantauanController as PsikologPemantauanController;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', fn () => view('welcome'))->name('home');
+
+Route::get('/uploads/profiles/{role}/{filename}', function (string $role, string $filename) {
+    if (! in_array($role, ['admin', 'psikolog', 'pasien'], true) || $filename !== basename($filename)) {
+        abort(404);
+    }
+
+    $path = storage_path('uploads/profiles/'.$role.'/'.$filename);
+
+    if (! File::exists($path) || ! File::isFile($path)) {
+        abort(404);
+    }
+
+    return response()->file($path, [
+        'Cache-Control' => 'public, max-age=604800',
+    ]);
+})->name('uploads.profiles.show');
+
+Route::get('/uploads/profiles/{filename}', function (string $filename) {
+    if ($filename !== basename($filename)) {
+        abort(404);
+    }
+
+    $path = storage_path('uploads/profiles/'.$filename);
+
+    if (! File::exists($path) || ! File::isFile($path)) {
+        abort(404);
+    }
+
+    return response()->file($path, [
+        'Cache-Control' => 'public, max-age=604800',
+    ]);
+})->name('uploads.profiles.legacy');
 
 Route::get('/edukasi', [EdukasiPublikController::class, 'index'])->name('edukasi.index');
 Route::get('/edukasi/video/{slug}', [EdukasiPublikController::class, 'video'])->name('edukasi.video');

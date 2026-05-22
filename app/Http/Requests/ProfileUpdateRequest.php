@@ -35,6 +35,8 @@ class ProfileUpdateRequest extends FormRequest
             ],
             'nomor_telepon' => ['nullable', 'string', 'max:30'],
             'jenis_kelamin' => ['nullable', 'in:laki-laki,perempuan'],
+            'foto_profil' => ['nullable', 'image', 'mimes:jpg,jpeg,png,webp', 'max:2048'],
+            'hapus_foto_profil' => ['nullable', 'boolean'],
         ];
     }
 }

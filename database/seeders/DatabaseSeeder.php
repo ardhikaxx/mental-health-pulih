@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\HasilSkrining;
 use App\Models\DetailHasilSkrining;
+use App\Models\JawabanPemantauan;
 use App\Models\JawabanSkrining;
 use App\Models\JadwalPsikolog;
 use App\Models\JenisSkrining;
@@ -11,6 +12,7 @@ use App\Models\KategoriEdukasi;
 use App\Models\KontenEdukasi;
 use App\Models\Konsultasi;
 use App\Models\PendaftaranKonsultasi;
+use App\Models\PemantauanMental;
 use App\Models\PertanyaanPemantauan;
 use App\Models\PertanyaanSkrining;
 use App\Models\RingkasanPasien;
@@ -212,19 +214,27 @@ class DatabaseSeeder extends Seeder
             }
         }
 
+        PertanyaanPemantauan::query()->update(['status' => 'nonaktif']);
+
         foreach ([
-            'Apakah kamu merasa sedih hari ini?',
-            'Apakah kamu merasa cemas atau khawatir?',
+            'Apakah kamu merasa nyaman dengan dirimu sendiri?',
+            'Apakah kamu merasa stres akhir-akhir ini?',
+            'Apakah kamu sering mimpi buruk tentang kejadian tertentu?',
+            'Apakah kamu takut ditinggalkan orang terdekat?',
+            'Apakah emosimu sering naik turun dengan cepat?',
+            'Apakah kamu merasa sulit membedakan kenyataan dan pikiran?',
+            'Apakah kamu sering merasa cemas berlebihan?',
             'Apakah kamu merasa tidak berharga atau putus asa?',
-            'Apakah kamu pernah mendengar suara yang orang lain tidak dengar?',
         ] as $index => $teks) {
-            PertanyaanPemantauan::firstOrCreate([
+            PertanyaanPemantauan::updateOrCreate([
                 'pertanyaan' => $teks,
             ], [
                 'urutan' => $index + 1,
                 'status' => 'aktif',
             ]);
         }
+
+        $pasiens->each(fn (TbPasien $pasien) => $this->seedPemantauanPasien($pasien));
 
         $slots = [
             ['08:00', '09:00'],
@@ -312,6 +322,174 @@ class DatabaseSeeder extends Seeder
                 'keterangan_hasil' => 'Data contoh hasil skrining.',
             ]);
         }
+    }
+
+    private function seedPemantauanPasien(TbPasien $pasien): void
+    {
+        $pertanyaanIds = PertanyaanPemantauan::where('status', 'aktif')
+            ->orderBy('urutan')
+            ->pluck('id_pertanyaan_pemantauan')
+            ->values();
+
+        if ($pertanyaanIds->isEmpty()) {
+            return;
+        }
+
+        $patterns = $this->polaPemantauanPasien($pasien->user?->email);
+
+        foreach ($patterns as $index => $answers) {
+            $date = today()->subDays(20 - $index)->toDateString();
+            $total = array_sum($answers);
+            [$kondisi, $emoji] = $this->kondisiPemantauan($total);
+
+            $pemantauan = PemantauanMental::updateOrCreate([
+                'id_pasien' => $pasien->id_pasien,
+                'tanggal_pemantauan' => $date,
+            ], [
+                'total_skor' => $total,
+                'kondisi_mental' => $kondisi,
+                'emoji_kondisi' => $emoji,
+                'keterangan' => 'Data pemantauan historis untuk tren kondisi mental.',
+            ]);
+
+            foreach ($pertanyaanIds as $answerIndex => $questionId) {
+                JawabanPemantauan::updateOrCreate([
+                    'id_pemantauan' => $pemantauan->id_pemantauan,
+                    'id_pertanyaan_pemantauan' => $questionId,
+                ], [
+                    'emoji_jawaban' => ':)',
+                    'nilai_jawaban' => $answers[$answerIndex] ?? 0,
+                ]);
+            }
+
+            JawabanPemantauan::where('id_pemantauan', $pemantauan->id_pemantauan)
+                ->whereNotIn('id_pertanyaan_pemantauan', $pertanyaanIds)
+                ->delete();
+        }
+
+        $latestAnswers = $patterns[array_key_last($patterns)];
+        $latestTotal = array_sum($latestAnswers);
+        [$latestKondisi] = $this->kondisiPemantauan($latestTotal);
+
+        RingkasanPasien::updateOrCreate([
+            'id_pasien' => $pasien->id_pasien,
+        ], [
+            'kondisi_terakhir' => 'Pemantauan '.$latestKondisi,
+            'skor_terakhir' => $latestTotal,
+            'perubahan' => $latestKondisi === 'parah' ? 'memburuk' : ($latestKondisi === 'baik' ? 'membaik' : 'stabil'),
+            'prioritas' => $latestKondisi === 'parah' ? 'tinggi' : ($latestKondisi === 'sedang' ? 'sedang' : 'rendah'),
+            'keterangan' => 'Data pemantauan historis untuk tren kondisi mental.',
+            'tanggal_update' => today()->toDateString(),
+        ]);
+    }
+
+    private function polaPemantauanPasien(?string $email): array
+    {
+        $patterns = [
+            'leonita@ruangpulih.test' => [
+                [0, 1, 0, 0, 1, 0, 1, 0],
+                [1, 1, 0, 0, 1, 0, 1, 0],
+                [1, 1, 1, 0, 1, 0, 1, 0],
+                [1, 2, 1, 0, 1, 0, 1, 0],
+                [1, 2, 1, 1, 1, 0, 1, 0],
+                [1, 2, 1, 1, 1, 1, 1, 0],
+                [2, 2, 1, 1, 1, 1, 1, 0],
+                [2, 2, 1, 1, 2, 1, 1, 0],
+                [2, 3, 2, 1, 2, 1, 1, 0],
+                [2, 3, 2, 1, 2, 1, 2, 0],
+                [2, 2, 1, 1, 2, 1, 1, 0],
+                [1, 2, 1, 1, 1, 1, 1, 0],
+                [1, 2, 1, 0, 1, 0, 1, 0],
+                [1, 1, 1, 0, 1, 0, 1, 0],
+                [1, 1, 0, 0, 1, 0, 1, 0],
+                [1, 2, 0, 0, 1, 0, 1, 0],
+                [1, 2, 1, 0, 1, 0, 1, 0],
+                [1, 2, 1, 1, 1, 0, 1, 0],
+                [2, 2, 1, 1, 1, 0, 1, 0],
+                [2, 2, 1, 1, 1, 1, 1, 0],
+            ],
+            'annida@ruangpulih.test' => [
+                [1, 2, 1, 1, 2, 0, 2, 1],
+                [1, 2, 1, 1, 1, 0, 2, 1],
+                [1, 1, 1, 1, 1, 0, 2, 1],
+                [1, 1, 1, 0, 1, 0, 1, 1],
+                [1, 1, 0, 0, 1, 0, 1, 0],
+                [0, 1, 0, 0, 1, 0, 1, 0],
+                [0, 1, 0, 0, 0, 0, 1, 0],
+                [0, 1, 0, 0, 0, 0, 0, 0],
+                [0, 0, 0, 0, 0, 0, 1, 0],
+                [0, 1, 0, 0, 0, 0, 1, 0],
+                [0, 1, 0, 0, 1, 0, 1, 0],
+                [1, 1, 0, 0, 1, 0, 1, 0],
+                [1, 1, 1, 0, 1, 0, 1, 0],
+                [1, 2, 1, 0, 1, 0, 1, 0],
+                [1, 2, 1, 1, 1, 0, 1, 0],
+                [1, 1, 1, 0, 1, 0, 1, 0],
+                [1, 1, 0, 0, 1, 0, 1, 0],
+                [0, 1, 0, 0, 1, 0, 1, 0],
+                [0, 1, 0, 0, 0, 0, 1, 0],
+                [0, 1, 0, 0, 0, 0, 0, 0],
+            ],
+            'kafi@ruangpulih.test' => [
+                [2, 3, 2, 2, 2, 1, 2, 1],
+                [2, 3, 2, 2, 3, 1, 2, 1],
+                [3, 3, 2, 2, 3, 1, 2, 1],
+                [3, 3, 2, 3, 3, 1, 3, 1],
+                [3, 3, 3, 3, 3, 2, 3, 1],
+                [3, 3, 3, 3, 3, 2, 3, 2],
+                [3, 2, 3, 3, 3, 2, 3, 2],
+                [3, 2, 2, 3, 3, 2, 3, 2],
+                [2, 2, 2, 2, 3, 2, 3, 2],
+                [2, 2, 2, 2, 2, 2, 2, 2],
+                [2, 2, 1, 2, 2, 1, 2, 1],
+                [2, 2, 1, 1, 2, 1, 2, 1],
+                [2, 1, 1, 1, 2, 1, 2, 1],
+                [1, 1, 1, 1, 2, 1, 2, 1],
+                [1, 1, 1, 1, 1, 1, 2, 1],
+                [1, 1, 1, 1, 1, 0, 2, 1],
+                [1, 1, 0, 1, 1, 0, 1, 1],
+                [1, 1, 0, 0, 1, 0, 1, 0],
+                [1, 0, 0, 0, 1, 0, 1, 0],
+                [0, 1, 0, 0, 1, 0, 1, 0],
+            ],
+            'sitiaisa@ruangpulih.test' => [
+                [1, 1, 0, 0, 1, 0, 1, 0],
+                [1, 1, 0, 0, 1, 0, 1, 0],
+                [1, 2, 0, 0, 1, 0, 1, 0],
+                [1, 2, 1, 0, 1, 0, 1, 0],
+                [2, 2, 1, 0, 1, 0, 2, 0],
+                [2, 2, 1, 1, 2, 0, 2, 0],
+                [2, 3, 1, 1, 2, 1, 2, 0],
+                [2, 3, 2, 1, 2, 1, 2, 1],
+                [2, 2, 2, 1, 2, 1, 2, 1],
+                [2, 2, 1, 1, 2, 1, 2, 0],
+                [1, 2, 1, 1, 2, 0, 2, 0],
+                [1, 2, 1, 0, 1, 0, 2, 0],
+                [1, 1, 1, 0, 1, 0, 1, 0],
+                [1, 1, 0, 0, 1, 0, 1, 0],
+                [0, 1, 0, 0, 1, 0, 1, 0],
+                [0, 1, 0, 0, 0, 0, 1, 0],
+                [1, 1, 0, 0, 1, 0, 1, 0],
+                [1, 2, 0, 0, 1, 0, 1, 0],
+                [1, 2, 1, 0, 1, 0, 1, 0],
+                [1, 2, 1, 1, 1, 0, 1, 0],
+            ],
+        ];
+
+        return $patterns[$email] ?? $patterns['leonita@ruangpulih.test'];
+    }
+
+    private function kondisiPemantauan(int $total): array
+    {
+        if ($total <= 3) {
+            return ['baik', ':)'];
+        }
+
+        if ($total <= 7) {
+            return ['sedang', ':|'];
+        }
+
+        return ['parah', ':('];
     }
 
     private function pertanyaanUntuk(string $penyakit, int $jumlah): array

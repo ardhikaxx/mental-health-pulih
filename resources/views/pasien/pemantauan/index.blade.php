@@ -213,18 +213,27 @@
     window.handleAnswerSelection = function(input) {
         applyActiveState(input);
         updateUI();
+    }
 
-        // Auto-advance
-        if (currentIndex < totalQuestions - 1) {
-            setTimeout(() => {
-                navigateQuestion(1);
-            }, 400);
-        } else if (currentIndex === totalQuestions - 1) {
-            // If it's the last question, wait a bit then go to the "Catatan Tambahan"
-            setTimeout(() => {
-                navigateQuestion(1);
-            }, 400);
+    function navigateQuestion(step) {
+        const newIndex = currentIndex + step;
+
+        if (newIndex < 0 || newIndex >= totalSteps) {
+            return;
         }
+
+        if (step > 0 && currentIndex < totalQuestions) {
+            const currentCard = document.getElementById('question-' + currentIndex);
+            const isAnswered = currentCard && currentCard.querySelector('.answer-radio:checked');
+
+            if (!isAnswered) {
+                return;
+            }
+        }
+
+        currentIndex = newIndex;
+        updateUI();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
     function validateSubmit(event) {

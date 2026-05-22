@@ -13,8 +13,9 @@
         <div class="card border-0 shadow-sm p-4 rounded-4">
             <h5 class="fw-bold mb-4 pb-3 border-bottom"><i class="fa-solid fa-address-card text-primary me-2"></i> Informasi Profil</h5>
             
-            <form method="POST" action="{{ route('pasien.profile.update') }}">
+            <form method="POST" action="{{ route('pasien.profile.update') }}" enctype="multipart/form-data">
                 @csrf @method('PATCH')
+                @include('profile.partials.photo-field')
                 <div class="row g-4">
                     <div class="col-md-6">
                         <label class="form-label fw-semibold text-dark">Nama Lengkap</label>
