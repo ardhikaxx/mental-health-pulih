@@ -5,13 +5,13 @@
     <title>Surat Pengantar Hasil Skrining - Ruang Pulih</title>
     <style>
         @page { margin: 2cm; }
-        body { font-family: 'Helvetica', 'Arial', sans-serif; color: #333; line-height: 1.5; font-size: 12px; }
+        body { font-family: 'Times New Roman', Times, serif; color: #333; line-height: 1.5; font-size: 12pt; }
         
         /* Letterhead / Kop Surat */
         .kop-surat { border-bottom: 3px double #005c34; padding-bottom: 25px; margin-bottom: 35px; position: relative; min-height: 125px; }
         .kop-logo { position: absolute; left: 0; top: -15px; width: 130px; height: 130px; }
         .kop-detail { text-align: center; margin-left: 135px; margin-right: 10px; }
-        .kop-title { font-size: 22px; font-weight: bold; color: #005c34; margin-bottom: 5px; text-transform: uppercase; }
+        .kop-title { font-family: 'Arial', sans-serif; font-size: 22px; font-weight: bold; color: #005c34; margin-bottom: 5px; text-transform: uppercase; }
         .kop-subtitle { font-size: 11px; color: #555; margin-bottom: 3px; }
         .kop-contact { font-size: 10px; color: #777; font-style: italic; }
 
@@ -21,7 +21,7 @@
         .tujuan-surat { margin-bottom: 25px; }
         .tujuan-surat p { margin: 0; }
         
-        .judul-laporan { text-align: center; font-size: 16px; font-weight: bold; text-decoration: underline; margin-bottom: 25px; text-transform: uppercase; }
+        .judul-laporan { text-align: center; font-size: 14pt; font-weight: bold; text-decoration: underline; margin-bottom: 25px; text-transform: uppercase; }
         
         .section-title { font-weight: bold; text-decoration: underline; margin-bottom: 10px; margin-top: 20px; display: block; }
         
@@ -31,7 +31,7 @@
         .data-separator { width: 15px; text-align: center; }
         
         .hasil-box { background: #f9f9f9; border: 1px solid #ddd; padding: 15px; margin: 15px 0; border-radius: 5px; }
-        .hasil-utama { font-size: 14px; font-weight: bold; color: #005c34; margin-bottom: 10px; }
+        .hasil-utama { font-size: 13pt; font-weight: bold; color: #005c34; margin-bottom: 10px; }
         
         .rekomendasi { border: 1px dashed #005c34; padding: 15px; margin-top: 20px; background-color: #f0fdf4; }
 
@@ -40,7 +40,7 @@
         
         .clear { clear: both; }
         
-        .watermark { position: fixed; bottom: 0; left: 0; right: 0; text-align: center; font-size: 9px; color: #aaa; border-top: 1px solid #eee; padding-top: 5px; }
+        .watermark { position: fixed; bottom: 0; left: 0; right: 0; text-align: center; font-size: 9pt; color: #aaa; border-top: 1px solid #eee; padding-top: 5px; }
     </style>
 </head>
 <body>
