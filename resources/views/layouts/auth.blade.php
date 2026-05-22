@@ -23,14 +23,14 @@
         /* Left Panel */
         .left-panel {
             position: relative; height: 100vh; padding: 48px 64px;
-            background-image: url("{{ asset('assets/images/login.png') }}");
-            background-size: cover; background-position: center;
+            background: url("{{ asset('assets/images/login.png') }}") no-repeat center center;
+            background-size: cover;
             display: flex; flex-direction: column;
         }
         .left-panel::before {
             content: "";
             position: absolute; inset: 0;
-            background: linear-gradient(135deg, rgba(0, 92, 52, 0.4), rgba(0, 0, 0, 0.3));
+            background: rgba(0, 0, 0, 0.1);
             z-index: 1;
         }
         .left-panel > * { position: relative; z-index: 2; }
