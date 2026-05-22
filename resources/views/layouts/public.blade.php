@@ -48,7 +48,6 @@
         .brand { display: flex; align-items: center; gap: 12px; }
         .brand img { width: 48px; height: 48px; object-fit: contain; }
         .brand-title { font-size: 20px; font-weight: 800; color: #005c34; }
-        .brand-subtitle { display: none; }
 
         .public-menu { display: flex; align-items: center; gap: 8px; }
         .public-menu a { 
@@ -70,10 +69,56 @@
             border-radius: 12px; 
             font-size: 16px; 
             font-weight: 700; 
-            transition: transform 0.2s;
+            transition: all 0.2s;
         }
-        .login-link:hover { transform: translateY(-1px); }
+        .login-link:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0, 92, 52, 0.2); color: #fff; }
         .fa-inline { margin-right: 6px; }
+
+        /* Hamburger Menu */
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 24px;
+            color: #005c34;
+            cursor: pointer;
+            padding: 8px;
+        }
+
+        @media (max-width: 1024px) {
+            .public-nav { padding: 0 20px; height: 70px; }
+            .menu-toggle { display: block; order: 2; }
+            .nav-right { order: 3; }
+            
+            .public-menu {
+                position: absolute;
+                top: calc(100% + 12px);
+                left: 0;
+                right: 0;
+                background: #fff;
+                flex-direction: column;
+                padding: 16px;
+                border-radius: 20px;
+                box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+                border: 1px solid #f0fdf4;
+                gap: 8px;
+                display: none;
+                animation: slideDown 0.3s ease-out;
+            }
+            .public-menu.active { display: flex; }
+            .public-menu a { width: 100%; text-align: center; }
+            
+            @keyframes slideDown {
+                from { transform: translateY(-10px); opacity: 0; }
+                to { transform: translateY(0); opacity: 1; }
+            }
+        }
+
+        @media (max-width: 576px) {
+            .brand-title { display: none; }
+            .public-nav { padding: 0 16px; }
+            .login-link { padding: 8px 16px; font-size: 14px; }
+        }
 
         /* Existing Styles ... */
         .hero { border-radius: 14px; background: linear-gradient(90deg, #cfffe0 0%, #a9edc7 42%, #55cda3 100%); display: grid; grid-template-columns: 1fr 0.9fr; min-height: 320px; overflow: hidden; padding: 54px 64px 0; margin-bottom: 10px; }
@@ -163,7 +208,11 @@
                 <span class="brand-title">Ruang Pulih</span>
             </a>
 
-            <div class="public-menu">
+            <button class="menu-toggle" id="menuToggle">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+
+            <div class="public-menu" id="publicMenu">
                 <a class="{{ request()->routeIs('edukasi.*') ? 'active' : '' }}" href="{{ route('edukasi.index') }}"><i class="fa-solid fa-book-open fa-inline"></i>Edukasi</a>
                 <a class="{{ request()->routeIs('about.*') ? 'active' : '' }}" href="{{ route('about.index') }}"><i class="fa-solid fa-circle-info fa-inline"></i>About</a>
                 <a class="{{ request()->routeIs('bantuan.*') ? 'active' : '' }}" href="{{ route('bantuan.index') }}"><i class="fa-solid fa-headset fa-inline"></i>Bantuan</a>
@@ -182,6 +231,29 @@
         <div class="footer-space"></div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.getElementById('menuToggle').addEventListener('click', function() {
+            const menu = document.getElementById('publicMenu');
+            const icon = this.querySelector('i');
+            menu.classList.toggle('active');
+            
+            if (menu.classList.contains('active')) {
+                icon.classList.replace('fa-bars', 'fa-times');
+            } else {
+                icon.classList.replace('fa-times', 'fa-bars');
+            }
+        });
+
+        // Close menu when clicking outside
+        document.addEventListener('click', function(event) {
+            const menu = document.getElementById('publicMenu');
+            const toggle = document.getElementById('menuToggle');
+            if (!menu.contains(event.target) && !toggle.contains(event.target)) {
+                menu.classList.remove('active');
+                toggle.querySelector('i').classList.replace('fa-times', 'fa-bars');
+            }
+        });
+    </script>
     @stack('scripts')
 </body>
 </html>
