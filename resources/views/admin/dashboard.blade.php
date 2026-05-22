@@ -35,7 +35,7 @@
     <div class="grid grid-4 mb-5" style="gap: 30px;">
         @php
             $stat_items = [
-                ['label' => 'Artikel Edukasi', 'value' => $stats['artikel'], 'icon' => 'fa-newspaper', 'color' => 'blue', 'trend' => '+5'],
+                ['label' => 'Artikel Edukasi', 'value' => $stats['artikel'], 'icon' => 'fa-newspaper', 'color' => 'primary-green', 'trend' => '+5'],
                 ['label' => 'Video Edukasi', 'value' => $stats['video'], 'icon' => 'fa-circle-play', 'color' => 'purple', 'trend' => '+2'],
                 ['label' => 'Total Pasien', 'value' => $stats['pasien'], 'icon' => 'fa-users', 'color' => 'emerald', 'trend' => '+18'],
                 ['label' => 'Sesi Konsultasi', 'value' => $stats['konsultasi'], 'icon' => 'fa-comments', 'color' => 'amber', 'trend' => '+12'],
@@ -195,7 +195,7 @@
                 <h3 class="side-card-title">Aktivitas Terbaru</h3>
                 <div class="modern-timeline">
                     <div class="timeline-entry">
-                        <div class="entry-marker blue"></div>
+                        <div class="entry-marker primary-green"></div>
                         <div class="entry-content">
                             <h6>Konten Baru</h6>
                             <p>Administrator mempublish artikel baru.</p>
@@ -350,7 +350,7 @@
         font-size: 22px;
     }
     /* Color Variations */
-    .blue .card-icon { background: #eff6ff; color: #3b82f6; }
+    .primary-green .card-icon { background: #f0fdf4; color: var(--primary-green); }
     .purple .card-icon { background: #f5f3ff; color: #8b5cf6; }
     .emerald .card-icon { background: #f0fdf4; color: #10b981; }
     .amber .card-icon { background: #fffbeb; color: #f59e0b; }
@@ -482,17 +482,16 @@
     }
     .timeline-entry { position: relative; display: flex; gap: 15px; }
 .entry-marker {
-        width: 0.625rem; height: 0.625rem;
-        border-radius: 50%;
-        background: #cbd5e1;
-        margin-top: 6px;
-        position: relative; z-index: 2;
-        box-shadow: 0 0 0 4px #fff;
+    width: 0.625rem; height: 0.625rem;
+    border-radius: 50%;
+    background: #cbd5e1;
+    margin-top: 6px;
+    position: relative; z-index: 2;
+    box-shadow: 0 0 0 4px #fff;
 }
-    .entry-marker.blue { background: #3b82f6; }
-    .entry-marker.green { background: #10b981; }
-    .entry-marker.amber { background: #f59e0b; }
-
+.entry-marker.primary-green { background: var(--primary-green); }
+.entry-marker.green { background: #10b981; }
+.entry-marker.amber { background: #f59e0b; }
     .entry-content h6 { font-size: 14px; font-weight: 800; margin-bottom: 2px; }
     .entry-content p { font-size: 13px; color: var(--text-muted); line-height: 1.4; margin-bottom: 4px; }
     .entry-time { font-size: 11px; font-weight: 700; color: #94a3b8; text-transform: uppercase; }

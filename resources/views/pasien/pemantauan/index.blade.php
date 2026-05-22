@@ -33,7 +33,7 @@
                 <div class="card border-0 shadow-sm p-3 mb-4 rounded-4">
                     <div class="d-flex justify-content-between align-items-center mb-2">
                         <span class="fw-bold text-primary" id="progressText">Pertanyaan 1 dari {{ count($pertanyaan) }}</span>
-                        <span class="badge bg-primary bg-opacity-10 text-primary rounded-pill px-3" id="progressPercentage">0%</span>
+                        <span class="badge bg-primary bg-opacity-10 text-white rounded-pill px-3" id="progressPercentage">0%</span>
                     </div>
                     <div class="progress" style="height: 10px; border-radius: 10px;">
                         <div class="progress-bar progress-bar-striped progress-bar-animated bg-primary" id="progressBar" role="progressbar" style="width: 0%; transition: width 0.4s ease;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>

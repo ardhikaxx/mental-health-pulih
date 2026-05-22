@@ -38,7 +38,7 @@
         }
 
         .home-title {
-            color: #2b7d4f;
+            color: #005c34;
             font-size: clamp(32px, 5vw, 72px);
             font-weight: 800;
             line-height: 1.2;
@@ -47,7 +47,7 @@
         }
 
         .home-subtitle {
-            color: #2b7d4f;
+            color: #005c34;
             font-size: clamp(18px, 2.5vw, 36px);
             line-height: 1.4;
             margin-top: 20px;
@@ -66,7 +66,7 @@
 
         .start-button {
             align-items: center;
-            background: #2f8658;
+            background: #005c34;
             border-radius: 50px;
             box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
             color: #fff;
@@ -83,7 +83,7 @@
         }
 
         .start-button:hover {
-            background: #267348;
+            background: #00874e;
             transform: translateY(-3px);
             box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
         }

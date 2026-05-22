@@ -81,22 +81,16 @@
                                 'menonton_video' => 'fa-play-circle',
                                 default => 'fa-circle-dot'
                             };
-                            $color = match($item->jenis_aktivitas) {
-                                'skrining' => 'info',
-                                'konsultasi' => 'primary',
-                                'pemantauan_mental' => 'danger',
-                                'membaca_artikel' => 'success',
-                                'menonton_video' => 'warning',
-                                default => 'secondary'
-                            };
+                            // Menggunakan primary untuk semua jenis aktivitas sesuai instruksi
+                            $color = 'primary';
                         @endphp
                         <div class="position-relative mb-4 ps-5">
                             <!-- Icon Dot -->
-                            <div class="position-absolute start-0 translate-middle-x bg-white rounded-circle shadow-sm border border-2 border-{{ $color }} d-flex align-items-center justify-content-center" style="width: 36px; height: 36px; left: 17px; z-index: 2;">
-                                <i class="fa-solid {{ $icon }} text-{{ $color }}" style="font-size: 0.9rem;"></i>
+                            <div class="position-absolute start-0 translate-middle-x bg-white rounded-circle shadow-sm border border-2 border-primary d-flex align-items-center justify-content-center" style="width: 36px; height: 36px; left: 17px; z-index: 2;">
+                                <i class="fa-solid {{ $icon }} text-primary" style="font-size: 0.9rem;"></i>
                             </div>
                             
-                            <div class="p-3 bg-light bg-opacity-50 rounded-4 border border-transparent transition-all hover-border-{{ $color }} hover-bg-white">
+                            <div class="p-3 bg-light bg-opacity-50 rounded-4 border border-transparent transition-all hover-border-primary hover-bg-white">
                                 <div class="d-flex flex-column flex-sm-row justify-content-between align-items-start align-items-sm-center gap-2 mb-2">
                                     <h6 class="fw-bold mb-0 text-dark text-capitalize">{{ str_replace('_', ' ', $item->jenis_aktivitas) }}</h6>
                                     <span class="badge bg-white text-muted border fw-medium" style="font-size: 0.7rem;">
@@ -124,7 +118,7 @@
             
             <!-- Wellness Tips -->
             <div class="card border-0 shadow-sm p-4 text-center overflow-hidden position-relative" style="background-color: #f0fdf4;">
-                <i class="fa-solid fa-leaf text-success opacity-10" style="font-size: 150px; position: absolute; right: -20px; bottom: -20px;"></i>
+                <i class="fa-solid fa-leaf text-success" style="font-size: 150px; position: absolute; right: -20px; bottom: -20px; opacity: 0.05;"></i>
                 <div style="position: relative; z-index: 2;">
                     <div class="bg-success bg-opacity-10 text-success rounded-circle d-inline-flex justify-content-center align-items-center mb-3" style="width: 3.125rem; height: 3.125rem;">
                         <i class="fa-solid fa-leaf fs-4"></i>

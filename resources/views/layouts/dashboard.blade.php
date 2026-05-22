@@ -35,6 +35,38 @@
             --bs-link-hover-color: #004a29;
         }
 
+        /* Comprehensive Bootstrap Primary Overrides */
+        .text-primary { color: var(--primary-green) !important; }
+        .bg-primary { 
+            background-color: var(--primary-green) !important; 
+            color: #fff !important;
+        }
+        .btn-primary { 
+            background-color: var(--primary-green) !important; 
+            border-color: var(--primary-green) !important;
+            color: #fff !important;
+        }
+        .btn-primary:hover, .btn-primary:focus, .btn-primary:active {
+            background-color: var(--secondary-green) !important;
+            border-color: var(--secondary-green) !important;
+            color: #fff !important;
+        }
+        .btn-outline-primary {
+            color: var(--primary-green) !important;
+            border-color: var(--primary-green) !important;
+        }
+        .btn-outline-primary:hover, .btn-outline-primary:focus, .btn-outline-primary:active {
+            background-color: var(--primary-green) !important;
+            border-color: var(--primary-green) !important;
+            color: #fff !important;
+        }
+        .border-primary { border-color: var(--primary-green) !important; }
+        .badge.bg-primary { background-color: var(--primary-green) !important; }
+        .link-primary { color: var(--primary-green) !important; }
+        .link-primary:hover { color: var(--secondary-green) !important; }
+        .list-group-item-primary { background-color: var(--bs-primary-bg-subtle) !important; color: var(--bs-primary-text-emphasis) !important; }
+        .alert-primary { background-color: var(--bs-primary-bg-subtle) !important; border-color: var(--bs-primary-border-subtle) !important; color: var(--bs-primary-text-emphasis) !important; }
+
         * { box-sizing: border-box; margin: 0; padding: 0; }
         
         body { 
