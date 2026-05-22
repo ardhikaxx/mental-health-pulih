@@ -137,10 +137,5 @@
     </div>
 
     <div class="clear"></div>
-
-    <div class="watermark">
-        Dokumen ini sah dan diterbitkan secara otomatis oleh Sistem Informasi Ruang Pulih pada {{ now()->format('d/m/Y H.i') }} WIB. <br>
-        Keaslian dokumen dapat dikonfirmasi melalui support@ruangpulih.id
-    </div>
 </body>
 </html>
