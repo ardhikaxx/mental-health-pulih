@@ -30,6 +30,8 @@ use App\Http\Controllers\Psikolog\PemantauanController as PsikologPemantauanCont
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Route;
 
+use App\Http\Controllers\Auth\FirebaseAuthController;
+
 Route::get('/', fn () => view('welcome'))->name('home');
 
 Route::get('/uploads/profiles/{role}/{filename}', function (string $role, string $filename) {
@@ -82,6 +84,7 @@ Route::prefix('bantuan')->name('bantuan.')->group(function () {
 });
 
 Route::middleware('guest')->group(function () {
+    Route::post('/auth/google/firebase', [FirebaseAuthController::class, 'handleGoogleLogin'])->name('auth.google.firebase');
     Route::get('/login', [AuthenticatedSessionController::class, 'create'])->name('login');
     Route::post('/login', [AuthenticatedSessionController::class, 'store']);
     Route::get('/register', [RegisteredUserController::class, 'create'])->name('register');

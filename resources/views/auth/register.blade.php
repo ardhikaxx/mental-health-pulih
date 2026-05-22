@@ -40,12 +40,74 @@
     </form>
     
     <div class="divider">atau daftar dengan</div>
-    <a href="#" class="google-btn"><i class="fa-brands fa-google"></i> Google</a>
+    <button type="button" onclick="loginWithGoogle()" class="google-btn" id="google-login-btn">
+        <i class="fa-brands fa-google"></i> Google
+    </button>
 
     <div class="auth-footer">
         Sudah punya akun? <a href="{{ route('login') }}">Masuk di sini</a>
     </div>
 
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-app.js";
+        import { getAuth, GoogleAuthProvider, signInWithPopup } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-auth.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyA1BExAFzR75PxAkLAowpUzzA5wzhVfCHU",
+            authDomain: "ruang-pulih-654c5.firebaseapp.com",
+            projectId: "ruang-pulih-654c5",
+            storageBucket: "ruang-pulih-654c5.firebasestorage.app",
+            messagingSenderId: "352089767597",
+            appId: "1:352089767597:web:16482acc174ccc44749024"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const provider = new GoogleAuthProvider();
+
+        window.loginWithGoogle = function() {
+            const btn = document.getElementById('google-login-btn');
+            const originalContent = btn.innerHTML;
+            btn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i> Loading...';
+            btn.disabled = true;
+
+            signInWithPopup(auth, provider)
+                .then((result) => {
+                    return result.user.getIdToken();
+                })
+                .then((idToken) => {
+                    return fetch("{{ route('auth.google.firebase') }}", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                            "Accept": "application/json",
+                            "X-CSRF-TOKEN": "{{ csrf_token() }}"
+                        },
+                        body: JSON.stringify({ id_token: idToken })
+                    });
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        window.location.href = data.redirect;
+                    } else {
+                        throw new Error(data.message || 'Terjadi kesalahan sistem');
+                    }
+                })
+                .catch((error) => {
+                    console.error("Auth Error:", error);
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Login Gagal',
+                        text: error.message,
+                        confirmButtonColor: '#005c34',
+                    });
+                    btn.innerHTML = originalContent;
+                    btn.disabled = false;
+                });
+        }
+    </script>
     <script>
         function togglePassword(inputId, iconId) {
             const input = document.getElementById(inputId);
