@@ -38,7 +38,7 @@
                         @if ($konsultasi->status_konsultasi === 'permintaan_baru')
                             <span class="badge bg-secondary bg-opacity-10 text-secondary px-3 py-2 rounded-pill shadow-sm">Menunggu Persetujuan</span>
                         @elseif (in_array($konsultasi->status_konsultasi, ['disetujui', 'terjadwal']))
-                            <span class="badge bg-info bg-opacity-10 text-info px-3 py-2 rounded-pill shadow-sm">Terjadwal</span>
+                            <span class="badge bg-primary bg-opacity-10 text-primary px-3 py-2 rounded-pill shadow-sm">Terjadwal</span>
                         @elseif (in_array($konsultasi->status_konsultasi, ['berlangsung', 'follow_up']))
                             <span class="badge bg-warning bg-opacity-10 text-warning px-3 py-2 rounded-pill shadow-sm">Sedang Berlangsung</span>
                         @elseif ($konsultasi->status_konsultasi === 'selesai')
@@ -65,7 +65,7 @@
                         <i class="fa-solid fa-clock-rotate-left me-2"></i> Jadwal Anda sedang ditinjau. Mohon tunggu psikolog menyetujui permintaan konsultasi Anda. Notifikasi akan masuk setelah jadwal dikonfirmasi.
                     </div>
                 @elseif ($konsultasi->status_konsultasi === 'selesai')
-                    <div class="alert alert-info bg-info bg-opacity-10 border-0 text-info mb-0 text-start rounded-4" role="alert">
+                    <div class="alert alert-primary bg-primary bg-opacity-10 border-0 text-primary mb-0 text-start rounded-4" role="alert">
                         <i class="fa-solid fa-clipboard-check me-2"></i> Sesi konsultasi ini telah selesai. Terima kasih telah menggunakan layanan Ruang Pulih.
                     </div>
                 @endif

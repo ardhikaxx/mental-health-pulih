@@ -51,9 +51,9 @@
                     <td class="px-4 fw-bold text-dark">{{ $konten->judul_konten }}</td>
                     <td class="px-4 text-center">
                         @if($konten->tipe_konten == 'artikel')
-                            <span class="badge bg-info bg-opacity-10 text-info px-3 py-2 rounded-pill"><i class="fa-solid fa-file-lines me-1"></i> Artikel</span>
+                            <span class="badge bg-primary bg-opacity-10 text-primary px-3 py-2 rounded-pill"><i class="fa-solid fa-file-lines me-1"></i> Artikel</span>
                         @else
-                            <span class="badge bg-warning bg-opacity-10 text-warning px-3 py-2 rounded-pill"><i class="fa-solid fa-play me-1"></i> Video</span>
+                            <span class="badge bg-primary bg-opacity-10 text-primary px-3 py-2 rounded-pill"><i class="fa-solid fa-play me-1"></i> Video</span>
                         @endif
                     </td>
                     <td class="px-4">{{ $konten->kategori->nama_kategori ?? '-' }}</td>

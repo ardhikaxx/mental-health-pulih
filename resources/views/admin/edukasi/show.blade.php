@@ -6,7 +6,7 @@
         <h1 class="mb-2">{{ $edukasi->judul_konten }}</h1>
         <div class="d-flex align-items-center gap-2 mt-2">
             @if($edukasi->tipe_konten == 'artikel')
-                <span class="badge bg-info bg-opacity-25 text-white px-3 py-2 rounded-pill"><i class="fa-solid fa-file-lines me-1"></i> Artikel</span>
+                <span class="badge bg-primary bg-opacity-25 text-white px-3 py-2 rounded-pill"><i class="fa-solid fa-file-lines me-1"></i> Artikel</span>
             @else
                 <span class="badge bg-warning bg-opacity-25 text-white px-3 py-2 rounded-pill"><i class="fa-solid fa-play me-1"></i> Video</span>
             @endif

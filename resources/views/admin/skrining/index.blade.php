@@ -44,7 +44,7 @@
                     <td class="px-4 text-center fw-medium">{{ $skrining->firstItem() + $loop->index }}</td>
                     <td class="px-4 fw-bold text-dark">{{ $item->nama_skrining }}</td>
                     <td class="px-4">
-                        <span class="badge bg-info bg-opacity-10 text-info px-3 py-2 rounded-pill">{{ $item->jenis_penyakit }}</span>
+                        <span class="badge bg-primary bg-opacity-10 text-primary px-3 py-2 rounded-pill">{{ $item->jenis_penyakit }}</span>
                     </td>
                     <td class="px-4 text-muted small">{{ \Illuminate\Support\Str::limit($item->deskripsi, 80) }}</td>
                     <td class="px-4 text-center">

@@ -185,7 +185,6 @@
     .hover-bg-white:hover { background-color: #fff !important; }
     .hover-border-primary:hover { border-color: var(--primary-green) !important; }
     .hover-border-success:hover { border-color: #198754 !important; }
-    .hover-border-info:hover { border-color: #0dcaf0 !important; }
     .hover-border-warning:hover { border-color: #ffc107 !important; }
     .hover-border-danger:hover { border-color: #dc3545 !important; }
 </style>

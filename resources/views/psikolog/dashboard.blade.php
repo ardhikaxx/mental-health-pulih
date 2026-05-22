@@ -43,7 +43,7 @@
     </div>
     <div class="col-6 col-md-6 col-xl-3">
         <div class="card border-0 p-3 p-md-4 shadow-sm h-100 d-flex flex-column flex-md-row align-items-center text-center text-md-start gap-3">
-            <div class="bg-info bg-opacity-10 text-info rounded-4 d-flex justify-content-center align-items-center flex-shrink-0" style="width: 50px; height: 50px; font-size: 1.2rem;">
+            <div class="bg-primary bg-opacity-10 text-primary rounded-4 d-flex justify-content-center align-items-center flex-shrink-0" style="width: 50px; height: 50px; font-size: 1.2rem;">
                 <i class="fa-solid fa-comment-dots"></i>
             </div>
             <div>
@@ -103,7 +103,7 @@
                                     </td>
                                     <td class="px-4 text-muted small text-capitalize">{{ $item->jenis_konsultasi }}</td>
                                     <td class="px-4 text-center">
-                                        <span class="badge bg-info bg-opacity-10 text-info px-3 py-1 rounded-pill text-capitalize">{{ $item->status_konsultasi }}</span>
+                                        <span class="badge bg-primary bg-opacity-10 text-primary px-3 py-1 rounded-pill text-capitalize">{{ $item->status_konsultasi }}</span>
                                     </td>
                                     <td class="px-4 text-center">
                                         <a href="{{ route('psikolog.konsultasi.chat', $item) }}" class="btn btn-sm btn-primary rounded-pill px-3 fw-bold">

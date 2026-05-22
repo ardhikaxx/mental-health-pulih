@@ -51,7 +51,7 @@
                             <div class="row g-3">
                                 @foreach ([
                                     0 => ['Tidak Sama Sekali', 'fa-face-smile', 'text-success'], 
-                                    1 => ['Ringan', 'fa-face-meh', 'text-info'], 
+                                    1 => ['Ringan', 'fa-face-meh', 'text-primary'], 
                                     2 => ['Sedang', 'fa-face-frown', 'text-warning'], 
                                     3 => ['Sangat Berat', 'fa-face-sad-cry', 'text-danger']
                                 ] as $nilai => [$label, $iconClass, $textColorClass])
@@ -200,7 +200,7 @@
             el.classList.add('border-light', 'bg-light');
             
             const icon = el.querySelector('i');
-            icon.classList.remove('text-success', 'text-info', 'text-warning', 'text-danger');
+            icon.classList.remove('text-success', 'text-primary', 'text-warning', 'text-danger');
             icon.classList.add('opacity-50', 'text-secondary');
         });
 

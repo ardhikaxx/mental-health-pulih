@@ -53,7 +53,7 @@
                         @if ($item->status_konsultasi === 'permintaan_baru')
                             <span class="badge bg-secondary bg-opacity-10 text-secondary px-3 py-1 rounded-pill">Menunggu Persetujuan</span>
                         @elseif (in_array($item->status_konsultasi, ['disetujui', 'terjadwal']))
-                            <span class="badge bg-info bg-opacity-10 text-info px-3 py-1 rounded-pill">Terjadwal</span>
+                            <span class="badge bg-primary bg-opacity-10 text-primary px-3 py-1 rounded-pill">Terjadwal</span>
                         @elseif (in_array($item->status_konsultasi, ['berlangsung', 'follow_up']))
                             <span class="badge bg-warning bg-opacity-10 text-warning px-3 py-1 rounded-pill">Berlangsung</span>
                         @elseif ($item->status_konsultasi === 'selesai')

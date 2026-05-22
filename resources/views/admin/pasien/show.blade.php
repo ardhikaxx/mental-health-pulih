@@ -28,7 +28,7 @@
     </div>
     <div class="col-md-4">
         <div class="card border-0 h-100 p-4 d-flex flex-row align-items-center gap-3">
-            <div class="bg-info bg-opacity-10 text-info rounded-circle d-flex justify-content-center align-items-center" style="width: 60px; height: 60px;">
+            <div class="bg-primary bg-opacity-10 text-primary rounded-circle d-flex justify-content-center align-items-center" style="width: 60px; height: 60px;">
                 <i class="fa-solid fa-venus-mars fs-3"></i>
             </div>
             <div>

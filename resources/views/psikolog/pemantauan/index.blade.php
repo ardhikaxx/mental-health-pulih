@@ -44,7 +44,7 @@
     </div>
     <div class="col-sm-6 col-xl-3">
         <div class="card border-0 p-4 shadow-sm h-100 d-flex flex-row align-items-center gap-3">
-            <div class="bg-info bg-opacity-10 text-info rounded-4 d-flex justify-content-center align-items-center" style="width: 60px; height: 60px;">
+            <div class="bg-primary bg-opacity-10 text-primary rounded-4 d-flex justify-content-center align-items-center" style="width: 60px; height: 60px;">
                 <i class="fa-solid fa-scale-balanced fs-3"></i>
             </div>
             <div>
@@ -90,7 +90,7 @@
                         @elseif($item->perubahan === 'membaik')
                             <span class="badge bg-success bg-opacity-10 text-success px-3 py-2 rounded-pill"><i class="fa-solid fa-arrow-up me-1"></i> Membaik</span>
                         @else
-                            <span class="badge bg-info bg-opacity-10 text-info px-3 py-2 rounded-pill"><i class="fa-solid fa-minus me-1"></i> Stabil</span>
+                            <span class="badge bg-primary bg-opacity-10 text-primary px-3 py-2 rounded-pill"><i class="fa-solid fa-minus me-1"></i> Stabil</span>
                         @endif
                     </td>
                     <td class="px-4 text-center text-capitalize">{{ $item->kondisi_terakhir }}</td>

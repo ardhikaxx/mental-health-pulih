@@ -33,7 +33,7 @@
     </div>
     <div class="col-md-4">
         <div class="card border-0 h-100 p-4 shadow-sm d-flex flex-row align-items-center gap-3">
-            <div class="bg-info bg-opacity-10 text-info rounded-circle d-flex justify-content-center align-items-center" style="width: 60px; height: 60px;">
+            <div class="bg-primary bg-opacity-10 text-primary rounded-circle d-flex justify-content-center align-items-center" style="width: 60px; height: 60px;">
                 <i class="fa-solid fa-list-check fs-3"></i>
             </div>
             <div>
@@ -70,7 +70,7 @@
                         @if ($item->status_konsultasi === 'permintaan_baru')
                             <span class="badge bg-primary bg-opacity-10 text-primary px-2 py-1">Permintaan Baru</span>
                         @elseif (in_array($item->status_konsultasi, ['disetujui', 'terjadwal']))
-                            <span class="badge bg-info bg-opacity-10 text-info px-2 py-1">Terjadwal</span>
+                            <span class="badge bg-primary bg-opacity-10 text-primary px-2 py-1">Terjadwal</span>
                         @elseif (in_array($item->status_konsultasi, ['berlangsung', 'follow_up']))
                             <span class="badge bg-warning bg-opacity-10 text-warning px-2 py-1">Berlangsung</span>
                         @else

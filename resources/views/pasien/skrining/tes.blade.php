@@ -74,8 +74,8 @@
         <!-- Sidebar Info Area -->
         <div class="col-lg-4">
             <div class="d-flex flex-column gap-4 sticky-top" style="top: 20px;">
-                <div class="card border-0 shadow-sm p-4 rounded-4 bg-info bg-opacity-10 border-start border-info border-4">
-                    <h5 class="fw-bold mb-3 text-info"><i class="fa-solid fa-circle-info me-2"></i> Informasi Tes</h5>
+                <div class="card border-0 shadow-sm p-4 rounded-4 bg-primary bg-opacity-10 border-start border-primary border-4">
+                    <h5 class="fw-bold mb-3 text-primary"><i class="fa-solid fa-circle-info me-2"></i> Informasi Tes</h5>
                     <p class="text-dark opacity-75 small mb-0" style="line-height: 1.6;">
                         Jawablah setiap pertanyaan sesuai dengan kondisi yang <strong>benar-benar kamu rasakan</strong> akhir-akhir ini. Anda harus menjawab pertanyaan saat ini sebelum dapat melanjutkan ke pertanyaan berikutnya.
                     </p>

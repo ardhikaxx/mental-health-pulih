@@ -60,7 +60,7 @@
                     <td class="px-4 text-muted">{{ $psikolog->user->email }}</td>
                     <td class="px-4">
                         @if($psikolog->spesialisasi)
-                            <span class="badge bg-info bg-opacity-10 text-info px-3 py-2 rounded-pill">{{ $psikolog->spesialisasi }}</span>
+                            <span class="badge bg-primary bg-opacity-10 text-primary px-3 py-2 rounded-pill">{{ $psikolog->spesialisasi }}</span>
                         @else
                             <span class="text-muted">-</span>
                         @endif
