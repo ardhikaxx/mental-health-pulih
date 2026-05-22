@@ -2,92 +2,145 @@
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <title>Laporan Hasil Skrining - Ruang Pulih</title>
+    <title>Surat Pengantar Hasil Skrining - Ruang Pulih</title>
     <style>
-        body { font-family: 'Helvetica', sans-serif; color: #333; line-height: 1.6; }
-        .header { text-align: center; border-bottom: 2px solid #005c34; padding-bottom: 20px; margin-bottom: 30px; }
-        .logo { font-size: 28px; font-weight: bold; color: #005c34; margin-bottom: 5px; }
-        .subtitle { font-size: 14px; color: #666; }
+        @page { margin: 2cm; }
+        body { font-family: 'Helvetica', 'Arial', sans-serif; color: #333; line-height: 1.5; font-size: 12px; }
         
-        .section { margin-bottom: 25px; }
-        .section-title { font-size: 18px; font-weight: bold; color: #005c34; border-left: 4px solid #005c34; padding-left: 10px; margin-bottom: 15px; }
+        /* Letterhead / Kop Surat */
+        .kop-surat { border-bottom: 3px double #005c34; padding-bottom: 15px; margin-bottom: 25px; position: relative; }
+        .kop-logo { position: absolute; left: 0; top: 0; width: 80px; height: 80px; }
+        .kop-detail { text-align: center; margin-left: 90px; margin-right: 40px; }
+        .kop-title { font-size: 22px; font-weight: bold; color: #005c34; margin-bottom: 5px; text-transform: uppercase; }
+        .kop-subtitle { font-size: 11px; color: #555; margin-bottom: 3px; }
+        .kop-contact { font-size: 10px; color: #777; font-style: italic; }
+
+        .nomor-surat { margin-bottom: 20px; font-weight: bold; }
+        .tanggal-surat { text-align: right; margin-bottom: 20px; }
         
-        .info-table { width: 100%; border-collapse: collapse; margin-bottom: 20px; }
-        .info-table td { padding: 8px 0; vertical-align: top; }
-        .info-label { width: 150px; font-weight: bold; color: #555; }
+        .tujuan-surat { margin-bottom: 25px; }
+        .tujuan-surat p { margin: 0; }
         
-        .result-box { background: #f0fdf4; border-radius: 10px; padding: 20px; border: 1px solid #005c34; text-align: center; }
-        .score { font-size: 36px; font-weight: bold; color: #005c34; margin: 10px 0; }
-        .category { font-size: 20px; font-weight: bold; text-transform: uppercase; color: #005c34; }
+        .judul-laporan { text-align: center; font-size: 16px; font-weight: bold; text-decoration: underline; margin-bottom: 25px; text-transform: uppercase; }
         
-        .question-list { list-style: none; padding: 0; }
-        .question-item { margin-bottom: 15px; padding-bottom: 10px; border-bottom: 1px solid #eee; }
-        .question-text { font-weight: bold; font-size: 14px; margin-bottom: 5px; }
-        .answer-text { font-size: 13px; color: #666; }
+        .section-title { font-weight: bold; text-decoration: underline; margin-bottom: 10px; margin-top: 20px; display: block; }
         
-        .footer { position: fixed; bottom: 0; width: 100%; text-align: center; font-size: 10px; color: #999; border-top: 1px solid #eee; padding-top: 10px; }
+        .data-table { width: 100%; border-collapse: collapse; margin-bottom: 20px; }
+        .data-table td { padding: 5px 0; vertical-align: top; }
+        .data-label { width: 160px; }
+        .data-separator { width: 15px; text-align: center; }
+        
+        .hasil-box { background: #f9f9f9; border: 1px solid #ddd; padding: 15px; margin: 15px 0; border-radius: 5px; }
+        .hasil-utama { font-size: 14px; font-weight: bold; color: #005c34; margin-bottom: 10px; }
+        
+        .rekomendasi { border: 1px dashed #005c34; padding: 15px; margin-top: 20px; background-color: #f0fdf4; }
+
+        .footer-ttd { margin-top: 50px; float: right; width: 250px; text-align: center; }
+        .ttd-space { height: 80px; }
+        
+        .clear { clear: both; }
+        
+        .watermark { position: fixed; bottom: 0; left: 0; right: 0; text-align: center; font-size: 9px; color: #aaa; border-top: 1px solid #eee; padding-top: 5px; }
     </style>
 </head>
 <body>
-    <div class="header">
-        <div class="logo">Ruang Pulih</div>
-        <div class="subtitle">Layanan Kesehatan Mental Digital</div>
-        <div style="font-size: 12px; margin-top: 10px;">LAPORAN HASIL SKRINING MANDIRI</div>
+    <div class="kop-surat">
+        <img src="{{ public_path('assets/images/logo.png') }}" class="kop-logo">
+        <div class="kop-detail">
+            <div class="kop-title">Ruang Pulih</div>
+            <div class="kop-subtitle">Platform Layanan Kesehatan Mental & Konseling Digital</div>
+            <div class="kop-subtitle">Izin Operasional Layanan Kesehatan Digital No: 123/RP/HEALTH/2026</div>
+            <div class="kop-contact">Website: ruangpulih.id | Email: support@ruangpulih.id | Telp: (021) 888-9999</div>
+        </div>
     </div>
 
-    <div class="section">
-        <div class="section-title">Informasi Pasien</div>
-        <table class="info-table">
+    <div class="tanggal-surat">
+        Jakarta, {{ $hasil->tanggal_skrining->translatedFormat('d F Y') }}
+    </div>
+
+    <div class="tujuan-surat">
+        <p>Yth.</p>
+        <p><strong>Tenaga Kesehatan / Bagian Psikologi</strong></p>
+        <p><strong>Fasilitas Pelayanan Kesehatan / Rumah Sakit Terkait</strong></p>
+        <p>Di Tempat</p>
+    </div>
+
+    <div class="judul-laporan">Surat Pengantar Hasil Skrining Kesehatan Mental</div>
+
+    <p>Dengan hormat,</p>
+    <p>Melalui surat ini, kami menyampaikan hasil skrining mandiri yang dilakukan oleh pasien kami melalui platform Ruang Pulih. Informasi ini dimaksudkan sebagai data penunjang awal untuk pemeriksaan klinis lebih lanjut di fasilitas pelayanan kesehatan Bapak/Ibu.</p>
+
+    <span class="section-title">I. DATA IDENTITAS PASIEN</span>
+    <table class="data-table">
+        <tr>
+            <td class="data-label">Nama Lengkap</td>
+            <td class="data-separator">:</td>
+            <td><strong>{{ $pasien->user->nama_lengkap }}</strong></td>
+        </tr>
+        <tr>
+            <td class="data-label">Email / Kontak</td>
+            <td class="data-separator">:</td>
+            <td>{{ $pasien->user->email }}</td>
+        </tr>
+        <tr>
+            <td class="data-label">Umur</td>
+            <td class="data-separator">:</td>
+            <td>{{ $pasien->umur ?? '-' }} Tahun</td>
+        </tr>
+        <tr>
+            <td class="data-label">Jenis Kelamin</td>
+            <td class="data-separator">:</td>
+            <td>{{ ucfirst($pasien->user->jenis_kelamin ?? '-') }}</td>
+        </tr>
+    </table>
+
+    <span class="section-title">II. HASIL SKRINING MANDIRI</span>
+    <div class="hasil-box">
+        <table class="data-table" style="margin-bottom: 0;">
             <tr>
-                <td class="info-label">Nama Lengkap</td>
-                <td>: {{ $pasien->user->nama_lengkap }}</td>
+                <td class="data-label">Jenis Pemeriksaan</td>
+                <td class="data-separator">:</td>
+                <td>{{ $hasil->jenisSkrining->nama_skrining }}</td>
             </tr>
             <tr>
-                <td class="info-label">Email</td>
-                <td>: {{ $pasien->user->email }}</td>
+                <td class="data-label">Total Skor</td>
+                <td class="data-separator">:</td>
+                <td><strong>{{ $hasil->total_skor }}</strong></td>
             </tr>
             <tr>
-                <td class="info-label">Tanggal Tes</td>
-                <td>: {{ $hasil->tanggal_skrining->translatedFormat('d F Y') }}</td>
-            </tr>
-            <tr>
-                <td class="info-label">Jenis Skrining</td>
-                <td>: {{ $hasil->jenisSkrining->nama_skrining }}</td>
+                <td class="data-label">Kategori Hasil</td>
+                <td class="data-separator">:</td>
+                <td><span class="hasil-utama">{{ $hasil->kategori_hasil }}</span></td>
             </tr>
         </table>
     </div>
 
-    <div class="section">
-        <div class="section-title">Hasil Analisis</div>
-        <div class="result-box">
-            <div style="font-size: 14px; color: #555;">Total Skor Anda</div>
-            <div class="score">{{ $hasil->total_skor }}</div>
-            <div class="category">Kategori: {{ $hasil->kategori_hasil }}</div>
-            <p style="margin-top: 15px; font-size: 14px; color: #333;">{{ $hasil->keterangan_hasil }}</p>
+    <span class="section-title">III. KETERANGAN ANALISIS & REKOMENDASI</span>
+    <div style="text-align: justify; margin-bottom: 20px;">
+        <p>{{ $hasil->keterangan_hasil }}</p>
+    </div>
+
+    <div class="rekomendasi">
+        <strong>Catatan untuk Fasilitas Kesehatan:</strong><br>
+        Pasien disarankan untuk mendapatkan asesmen klinis mendalam (pemeriksaan tatap muka) guna menegakkan diagnosis formal dan menentukan rencana terapi yang sesuai. Hasil skrining ini bersifat indikatif berdasarkan laporan mandiri pasien (self-report).
+    </div>
+
+    <p style="margin-top: 30px;">Demikian surat pengantar ini kami sampaikan. Atas perhatian dan kerja samanya, kami ucapkan terima kasih.</p>
+
+    <div class="footer-ttd">
+        <p>Hormat Kami,</p>
+        <p><strong>Tim Psikolog Ruang Pulih</strong></p>
+        <div class="ttd-space">
+            <img src="{{ public_path('assets/images/logo.png') }}" style="width: 60px; opacity: 0.15; margin-top: 10px;">
         </div>
+        <p>(Dokumen ini diterbitkan secara elektronik)</p>
     </div>
 
-    <div class="section" style="page-break-before: always;">
-        <div class="section-title">Detail Jawaban</div>
-        <div class="question-list">
-            @foreach($hasil->detail as $index => $item)
-                <div class="question-item">
-                    <div class="question-text">{{ $index + 1 }}. {{ $item->pertanyaan->pertanyaan }}</div>
-                    <div class="answer-text">Jawaban: {{ $item->jawaban->teks_jawaban }} (Skor: {{ $item->nilai_jawaban }})</div>
-                </div>
-            @endforeach
-        </div>
-    </div>
+    <div class="clear"></div>
 
-    <div class="section">
-        <div class="section-title">Catatan Penting</div>
-        <p style="font-size: 12px; color: #666; font-style: italic;">
-            Hasil skrining ini bukan merupakan diagnosis medis final. Skrining mandiri bertujuan untuk memberikan gambaran awal kondisi kesehatan mental Anda. Jika Anda merasa terganggu atau hasil menunjukkan tingkat sedang hingga berat, sangat disarankan untuk melakukan konsultasi lebih lanjut dengan psikolog profesional kami di platform Ruang Pulih.
-        </p>
-    </div>
-
-    <div class="footer">
-        Dicetak secara otomatis melalui Sistem Ruang Pulih pada {{ now()->format('d/m/Y H:i') }}. Laporan ini adalah rahasia.
+    <div class="watermark">
+        Dokumen ini sah dan diterbitkan secara otomatis oleh Sistem Informasi Ruang Pulih pada {{ now()->format('d/m/Y H:i') }} WIB. <br>
+        Keaslian dokumen dapat dikonfirmasi melalui support@ruangpulih.id
     </div>
 </body>
 </html>
