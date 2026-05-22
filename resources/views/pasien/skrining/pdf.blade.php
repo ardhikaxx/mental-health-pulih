@@ -6,11 +6,12 @@
     <style>
         @page { margin: 2cm; }
         body { font-family: 'Times New Roman', Times, serif; color: #333; line-height: 1.5; font-size: 12pt; }
-        
+
         /* Letterhead / Kop Surat */
-        .kop-surat { border-bottom: 3px double #005c34; padding-bottom: 8px; margin-bottom: 20px; position: relative; }
-        .kop-logo { position: absolute; left: 0; top: -15px; width: 130px; height: 130px; }
-        .kop-detail { text-align: center; margin-left: -40px; margin-right: 0px; }
+        .kop-surat { border-bottom: 3px double #005c34; padding-bottom: 10px; margin-bottom: 25px; }
+        .kop-table { margin: 0 auto; border-collapse: collapse; }
+        .kop-logo { width: 100px; height: 100px; }
+        .kop-detail { text-align: center; padding-left: 20px; }
         .kop-title { font-family: 'Times New Roman', Times, serif; font-size: 24px; font-weight: bold; color: #005c34; margin-bottom: 5px; text-transform: uppercase; }
         .kop-subtitle { font-size: 11px; color: #555; margin-bottom: 3px; }
         .kop-contact { font-size: 10px; color: #777; font-style: italic; }
@@ -45,13 +46,19 @@
 </head>
 <body>
     <div class="kop-surat">
-        <img src="{{ public_path('assets/images/logo.png') }}" class="kop-logo">
-        <div class="kop-detail">
-            <div class="kop-title">RUANG PULIH JEMBER</div>
-            <div class="kop-subtitle">Platform Layanan Kesehatan Mental & Konseling Digital</div>
-            <div class="kop-subtitle">Izin Operasional Layanan Kesehatan Digital No: 123/RP/HEALTH/2026</div>
-            <div class="kop-contact">Website: ruangpulih.id | Email: support@ruangpulih.id | Telp: (021) 888-9999</div>
-        </div>
+        <table class="kop-table">
+            <tr>
+                <td>
+                    <img src="{{ public_path('assets/images/logo.png') }}" class="kop-logo">
+                </td>
+                <td class="kop-detail">
+                    <div class="kop-title">RUANG PULIH JEMBER</div>
+                    <div class="kop-subtitle">Platform Layanan Kesehatan Mental & Konseling Digital</div>
+                    <div class="kop-subtitle">Izin Operasional Layanan Kesehatan Digital No: 123/RP/HEALTH/2026</div>
+                    <div class="kop-contact">Website: ruangpulih.id | Email: support@ruangpulih.id | Telp: (021) 888-9999</div>
+                </td>
+            </tr>
+        </table>
     </div>
 
     <div class="tanggal-surat">
