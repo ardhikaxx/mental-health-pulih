@@ -171,6 +171,7 @@ Route::middleware(['auth', 'role:pasien'])->prefix('pasien')->name('pasien.')->g
     Route::post('/dashboard/mood', [PasienDashboardController::class, 'mood'])->name('dashboard.mood');
 
     Route::get('/skrining', [PasienSkriningController::class, 'index'])->name('skrining.index');
+    Route::get('/skrining/riwayat', [PasienSkriningController::class, 'riwayat'])->name('skrining.riwayat');
     Route::post('/skrining', [PasienSkriningController::class, 'storePendaftaran'])->name('skrining.store');
     Route::get('/skrining/pilih', [PasienSkriningController::class, 'pilih'])->name('skrining.pilih');
     Route::get('/skrining/{skrining}/tes', [PasienSkriningController::class, 'tes'])->name('skrining.tes');
@@ -189,6 +190,7 @@ Route::middleware(['auth', 'role:pasien'])->prefix('pasien')->name('pasien.')->g
     Route::post('/konsultasi/chat/{konsultasi}', [PasienKonsultasiController::class, 'send'])->name('konsultasi.chat.send');
 
     Route::get('/pemantauan', [PasienPemantauanController::class, 'index'])->name('pemantauan.index');
+    Route::get('/pemantauan/riwayat', [PasienPemantauanController::class, 'riwayat'])->name('pemantauan.riwayat');
     Route::post('/pemantauan', [PasienPemantauanController::class, 'store'])->name('pemantauan.store');
     Route::get('/pemantauan/hasil/{pemantauan?}', [PasienPemantauanController::class, 'hasil'])->name('pemantauan.hasil');
 

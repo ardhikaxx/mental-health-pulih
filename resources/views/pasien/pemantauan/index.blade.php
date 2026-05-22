@@ -4,7 +4,10 @@
 <section class="hero-panel d-flex justify-content-between align-items-center mb-4 p-4 bg-primary text-white rounded-4 position-relative overflow-hidden" style="background: linear-gradient(135deg, var(--primary-green), var(--secondary-green));">
     <div style="position: relative; z-index: 2;">
         <h1 class="mb-2 fw-bold"><i class="fa-solid fa-chart-line me-2"></i> Pemantauan Kondisi Mental</h1>
-        <p class="mb-0 opacity-75">Isi pertanyaan harian secara rutin untuk membantu memantau perkembangan kondisi mentalmu.</p>
+        <p class="mb-3 opacity-75">Isi pertanyaan harian secara rutin untuk membantu memantau perkembangan kondisi mentalmu.</p>
+        <a href="{{ route('pasien.pemantauan.riwayat') }}" class="btn btn-light bg-opacity-25 text-primary border-0 shadow-sm fw-bold rounded-pill px-4">
+            <i class="fa-solid fa-clock-rotate-left me-2"></i> Lihat Riwayat Pemantauan
+        </a>
     </div>
 </section>
 

@@ -27,6 +27,17 @@ class PemantauanController extends Controller
         return view('pasien.pemantauan.index', compact('pasien', 'pertanyaan', 'hariIni'));
     }
 
+    public function riwayat()
+    {
+        $pasien = $this->pasien();
+        $riwayats = PemantauanMental::where('id_pasien', $pasien->id_pasien)
+            ->latest('tanggal_pemantauan')
+            ->latest('id_pemantauan')
+            ->paginate(15);
+
+        return view('pasien.pemantauan.riwayat', compact('riwayats'));
+    }
+
     public function store(Request $request)
     {
         $validated = $request->validate([
