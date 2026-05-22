@@ -64,24 +64,44 @@
             <div class="card border-0 shadow-sm p-4">
                 <div class="d-flex justify-content-between align-items-center border-bottom pb-3 mb-4">
                     <h5 class="fw-bold mb-0"><i class="fa-solid fa-clock-rotate-left text-primary me-2"></i> Riwayat Aktivitas</h5>
-                    <span class="badge bg-info bg-opacity-10 text-info px-3 py-1 rounded-pill">Terbaru</span>
+                    <span class="badge bg-primary bg-opacity-10 text-primary px-3 py-1 rounded-pill small">Terbaru</span>
                 </div>
                 
-<div class="position-relative ps-1 ps-md-5 pe-2 py-2">
+                <div class="position-relative ps-2">
                     <!-- Vertical Line -->
-                    <div class="position-absolute top-0 bottom-0 bg-light d-none d-md-block" style="left: 45px; width: 2px;"></div>
+                    <div class="position-absolute top-0 bottom-0 bg-light" style="left: 17px; width: 2px;"></div>
                     
                     @forelse ($aktivitas as $item)
-                        <div class="position-relative mb-4 ps-md-0 ps-3 border-start border-3 border-primary border-md-0">
-                            <!-- Time & Dot (Desktop Only) -->
-                            <div class="position-absolute d-none d-md-flex flex-column align-items-center text-center" style="left: -40px; top: 0; width: 3.125rem;">
-                                <div class="bg-white border border-3 border-primary rounded-circle shadow-sm" style="width: 0.875rem; height: 0.875rem; margin-top: 0.375rem;">
+                        @php
+                            $icon = match($item->jenis_aktivitas) {
+                                'skrining' => 'fa-clipboard-list',
+                                'konsultasi' => 'fa-comments',
+                                'pemantauan_mental' => 'fa-heart-pulse',
+                                'membaca_artikel' => 'fa-book-open',
+                                'menonton_video' => 'fa-play-circle',
+                                default => 'fa-circle-dot'
+                            };
+                            $color = match($item->jenis_aktivitas) {
+                                'skrining' => 'info',
+                                'konsultasi' => 'primary',
+                                'pemantauan_mental' => 'danger',
+                                'membaca_artikel' => 'success',
+                                'menonton_video' => 'warning',
+                                default => 'secondary'
+                            };
+                        @endphp
+                        <div class="position-relative mb-4 ps-5">
+                            <!-- Icon Dot -->
+                            <div class="position-absolute start-0 translate-middle-x bg-white rounded-circle shadow-sm border border-2 border-{{ $color }} d-flex align-items-center justify-content-center" style="width: 36px; height: 36px; left: 17px; z-index: 2;">
+                                <i class="fa-solid {{ $icon }} text-{{ $color }}" style="font-size: 0.9rem;"></i>
                             </div>
                             
-                            <div class="ps-md-4">
-                                <div class="d-flex flex-column flex-sm-row align-items-start align-items-sm-baseline gap-1 gap-sm-2 mb-1">
+                            <div class="p-3 bg-light bg-opacity-50 rounded-4 border border-transparent transition-all hover-border-{{ $color }} hover-bg-white">
+                                <div class="d-flex flex-column flex-sm-row justify-content-between align-items-start align-items-sm-center gap-2 mb-2">
                                     <h6 class="fw-bold mb-0 text-dark text-capitalize">{{ str_replace('_', ' ', $item->jenis_aktivitas) }}</h6>
-                                    <small class="text-muted" style="font-size: 0.75rem;"><i class="fa-regular fa-clock me-1"></i> {{ optional($item->tanggal_aktivitas)->format('H:i') }} • {{ optional($item->tanggal_aktivitas)->format('d M') }}</small>
+                                    <span class="badge bg-white text-muted border fw-medium" style="font-size: 0.7rem;">
+                                        <i class="fa-regular fa-calendar-alt me-1"></i> {{ optional($item->tanggal_aktivitas)->format('d M Y, H:i') }}
+                                    </span>
                                 </div>
                                 <p class="text-muted small mb-0" style="line-height: 1.5;">{{ $item->keterangan }}</p>
                             </div>
@@ -168,5 +188,11 @@
     .drop-shadow-sm { filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1)); }
     .focus-ring-primary:focus { box-shadow: 0 0 0 0.25rem rgba(0, 92, 52, 0.15) !important; outline: none; }
     .mood-label-wrapper:hover .mood-icon { transform: scale(1.1); }
+    .hover-bg-white:hover { background-color: #fff !important; }
+    .hover-border-primary:hover { border-color: var(--primary-green) !important; }
+    .hover-border-success:hover { border-color: #198754 !important; }
+    .hover-border-info:hover { border-color: #0dcaf0 !important; }
+    .hover-border-warning:hover { border-color: #ffc107 !important; }
+    .hover-border-danger:hover { border-color: #dc3545 !important; }
 </style>
 @endsection
