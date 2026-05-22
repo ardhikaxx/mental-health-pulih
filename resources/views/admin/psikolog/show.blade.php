@@ -96,7 +96,7 @@
                     @forelse ($psikolog->jadwal as $slot)
                         <tr class="border-bottom">
                             <td class="px-4 fw-medium text-dark">{{ $slot->tanggal->format('d M Y') }}</td>
-                            <td class="px-4 text-muted">{{ substr($slot->jam_mulai, 0, 5) }} - {{ substr($slot->jam_selesai, 0, 5) }} WIB</td>
+                            <td class="px-4 text-muted">{{ str_replace(':', '.', substr($slot->jam_mulai, 0, 5)) }} - {{ str_replace(':', '.', substr($slot->jam_selesai, 0, 5)) }} WIB</td>
                             <td class="px-4 text-center">
                                 @if(strtolower($slot->status_jadwal) == 'tersedia')
                                     <span class="badge bg-success bg-opacity-10 text-success px-3 py-2 rounded-pill">{{ $slot->status_jadwal }}</span>

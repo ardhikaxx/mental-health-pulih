@@ -91,7 +91,7 @@
                             @forelse ($jadwalHariIni as $item)
                                 <tr class="border-bottom">
                                     <td class="px-4 fw-bold text-success">
-                                        <i class="fa-regular fa-clock me-1"></i> {{ substr($item->waktu_mulai, 0, 5) }}
+                                        <i class="fa-regular fa-clock me-1"></i> {{ str_replace(':', '.', substr($item->waktu_mulai, 0, 5)) }}
                                     </td>
                                     <td class="px-4 fw-medium text-dark">
                                         <div class="d-flex align-items-center gap-2">

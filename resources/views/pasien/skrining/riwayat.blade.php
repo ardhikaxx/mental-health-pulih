@@ -32,7 +32,7 @@
                 <tr class="border-bottom">
                     <td class="px-4">
                         <strong class="d-block text-dark">{{ $item->tanggal_skrining->translatedFormat('d F Y') }}</strong>
-                        <small class="text-muted">{{ $item->created_at->format('H:i') }} WIB</small>
+                        <small class="text-muted">{{ $item->created_at->format('H.i') }} WIB</small>
                     </td>
                     <td class="px-4 fw-bold text-primary">
                         {{ $item->jenisSkrining->nama_skrining }}

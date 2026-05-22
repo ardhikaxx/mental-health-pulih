@@ -45,7 +45,7 @@
                             <button class="btn btn-link p-0 text-primary small fw-bold text-decoration-none" data-bs-toggle="modal" data-bs-target="#view-saran-{{ $saran->id_saran }}">Baca Selengkapnya</button>
                         @endif
                     </td>
-                    <td class="px-4 text-muted small">{{ $saran->created_at->format('d M Y, H:i') }}</td>
+                    <td class="px-4 text-muted small">{{ $saran->created_at->format('d M Y, H.i') }}</td>
                     <td class="px-4">
                         <div class="d-flex gap-2 justify-content-center">
                             <button class="btn btn-sm btn-light text-primary rounded-circle" style="width: 35px; height: 35px; display: flex; align-items: center; justify-content: center;" data-bs-toggle="modal" data-bs-target="#view-saran-{{ $saran->id_saran }}" title="Lihat">

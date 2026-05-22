@@ -56,7 +56,7 @@
                                     </div>
                                 @endif
                             </div>
-                            <small class="text-muted mt-1 fw-medium" style="font-size: 0.75rem;">{{ optional($chat->waktu_kirim)->format('H:i') }} <i class="fa-solid fa-check-double ms-1 text-primary"></i></small>
+                            <small class="text-muted mt-1 fw-medium" style="font-size: 0.75rem;">{{ optional($chat->waktu_kirim)->format('H.i') }} <i class="fa-solid fa-check-double ms-1 text-primary"></i></small>
                         </div>
                     @else
                         <!-- Pesan Psikolog (Kiri) -->
@@ -72,7 +72,7 @@
                                     </div>
                                 @endif
                             </div>
-                            <small class="text-muted mt-1 fw-medium" style="font-size: 0.75rem;">{{ optional($chat->waktu_kirim)->format('H:i') }}</small>
+                            <small class="text-muted mt-1 fw-medium" style="font-size: 0.75rem;">{{ optional($chat->waktu_kirim)->format('H.i') }}</small>
                         </div>
                     @endif
                 @empty

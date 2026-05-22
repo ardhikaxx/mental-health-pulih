@@ -47,7 +47,7 @@
                         <div class="text-dark fw-medium">{{ $laporan->user->nama_lengkap ?? 'Anonim' }}</div>
                         <div class="text-muted small">{{ $laporan->user->email ?? '-' }}</div>
                     </td>
-                    <td class="px-4 text-muted small">{{ $laporan->created_at->format('d M Y, H:i') }}</td>
+                    <td class="px-4 text-muted small">{{ $laporan->created_at->format('d M Y, H.i') }}</td>
                     <td class="px-4 text-center">
                         @php
                             $status_class = match($laporan->status_laporan) {

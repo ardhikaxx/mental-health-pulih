@@ -100,7 +100,7 @@
                                 <div class="d-flex flex-column flex-sm-row justify-content-between align-items-start align-items-sm-center gap-2 mb-2">
                                     <h6 class="fw-bold mb-0 text-dark text-capitalize">{{ str_replace('_', ' ', $item->jenis_aktivitas) }}</h6>
                                     <span class="badge bg-white text-muted border fw-medium" style="font-size: 0.7rem;">
-                                        <i class="fa-regular fa-calendar-alt me-1"></i> {{ optional($item->tanggal_aktivitas)->format('d M Y, H:i') }}
+                                        <i class="fa-regular fa-calendar-alt me-1"></i> {{ optional($item->tanggal_aktivitas)->format('d M Y, H.i') }}
                                     </span>
                                 </div>
                                 <p class="text-muted small mb-0" style="line-height: 1.5;">{{ $item->keterangan }}</p>

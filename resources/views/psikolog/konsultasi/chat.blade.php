@@ -40,7 +40,7 @@
                                     </div>
                                 @endif
                             </div>
-                            <small class="text-muted mt-1" style="font-size: 0.75rem;">{{ optional($chat->waktu_kirim)->format('H:i') }}</small>
+                            <small class="text-muted mt-1" style="font-size: 0.75rem;">{{ optional($chat->waktu_kirim)->format('H.i') }}</small>
                         </div>
                     @else
                         <div class="d-flex flex-column align-items-start">
@@ -55,7 +55,7 @@
                                     </div>
                                 @endif
                             </div>
-                            <small class="text-muted mt-1" style="font-size: 0.75rem;">{{ optional($chat->waktu_kirim)->format('H:i') }}</small>
+                            <small class="text-muted mt-1" style="font-size: 0.75rem;">{{ optional($chat->waktu_kirim)->format('H.i') }}</small>
                         </div>
                     @endif
                 @empty

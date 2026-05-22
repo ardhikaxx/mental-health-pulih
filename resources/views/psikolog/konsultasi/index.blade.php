@@ -60,7 +60,7 @@
                             </div>
                             <div>
                                 <h6 class="fw-bold mb-0 text-dark">{{ $item->pasien->user->nama_lengkap ?? '-' }}</h6>
-                                <small class="text-muted"><i class="fa-regular fa-calendar me-1"></i> {{ optional($item->tanggal_konsultasi)->format('d M Y') }} • {{ substr($item->waktu_mulai, 0, 5) }}</small>
+                                <small class="text-muted"><i class="fa-regular fa-calendar me-1"></i> {{ optional($item->tanggal_konsultasi)->format('d M Y') }} • {{ str_replace(':', '.', substr($item->waktu_mulai, 0, 5)) }}</small>
                             </div>
                         </div>
                     </div>

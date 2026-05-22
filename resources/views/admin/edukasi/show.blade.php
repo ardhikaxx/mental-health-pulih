@@ -50,7 +50,7 @@
                     </div>
                     <div>
                         <small class="d-block lh-1">Tanggal Publish</small>
-                        <strong class="text-dark">{{ optional($edukasi->tanggal_publish)->format('d M Y H:i') ?? '-' }}</strong>
+                        <strong class="text-dark">{{ optional($edukasi->tanggal_publish)->format('d M Y H.i') ?? '-' }}</strong>
                     </div>
                 </div>
             </div>

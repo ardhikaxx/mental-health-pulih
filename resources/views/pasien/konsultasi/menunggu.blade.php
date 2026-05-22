@@ -28,7 +28,7 @@
                     <div class="p-3 bg-light rounded-4 border h-100 d-flex flex-column align-items-center justify-content-center text-center">
                         <i class="fa-regular fa-clock fs-2 text-primary opacity-50 mb-2"></i>
                         <span class="text-muted small fw-semibold d-block mb-1">Waktu</span>
-                        <strong class="text-dark">{{ substr($konsultasi->waktu_mulai, 0, 5) }} - {{ substr($konsultasi->waktu_selesai, 0, 5) }} WIB</strong>
+                        <strong class="text-dark">{{ str_replace(':', '.', substr($konsultasi->waktu_mulai, 0, 5)) }} - {{ str_replace(':', '.', substr($konsultasi->waktu_selesai, 0, 5)) }} WIB</strong>
                     </div>
                 </div>
                 <div class="col-md-4">

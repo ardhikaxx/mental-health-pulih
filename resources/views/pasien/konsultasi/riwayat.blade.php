@@ -32,7 +32,7 @@
                 <tr class="border-bottom">
                     <td class="px-4">
                         <strong class="d-block text-dark">{{ optional($item->tanggal_konsultasi)->format('d M Y') ?? 'Belum ditentukan' }}</strong>
-                        <small class="text-muted"><i class="fa-regular fa-clock me-1"></i> {{ substr($item->waktu_mulai, 0, 5) }} - {{ substr($item->waktu_selesai, 0, 5) }}</small>
+                        <small class="text-muted"><i class="fa-regular fa-clock me-1"></i> {{ str_replace(':', '.', substr($item->waktu_mulai, 0, 5)) }} - {{ str_replace(':', '.', substr($item->waktu_selesai, 0, 5)) }}</small>
                     </td>
                     <td class="px-4 fw-bold text-primary">
                         <div class="d-flex align-items-center gap-2">

@@ -29,7 +29,7 @@
                                         <label class="schedule-option d-block h-100 p-3 rounded-4 border border-2 cursor-pointer transition-all bg-light text-center hover-bg-white" style="cursor: pointer;">
                                             <input type="radio" name="id_jadwal" value="{{ $slot->id_jadwal }}" class="d-none" required onchange="document.querySelectorAll('.schedule-option').forEach(el => { el.classList.remove('border-primary', 'bg-primary', 'bg-opacity-10', 'text-primary'); el.classList.add('border-light', 'bg-light'); }); this.closest('.schedule-option').classList.remove('border-light', 'bg-light'); this.closest('.schedule-option').classList.add('border-primary', 'bg-primary', 'bg-opacity-10', 'text-primary'); document.getElementById('btnSubmitSchedule').removeAttribute('disabled');">
                                             <i class="fa-regular fa-clock d-block fs-4 mb-2 opacity-75"></i>
-                                            <strong class="d-block">{{ substr($slot->jam_mulai, 0, 5) }} - {{ substr($slot->jam_selesai, 0, 5) }}</strong>
+                                            <strong class="d-block">{{ str_replace(':', '.', substr($slot->jam_mulai, 0, 5)) }} - {{ str_replace(':', '.', substr($slot->jam_selesai, 0, 5)) }}</strong>
                                             <small class="opacity-75">WIB</small>
                                         </label>
                                     </div>
