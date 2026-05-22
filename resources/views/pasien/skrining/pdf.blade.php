@@ -10,7 +10,7 @@
         /* Letterhead / Kop Surat */
         .kop-surat { border-bottom: 3px double #005c34; padding-bottom: 8px; margin-bottom: 20px; position: relative; }
         .kop-logo { position: absolute; left: 0; top: -15px; width: 130px; height: 130px; }
-        .kop-detail { text-align: center; margin-left: 60px; margin-right: 0px; }
+        .kop-detail { text-align: center; margin-left: -40px; margin-right: 0px; }
         .kop-title { font-family: 'Times New Roman', Times, serif; font-size: 24px; font-weight: bold; color: #005c34; margin-bottom: 5px; text-transform: uppercase; }
         .kop-subtitle { font-size: 11px; color: #555; margin-bottom: 3px; }
         .kop-contact { font-size: 10px; color: #777; font-style: italic; }
@@ -47,7 +47,7 @@
     <div class="kop-surat">
         <img src="{{ public_path('assets/images/logo.png') }}" class="kop-logo">
         <div class="kop-detail">
-            <div class="kop-title">Ruang Pulih</div>
+            <div class="kop-title">RUANG PULIH JEMBER</div>
             <div class="kop-subtitle">Platform Layanan Kesehatan Mental & Konseling Digital</div>
             <div class="kop-subtitle">Izin Operasional Layanan Kesehatan Digital No: 123/RP/HEALTH/2026</div>
             <div class="kop-contact">Website: ruangpulih.id | Email: support@ruangpulih.id | Telp: (021) 888-9999</div>
