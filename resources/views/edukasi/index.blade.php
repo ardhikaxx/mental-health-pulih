@@ -20,10 +20,16 @@
     .search-bar input { border: 0; flex: 1; font-size: 15px; outline: 0; padding-left: 12px; color: #2d3748; }
     .search-bar i { color: #a0aec0; font-size: 18px; }
 
-    .tabs { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 40px; }
+    .tabs { 
+        display: flex; gap: 12px; margin-bottom: 40px; overflow-x: auto; 
+        padding-bottom: 8px; scrollbar-width: none; -ms-overflow-style: none;
+        -webkit-overflow-scrolling: touch;
+    }
+    .tabs::-webkit-scrollbar { display: none; }
     .tabs a { 
-        border: 1px solid #e2e8f0; border-radius: 24px; padding: 8px 20px; font-size: 14px; 
+        border: 1px solid #e2e8f0; border-radius: 24px; padding: 8px 24px; font-size: 14px; 
         font-weight: 600; background: #ffffff; color: #4a5568; transition: all 0.3s ease;
+        white-space: nowrap; flex-shrink: 0;
     }
     .tabs a:hover { background: #f7fafc; border-color: #cbd5e0; }
     .tabs a.active { background: #005c34; border-color: #005c34; color: #ffffff; box-shadow: 0 4px 6px rgba(0, 92, 52, 0.2); }
@@ -54,10 +60,14 @@
     }
 
     /* Mobile Responsiveness */
+    @media (min-width: 1024px) {
+        .tabs { flex-wrap: wrap; overflow-x: visible; }
+    }
+
     @media (max-width: 768px) {
         .grid-3 { grid-template-columns: 1fr; gap: 20px; }
-        .tabs { gap: 8px; margin-bottom: 24px; }
-        .tabs a { padding: 6px 16px; font-size: 13px; }
+        .tabs { gap: 8px; margin-bottom: 24px; padding-left: 4px; }
+        .tabs a { padding: 8px 18px; font-size: 13px; }
         .section-title { font-size: 20px; margin-top: 32px; }
         .card img { height: 160px; }
         .card-body h3 { font-size: 16px; }
