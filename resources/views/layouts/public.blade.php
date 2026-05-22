@@ -62,6 +62,8 @@
         .public-menu a.active { background: #b8efd4; color: #005c34; }
 
         .nav-right { display: flex; align-items: center; gap: 12px; }
+        .mobile-only { display: none; }
+        .desktop-only { display: flex; }
         .login-link { 
             background: #005c34; 
             color: #fff; 
@@ -88,7 +90,8 @@
         @media (max-width: 1024px) {
             .public-nav { padding: 0 20px; height: 70px; }
             .menu-toggle { display: block; order: 2; }
-            .nav-right { order: 3; }
+            .desktop-only { display: none; }
+            .mobile-only { display: block; }
             
             .public-menu {
                 position: absolute;
@@ -216,9 +219,18 @@
                 <a class="{{ request()->routeIs('edukasi.*') ? 'active' : '' }}" href="{{ route('edukasi.index') }}"><i class="fa-solid fa-book-open fa-inline"></i>Edukasi</a>
                 <a class="{{ request()->routeIs('about.*') ? 'active' : '' }}" href="{{ route('about.index') }}"><i class="fa-solid fa-circle-info fa-inline"></i>About</a>
                 <a class="{{ request()->routeIs('bantuan.*') ? 'active' : '' }}" href="{{ route('bantuan.index') }}"><i class="fa-solid fa-headset fa-inline"></i>Bantuan</a>
+                
+                <!-- Mobile Only Login Link -->
+                <div class="mobile-only mt-3 pt-3 border-top w-100 text-center">
+                    @auth
+                        <a class="login-link d-inline-block w-100" href="{{ route('dashboard') }}"><i class="fa-solid fa-table-columns fa-inline"></i> Dashboard</a>
+                    @else
+                        <a class="login-link d-inline-block w-100" href="{{ route('login') }}"><i class="fa-regular fa-circle-user fa-inline"></i> Login</a>
+                    @endauth
+                </div>
             </div>
 
-            <div class="nav-right">
+            <div class="nav-right desktop-only">
                 @auth
                     <a class="login-link" href="{{ route('dashboard') }}"><i class="fa-solid fa-table-columns fa-inline"></i> Dashboard</a>
                 @else
