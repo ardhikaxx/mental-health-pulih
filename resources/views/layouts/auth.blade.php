@@ -23,9 +23,18 @@
         /* Left Panel */
         .left-panel {
             position: relative; height: 100vh; padding: 48px 64px;
-            background: linear-gradient(135deg, rgba(0, 92, 52, 0.6), rgba(0, 0, 0, 0.4)), url("{{ asset('assets/images/login.png') }}");
+            background-image: url("{{ asset('assets/images/login.png') }}");
             background-size: cover; background-position: center;
+            display: flex; flex-direction: column;
         }
+        .left-panel::before {
+            content: "";
+            position: absolute; inset: 0;
+            background: linear-gradient(135deg, rgba(0, 92, 52, 0.4), rgba(0, 0, 0, 0.3));
+            z-index: 1;
+        }
+        .left-panel > * { position: relative; z-index: 2; }
+
         .brand { display:flex; align-items:center; gap:20px; }
         .brand img { width:80px; height:80px; border-radius:50%; background:#fff; padding:8px; object-fit:contain; }
         .brand h1 { color:#fff; font-size:28px; font-weight:800; }
