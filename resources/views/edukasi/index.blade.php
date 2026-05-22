@@ -73,12 +73,16 @@
 
 <div class="tabs">
     <a class="{{ blank($filter) ? 'active' : '' }}" href="{{ route('edukasi.index', ['search' => $search]) }}">Semua</a>
-    <a class="{{ $filter === 'artikel' ? 'active' : '' }}" href="{{ route('edukasi.index', ['filter' => 'artikel', 'search' => $search]) }}">Artikel</a>
-    <a class="{{ $filter === 'tips-stres' ? 'active' : '' }}" href="{{ route('edukasi.index', ['filter' => 'tips-stres', 'search' => $search]) }}">Tips Stres</a>
-    <a class="{{ $filter === 'video' ? 'active' : '' }}" href="{{ route('edukasi.index', ['filter' => 'video', 'search' => $search]) }}">Video Edukasi</a>
+    @foreach($categories as $cat)
+        <a class="{{ $filter == $cat->id_kategori ? 'active' : '' }}" href="{{ route('edukasi.index', ['filter' => $cat->id_kategori, 'search' => $search]) }}">
+            {{ $cat->nama_kategori }}
+        </a>
+    @endforeach
+    <a class="{{ $filter === 'artikel' ? 'active' : '' }}" href="{{ route('edukasi.index', ['filter' => 'artikel', 'search' => $search]) }}">Hanya Artikel</a>
+    <a class="{{ $filter === 'video' ? 'active' : '' }}" href="{{ route('edukasi.index', ['filter' => 'video', 'search' => $search]) }}">Hanya Video</a>
 </div>
 
-@if(blank($filter) || $filter === 'artikel' || $filter === 'tips-stres')
+@if(blank($filter) || is_numeric($filter) || $filter === 'artikel')
 <h2 id="artikel" class="section-title">Artikel Terbaru</h2>
 <div class="grid-3">
     @forelse ($artikels as $artikel)
@@ -111,7 +115,7 @@
 @endif
 @endif
 
-@if ((blank($filter) || $filter === 'video' || $filter === 'tips-stres') && $videos->isNotEmpty())
+@if ((blank($filter) || is_numeric($filter) || $filter === 'video') && $videos->isNotEmpty())
     <h2 class="section-title">Video Edukasi</h2>
     <div class="grid-3">
         @foreach ($videos as $video)

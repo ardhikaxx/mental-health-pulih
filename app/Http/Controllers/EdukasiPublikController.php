@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\KategoriEdukasi;
 use App\Models\KontenEdukasi;
 use Illuminate\Http\Request;
 
@@ -11,6 +12,7 @@ class EdukasiPublikController extends Controller
     {
         $filter = $request->string('filter')->toString();
         $search = $request->string('search')->toString();
+        $categories = KategoriEdukasi::where('status', 'aktif')->get();
 
         $baseQuery = KontenEdukasi::with(['kategori', 'penulis'])
             ->where('status', 'publish')
@@ -21,11 +23,9 @@ class EdukasiPublikController extends Controller
                         ->orWhereHas('kategori', fn ($kategori) => $kategori->where('nama_kategori', 'like', "%{$search}%"));
                 });
             })
+            ->when($filter && is_numeric($filter), fn ($query) => $query->where('id_kategori', $filter))
             ->when($filter === 'artikel', fn ($query) => $query->where('tipe_konten', 'artikel'))
-            ->when($filter === 'video', fn ($query) => $query->where('tipe_konten', 'video'))
-            ->when($filter === 'tips-stres', function ($query) {
-                $query->whereHas('kategori', fn ($kategori) => $kategori->where('nama_kategori', 'like', '%stres%'));
-            });
+            ->when($filter === 'video', fn ($query) => $query->where('tipe_konten', 'video'));
 
         $artikels = (clone $baseQuery)
             ->where('tipe_konten', 'artikel')
@@ -38,7 +38,7 @@ class EdukasiPublikController extends Controller
             ->take(6)
             ->get();
 
-        return view('edukasi.index', compact('artikels', 'videos', 'filter', 'search'));
+        return view('edukasi.index', compact('artikels', 'videos', 'filter', 'search', 'categories'));
     }
 
     public function show(string $slug)
