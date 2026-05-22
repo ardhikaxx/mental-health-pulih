@@ -8,7 +8,7 @@
         body { font-family: 'Times New Roman', Times, serif; color: #333; line-height: 1.5; font-size: 12pt; }
         
         /* Letterhead / Kop Surat */
-        .kop-surat { border-bottom: 3px double #005c34; padding-bottom: 10px; margin-bottom: 20px; position: relative; min-height: 125px; }
+        .kop-surat { border-bottom: 3px double #005c34; padding-bottom: 5px; margin-bottom: 20px; position: relative; }
         .kop-logo { position: absolute; left: 0; top: -15px; width: 130px; height: 130px; }
         .kop-detail { text-align: center; margin-left: 135px; margin-right: 10px; }
         .kop-title { font-family: 'Times New Roman', Times, serif; font-size: 24px; font-weight: bold; color: #005c34; margin-bottom: 5px; text-transform: uppercase; }
