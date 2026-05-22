@@ -36,7 +36,7 @@
                             ['Sangat Buruk', 'sangatburuk.png', 'text-danger'],
                         ] as [$mood, $img, $textClass])
                             <div class="col-6 col-sm-4 col-md text-center">
-                                <label class="mood-label-wrapper d-block p-3 rounded-4 border border-2 cursor-pointer transition-all {{ $moodHariIni?->mood === $mood ? 'border-primary bg-primary bg-opacity-10 shadow-sm' : 'border-light bg-light hover-bg-white' }}" style="cursor: pointer;">
+                                <label class="mood-label-wrapper d-block p-3 rounded-4 border-2 cursor-pointer transition-all {{ $moodHariIni?->mood === $mood ? 'border-primary bg-primary bg-opacity-10 shadow-sm' : 'border-light bg-light hover-bg-white' }}" style="cursor: pointer;">
                                     <input type="radio" name="mood" value="{{ $mood }}" class="d-none" @checked($moodHariIni?->mood === $mood) required onchange="this.form.querySelectorAll('.mood-label-wrapper').forEach(el => { el.classList.remove('border-primary', 'bg-primary', 'bg-opacity-10', 'shadow-sm'); el.classList.add('border-light', 'bg-light'); }); this.closest('.mood-label-wrapper').classList.remove('border-light', 'bg-light'); this.closest('.mood-label-wrapper').classList.add('border-primary', 'bg-primary', 'bg-opacity-10', 'shadow-sm');">
                                     <div class="mood-icon mb-2 transition-transform {{ $moodHariIni?->mood === $mood ? 'scale-110' : '' }}" style="height: 60px;">
                                         <img src="{{ asset('assets/images/'.$img) }}" alt="{{ $mood }}" class="img-fluid h-100 drop-shadow-sm">
@@ -86,7 +86,7 @@
                         @endphp
                         <div class="position-relative mb-4 ps-5">
                             <!-- Icon Dot -->
-                            <div class="position-absolute start-0 translate-middle-x bg-white rounded-circle shadow-sm border border-2 border-primary d-flex align-items-center justify-content-center" style="width: 36px; height: 36px; left: 17px; z-index: 2;">
+                            <div class="position-absolute start-0 translate-middle-x bg-white rounded-circle shadow-sm border-2 border-primary d-flex align-items-center justify-content-center" style="width: 36px; height: 36px; left: 17px; z-index: 2;">
                                 <i class="fa-solid {{ $icon }} text-primary" style="font-size: 0.9rem;"></i>
                             </div>
                             
