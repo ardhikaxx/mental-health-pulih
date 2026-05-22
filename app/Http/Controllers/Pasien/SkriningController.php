@@ -27,6 +27,18 @@ class SkriningController extends Controller
         return view('pasien.skrining.index', compact('pasien'));
     }
 
+    public function riwayat()
+    {
+        $pasien = $this->pasien();
+        $riwayats = HasilSkrining::with('jenisSkrining')
+            ->where('id_pasien', $pasien->id_pasien)
+            ->latest('tanggal_skrining')
+            ->latest('id_hasil_skrining')
+            ->paginate(10);
+
+        return view('pasien.skrining.riwayat', compact('riwayats'));
+    }
+
     public function storePendaftaran(Request $request)
     {
         $validated = $request->validate([
