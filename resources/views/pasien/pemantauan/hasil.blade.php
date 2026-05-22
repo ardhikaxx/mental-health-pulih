@@ -107,69 +107,110 @@
     <!-- Grafik Perkembangan -->
     <div class="col-lg-5">
         <div class="card border-0 shadow-sm p-4 h-100">
-            <h5 class="fw-bold mb-4 pb-3 border-bottom"><i class="fa-solid fa-chart-bar text-primary me-2"></i> Grafik Perkembangan</h5>
-            <div class="chart-wrapper mt-4 pb-5">
-                <div class="chart-bars d-flex align-items-end gap-1 gap-md-2" style="height: 250px;">
-                    @forelse ($riwayat as $item)
-                        @php
-                            $barColor = match($item->kondisi_mental) {
-                                'baik' => '#10b981',
-                                'sedang' => '#f59e0b',
-                                'parah' => '#ef4444',
-                                default => '#005c34'
-                            };
-                        @endphp
-                        <div class="bar-container flex-grow-1 d-flex flex-column align-items-center group" style="min-width: 0;">
-                            <div class="bar rounded-top-3 w-100 opacity-75 hover-opacity-100 transition-all position-relative" 
-                                 style="height:{{ max(8, ($item->total_skor / 15) * 100) }}%; background-color: {{ $barColor }};"
-                                 data-bs-toggle="tooltip" title="{{ $item->tanggal_pemantauan->format('d M') }}: {{ $item->total_skor }} pts">
-                            </div>
-                            <div class="bar-label-wrapper" style="height: 40px; position: relative; width: 100%;">
-                                <small class="text-muted position-absolute start-50 translate-middle-x mt-2" style="font-size: 0.65rem; transform: translateX(-50%) rotate(-45deg); white-space: nowrap; top: 5px;">
-                                    {{ $item->tanggal_pemantauan->format('d/m') }}
-                                </small>
-                            </div>
-                        </div>
-                    @empty
-                        <div class="w-100 h-100 d-flex align-items-center justify-content-center flex-column text-muted">
-                            <i class="fa-solid fa-chart-line fs-1 opacity-25 mb-3"></i>
-                            <p class="mb-0 fst-italic">Belum ada riwayat pantauan.</p>
-                        </div>
-                    @endforelse
-                </div>
+            <h5 class="fw-bold mb-4 pb-3 border-bottom"><i class="fa-solid fa-chart-line text-primary me-2"></i> Grafik Perkembangan</h5>
+            <div class="chart-container" style="position: relative; height: 300px; width: 100%;">
+                <canvas id="monitoringChart"></canvas>
             </div>
-            <div class="mt-auto pt-3 d-flex justify-content-center gap-3 small">
-                <div class="d-flex align-items-center gap-1"><span class="rounded-circle" style="width: 10px; height: 10px; background: #10b981;"></span> Baik</div>
-                <div class="d-flex align-items-center gap-1"><span class="rounded-circle" style="width: 10px; height: 10px; background: #f59e0b;"></span> Sedang</div>
-                <div class="d-flex align-items-center gap-1"><span class="rounded-circle" style="width: 10px; height: 10px; background: #ef4444;"></span> Parah</div>
+            <div class="mt-4 p-3 bg-light rounded-4 small">
+                <p class="mb-0 text-muted fst-italic">
+                    <i class="fa-solid fa-circle-info text-primary me-1"></i> Grafik ini menampilkan tren skor pemantauan mental harian Anda. Semakin rendah skor, semakin baik kondisi mental yang dirasakan.
+                </p>
             </div>
         </div>
     </div>
     </div>
 
     <style>
-    .chart-wrapper {
-        width: 100%;
-        overflow-x: auto;
-        -webkit-overflow-scrolling: touch;
-    }
-    .chart-bars {
-        min-width: 100%;
-        padding-bottom: 10px;
-    }
-    .hover-opacity-100:hover { opacity: 1 !important; cursor: pointer; }
     .transition-all { transition: all 0.3s ease; }
-    .bar:hover { filter: brightness(1.1); transform: scaleX(1.05); }
     </style>
 
     @push('scripts')
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
     document.addEventListener('DOMContentLoaded', function() {
+        // Tooltips initialization
         var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
         var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
             return new bootstrap.Tooltip(tooltipTriggerEl)
         })
+
+        // Chart.js implementation
+        const ctx = document.getElementById('monitoringChart').getContext('2d');
+        const data = @json($riwayat->map(fn($i) => ['date' => $i->tanggal_pemantauan->format('d/m'), 'score' => $i->total_skor]));
+
+        const labels = data.map(item => item.date);
+        const scores = data.map(item => item.score);
+
+        new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: 'Skor Kondisi Mental',
+                    data: scores,
+                    borderColor: '#005c34',
+                    backgroundColor: 'rgba(0, 92, 52, 0.1)',
+                    borderWidth: 3,
+                    pointBackgroundColor: '#005c34',
+                    pointBorderColor: '#fff',
+                    pointBorderWidth: 2,
+                    pointRadius: 5,
+                    pointHoverRadius: 7,
+                    tension: 0.4,
+                    fill: true
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        display: false
+                    },
+                    tooltip: {
+                        mode: 'index',
+                        intersect: false,
+                        backgroundColor: '#1e293b',
+                        titleFont: { family: "'Plus Jakarta Sans', sans-serif", weight: 'bold' },
+                        bodyFont: { family: "'Plus Jakarta Sans', sans-serif" },
+                        padding: 12,
+                        cornerRadius: 8,
+                        displayColors: false,
+                        callbacks: {
+                            label: function(context) {
+                                let label = context.dataset.label || '';
+                                if (label) {
+                                    label += ': ';
+                                }
+                                label += context.parsed.y + ' pts';
+                                return label;
+                            }
+                        }
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        max: 15,
+                        ticks: {
+                            stepSize: 3,
+                            font: { family: "'Plus Jakarta Sans', sans-serif", size: 11 }
+                        },
+                        grid: {
+                            color: '#f1f5f9'
+                        }
+                    },
+                    x: {
+                        ticks: {
+                            font: { family: "'Plus Jakarta Sans', sans-serif", size: 11 }
+                        },
+                        grid: {
+                            display: false
+                        }
+                    }
+                }
+            }
+        });
     });
     </script>
-    @endpush
-@endsection
+    @endpush@endsection
