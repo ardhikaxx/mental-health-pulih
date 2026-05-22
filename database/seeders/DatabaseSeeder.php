@@ -266,35 +266,56 @@ class DatabaseSeeder extends Seeder
         }
 
         $samplePasien = $pasiens->first();
-        $samplePsikolog = $psikologs->first();
-        $sampleJadwal = JadwalPsikolog::where('id_psikolog', $samplePsikolog->id_psikolog)->where('status_jadwal', 'tersedia')->first();
+        $sitiPsikolog = TbPsikolog::whereHas('user', fn ($query) => $query->where('email', 'siti.psikolog@ruangpulih.test'))->first();
 
-        if ($samplePasien && $samplePsikolog && $sampleJadwal) {
-            $pendaftaran = PendaftaranKonsultasi::firstOrCreate([
-                'id_pasien' => $samplePasien->id_pasien,
-                'email' => $samplePasien->user->email,
-                'keluhan' => 'Merasa cemas dan sulit tidur beberapa hari terakhir.',
-            ], [
-                'nama_lengkap' => $samplePasien->user->nama_lengkap,
-                'umur' => $samplePasien->umur ?? 22,
-                'jenis_kelamin' => $samplePasien->user->jenis_kelamin ?? 'perempuan',
-                'tingkat_urgensi' => 'sedang',
-                'persetujuan_syarat' => true,
-                'status_pendaftaran' => 'disetujui',
-            ]);
+        if ($sitiPsikolog) {
+            foreach ($pasiens as $index => $pasien) {
+                $keluhan = [
+                    'Merasa cemas dan sulit tidur beberapa hari terakhir.',
+                    'Butuh pendampingan untuk mengelola stres kuliah dan relasi.',
+                    'Mengalami tekanan emosional yang naik turun dan ingin konsultasi rutin.',
+                    'Ingin memahami pola cemas dan membangun rutinitas pemulihan.',
+                ][$index] ?? 'Membutuhkan konsultasi lanjutan untuk pemantauan kondisi mental.';
 
-            Konsultasi::firstOrCreate([
-                'id_pendaftaran_konsultasi' => $pendaftaran->id_pendaftaran_konsultasi,
-            ], [
-                'id_pasien' => $samplePasien->id_pasien,
-                'id_psikolog' => $samplePsikolog->id_psikolog,
-                'id_jadwal' => $sampleJadwal->id_jadwal,
-                'tanggal_konsultasi' => $sampleJadwal->tanggal,
-                'waktu_mulai' => $sampleJadwal->jam_mulai,
-                'waktu_selesai' => $sampleJadwal->jam_selesai,
-                'status_konsultasi' => 'disetujui',
-            ]);
-            $sampleJadwal->update(['status_jadwal' => 'terpakai']);
+                $pendaftaran = PendaftaranKonsultasi::updateOrCreate([
+                    'id_pasien' => $pasien->id_pasien,
+                    'email' => $pasien->user->email,
+                    'keluhan' => $keluhan,
+                ], [
+                    'nama_lengkap' => $pasien->user->nama_lengkap,
+                    'umur' => $pasien->umur ?? 22,
+                    'jenis_kelamin' => $pasien->user->jenis_kelamin ?? 'perempuan',
+                    'tingkat_urgensi' => $index === 2 ? 'tinggi' : 'sedang',
+                    'persetujuan_syarat' => true,
+                    'status_pendaftaran' => 'disetujui',
+                ]);
+
+                $existingKonsultasi = Konsultasi::where('id_pendaftaran_konsultasi', $pendaftaran->id_pendaftaran_konsultasi)->first();
+                $jadwal = $existingKonsultasi?->jadwal
+                    ?? JadwalPsikolog::where('id_psikolog', $sitiPsikolog->id_psikolog)
+                        ->where('status_jadwal', 'tersedia')
+                        ->orderBy('tanggal')
+                        ->orderBy('jam_mulai')
+                        ->first();
+
+                if (! $jadwal) {
+                    continue;
+                }
+
+                Konsultasi::updateOrCreate([
+                    'id_pendaftaran_konsultasi' => $pendaftaran->id_pendaftaran_konsultasi,
+                ], [
+                    'id_pasien' => $pasien->id_pasien,
+                    'id_psikolog' => $sitiPsikolog->id_psikolog,
+                    'id_jadwal' => $jadwal->id_jadwal,
+                    'tanggal_konsultasi' => $jadwal->tanggal,
+                    'waktu_mulai' => $jadwal->jam_mulai,
+                    'waktu_selesai' => $jadwal->jam_selesai,
+                    'status_konsultasi' => 'disetujui',
+                ]);
+
+                $jadwal->update(['status_jadwal' => 'terpakai']);
+            }
         }
 
         foreach ($pasiens as $index => $pasien) {

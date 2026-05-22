@@ -53,7 +53,7 @@
                                     3 => ['Sangat Berat', 'fa-face-sad-cry', 'text-danger']
                                 ] as $nilai => [$label, $iconClass, $textColorClass])
                                     <div class="col-sm-6 col-md-3">
-                                        <label class="answer-option d-flex flex-column align-items-center justify-content-center h-100 p-4 rounded-4 border border-2 cursor-pointer transition-all bg-light hover-bg-white text-center" style="cursor: pointer;">
+                                        <label class="answer-option d-flex flex-column align-items-center justify-content-center h-100 p-4 rounded-4 border-2 cursor-pointer transition-all bg-light hover-bg-white text-center" style="cursor: pointer;">
                                             <input type="radio" name="jawaban[{{ $item->id_pertanyaan_pemantauan }}]" value="{{ $nilai }}" class="d-none answer-radio" data-question-index="{{ $index }}" data-text-color="{{ $textColorClass }}" onchange="handleAnswerSelection(this)">
                                             <input type="hidden" name="emoji[{{ $item->id_pertanyaan_pemantauan }}]" value=":)">
                                             
