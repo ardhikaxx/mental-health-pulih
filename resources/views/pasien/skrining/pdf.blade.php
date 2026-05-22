@@ -55,7 +55,7 @@
     </div>
 
     <div class="tanggal-surat">
-        Jakarta, {{ $hasil->tanggal_skrining->translatedFormat('d F Y') }}
+        Jember, {{ $hasil->tanggal_skrining->translatedFormat('d F Y') }}
     </div>
 
     <div class="tujuan-surat">
