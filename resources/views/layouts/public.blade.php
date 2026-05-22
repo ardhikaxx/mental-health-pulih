@@ -223,9 +223,9 @@
                 <!-- Mobile Only Login Link -->
                 <div class="mobile-only mt-3 pt-3 border-top w-100 text-center">
                     @auth
-                        <a class="login-link d-inline-block w-100" href="{{ route('dashboard') }}"><i class="fa-solid fa-table-columns fa-inline"></i> Dashboard</a>
+                        <a class="login-link d-inline-block w-100 text-white" href="{{ route('dashboard') }}"><i class="fa-solid fa-table-columns fa-inline"></i> Dashboard</a>
                     @else
-                        <a class="login-link d-inline-block w-100" href="{{ route('login') }}"><i class="fa-regular fa-circle-user fa-inline"></i> Login</a>
+                        <a class="login-link d-inline-block w-100 text-white" href="{{ route('login') }}"><i class="fa-regular fa-circle-user fa-inline"></i> Login</a>
                     @endauth
                 </div>
             </div>
