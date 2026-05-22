@@ -232,7 +232,7 @@
 
             <div class="nav-right desktop-only">
                 @auth
-                    <a class="login-link" href="{{ route('dashboard') }}"><i class="fa-solid fa-table-columns fa-inline"></i> Dashboard</a>
+                    <a class="login-link text-white" href="{{ route('dashboard') }}"><i class="fa-solid fa-table-columns fa-inline"></i> Dashboard</a>
                 @else
                     <a class="login-link" href="{{ route('login') }}"><i class="fa-regular fa-circle-user fa-inline"></i> Login</a>
                 @endauth
