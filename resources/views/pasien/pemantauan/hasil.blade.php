@@ -108,25 +108,68 @@
     <div class="col-lg-5">
         <div class="card border-0 shadow-sm p-4 h-100">
             <h5 class="fw-bold mb-4 pb-3 border-bottom"><i class="fa-solid fa-chart-bar text-primary me-2"></i> Grafik Perkembangan</h5>
-            <div class="chart-bars d-flex align-items-end gap-2 mt-4" style="height: 300px;">
-                @forelse ($riwayat as $item)
-                    <div class="bar-container flex-grow-1 d-flex flex-column align-items-center group" title="Skor: {{ $item->total_skor }}">
-                        <div class="bar bg-primary rounded-top-3 w-100 opacity-75 hover-opacity-100 transition-all" style="height:{{ max(8, $item->total_skor * 12) }}px; max-height: 100%; min-width: 20px;"></div>
-                        <small class="text-muted mt-2" style="font-size: 0.7rem; transform: rotate(-45deg); white-space: nowrap; margin-top: 15px !important;">{{ $item->tanggal_pemantauan->format('d M') }}</small>
-                    </div>
-                @empty
-                    <div class="w-100 h-100 d-flex align-items-center justify-content-center flex-column text-muted">
-                        <i class="fa-solid fa-chart-line fs-1 opacity-25 mb-3"></i>
-                        <p class="mb-0 fst-italic">Belum ada riwayat pantauan.</p>
-                    </div>
-                @endforelse
+            <div class="chart-wrapper mt-4 pb-5">
+                <div class="chart-bars d-flex align-items-end gap-1 gap-md-2" style="height: 250px;">
+                    @forelse ($riwayat as $item)
+                        @php
+                            $barColor = match($item->kondisi_mental) {
+                                'baik' => '#10b981',
+                                'sedang' => '#f59e0b',
+                                'parah' => '#ef4444',
+                                default => '#005c34'
+                            };
+                        @endphp
+                        <div class="bar-container flex-grow-1 d-flex flex-column align-items-center group" style="min-width: 0;">
+                            <div class="bar rounded-top-3 w-100 opacity-75 hover-opacity-100 transition-all position-relative" 
+                                 style="height:{{ max(8, ($item->total_skor / 15) * 100) }}%; background-color: {{ $barColor }};"
+                                 data-bs-toggle="tooltip" title="{{ $item->tanggal_pemantauan->format('d M') }}: {{ $item->total_skor }} pts">
+                            </div>
+                            <div class="bar-label-wrapper" style="height: 40px; position: relative; width: 100%;">
+                                <small class="text-muted position-absolute start-50 translate-middle-x mt-2" style="font-size: 0.65rem; transform: translateX(-50%) rotate(-45deg); white-space: nowrap; top: 5px;">
+                                    {{ $item->tanggal_pemantauan->format('d/m') }}
+                                </small>
+                            </div>
+                        </div>
+                    @empty
+                        <div class="w-100 h-100 d-flex align-items-center justify-content-center flex-column text-muted">
+                            <i class="fa-solid fa-chart-line fs-1 opacity-25 mb-3"></i>
+                            <p class="mb-0 fst-italic">Belum ada riwayat pantauan.</p>
+                        </div>
+                    @endforelse
+                </div>
+            </div>
+            <div class="mt-auto pt-3 d-flex justify-content-center gap-3 small">
+                <div class="d-flex align-items-center gap-1"><span class="rounded-circle" style="width: 10px; height: 10px; background: #10b981;"></span> Baik</div>
+                <div class="d-flex align-items-center gap-1"><span class="rounded-circle" style="width: 10px; height: 10px; background: #f59e0b;"></span> Sedang</div>
+                <div class="d-flex align-items-center gap-1"><span class="rounded-circle" style="width: 10px; height: 10px; background: #ef4444;"></span> Parah</div>
             </div>
         </div>
     </div>
-</div>
+    </div>
 
-<style>
+    <style>
+    .chart-wrapper {
+        width: 100%;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+    .chart-bars {
+        min-width: 100%;
+        padding-bottom: 10px;
+    }
     .hover-opacity-100:hover { opacity: 1 !important; cursor: pointer; }
     .transition-all { transition: all 0.3s ease; }
-</style>
+    .bar:hover { filter: brightness(1.1); transform: scaleX(1.05); }
+    </style>
+
+    @push('scripts')
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+        var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+            return new bootstrap.Tooltip(tooltipTriggerEl)
+        })
+    });
+    </script>
+    @endpush
 @endsection
