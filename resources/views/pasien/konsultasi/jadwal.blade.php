@@ -6,7 +6,7 @@
         <h1 class="mb-2 fw-bold"><i class="fa-regular fa-calendar-check me-2"></i> Pilih Jadwal Konsultasi</h1>
         <p class="mb-0 opacity-75">Dengan <strong>{{ $psikolog->user->nama_lengkap }}</strong> - {{ $psikolog->spesialisasi ?? 'Psikolog Umum' }}</p>
     </div>
-    <a href="{{ route('pasien.konsultasi.psikolog') }}" class="btn btn-light bg-opacity-25 text-white border-0 shadow-none fw-bold" style="position: relative; z-index: 2;">
+    <a href="{{ route('pasien.konsultasi.psikolog') }}" class="btn btn-light bg-opacity-25 text-primary border-0 shadow-none fw-bold" style="position: relative; z-index: 2;">
         <i class="fa-solid fa-arrow-left me-1"></i> Batal & Kembali
     </a>
 </section>

@@ -6,9 +6,14 @@
         <h1 class="mb-2 fw-bold"><i class="fa-solid fa-list-check me-2"></i> Pilih Tes Skrining</h1>
         <p class="mb-0 opacity-75">Pilih tes yang sesuai dengan kondisi yang ingin kamu kenali.</p>
     </div>
-    <a href="{{ route('pasien.skrining.index') }}" class="btn btn-light bg-opacity-25 text-white border-0 shadow-none fw-bold" style="position: relative; z-index: 2;">
-        <i class="fa-solid fa-arrow-left me-1"></i> Kembali ke Biodata
-    </a>
+    <div class="d-flex gap-2" style="position: relative; z-index: 2;">
+        <a href="{{ route('pasien.skrining.riwayat') }}" class="btn btn-light bg-opacity-25 text-primary border-0 shadow-none fw-bold">
+            <i class="fa-solid fa-clock-rotate-left me-1"></i> Riwayat
+        </a>
+        <a href="{{ route('pasien.skrining.index') }}" class="btn btn-light bg-opacity-25 text-primary border-0 shadow-none fw-bold">
+            <i class="fa-solid fa-arrow-left me-1"></i> Kembali
+        </a>
+    </div>
 </section>
 
 <div class="row g-4">

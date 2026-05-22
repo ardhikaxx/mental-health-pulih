@@ -6,7 +6,7 @@
         <h1 class="mb-2 fw-bold"><i class="fa-solid fa-clock-rotate-left me-2"></i> Riwayat Konsultasi</h1>
         <p class="mb-0 opacity-75">Daftar seluruh riwayat pengajuan konsultasi online Anda.</p>
     </div>
-    <a href="{{ route('pasien.konsultasi.index') }}" class="btn btn-light bg-opacity-25 text-white border-0 shadow-none fw-bold" style="position: relative; z-index: 2;">
+    <a href="{{ route('pasien.konsultasi.index') }}" class="btn btn-light bg-opacity-25 text-primary border-0 shadow-none fw-bold" style="position: relative; z-index: 2;">
         <i class="fa-solid fa-arrow-left me-1"></i> Kembali ke Form
     </a>
 </section>

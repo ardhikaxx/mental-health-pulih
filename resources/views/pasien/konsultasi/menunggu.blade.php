@@ -6,7 +6,7 @@
         <h1 class="mb-2 fw-bold"><i class="fa-solid fa-circle-info me-2"></i> Status Konsultasi</h1>
         <p class="mb-0 opacity-75">Detail permintaan konsultasi Anda dengan Psikolog <strong>{{ $konsultasi->psikolog->user->nama_lengkap }}</strong>.</p>
     </div>
-    <a href="{{ route('pasien.konsultasi.riwayat') }}" class="btn btn-light bg-opacity-25 text-white border-0 shadow-none fw-bold" style="position: relative; z-index: 2;">
+    <a href="{{ route('pasien.konsultasi.riwayat') }}" class="btn btn-light bg-opacity-25 text-primary border-0 shadow-none fw-bold" style="position: relative; z-index: 2;">
         <i class="fa-solid fa-arrow-left me-1"></i> Kembali ke Riwayat
     </a>
 </section>

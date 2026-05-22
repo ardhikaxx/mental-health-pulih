@@ -6,7 +6,7 @@
         <h1 class="mb-2 fw-bold"><i class="fa-solid fa-clipboard-check me-2"></i> Hasil Pemantauan Hari Ini</h1>
         <p class="mb-0 opacity-75">Tercatat pada {{ $pemantauan->tanggal_pemantauan->format('d M Y') }}</p>
     </div>
-    <a href="{{ route('pasien.dashboard') }}" class="btn btn-light bg-opacity-25 text-white border-0 shadow-none fw-bold" style="position: relative; z-index: 2;">
+    <a href="{{ route('pasien.dashboard') }}" class="btn btn-light bg-opacity-25 text-primary border-0 shadow-none fw-bold" style="position: relative; z-index: 2;">
         <i class="fa-solid fa-home me-1"></i> Kembali ke Beranda
     </a>
 </section>

@@ -4,7 +4,10 @@
 <section class="hero-panel d-flex flex-column flex-lg-row justify-content-between align-items-lg-center mb-4 gap-4 p-4 bg-primary text-white rounded-4 position-relative overflow-hidden" style="background: linear-gradient(135deg, var(--primary-green), var(--secondary-green));">
     <div style="position: relative; z-index: 2;">
         <h1 class="mb-2 fw-bold"><i class="fa-solid fa-clipboard-question me-2"></i> Skrining Kesehatan Mental</h1>
-        <p class="mb-0 opacity-75">Lengkapi identitas dan riwayat kesehatan sebelum memilih tes skrining.</p>
+        <p class="mb-3 opacity-75">Lengkapi identitas dan riwayat kesehatan sebelum memilih tes skrining.</p>
+        <a href="{{ route('pasien.skrining.riwayat') }}" class="btn btn-light bg-opacity-25 text-primary border-0 shadow-sm fw-bold rounded-pill px-4">
+            <i class="fa-solid fa-clock-rotate-left me-2"></i> Lihat Riwayat Skrining
+        </a>
     </div>
     <div class="bg-white bg-opacity-10 p-3 rounded-4 backdrop-blur shadow-sm d-flex flex-row align-items-center gap-3" style="position: relative; z-index: 2; width: 100%; max-width: 350px; backdrop-filter: blur(10px);">
         <i class="fa-solid fa-circle-info fs-3 opacity-75"></i>

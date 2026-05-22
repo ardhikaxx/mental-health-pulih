@@ -7,11 +7,14 @@
         <p class="mb-0 opacity-75">Hasil tes <strong>{{ $hasil->jenisSkrining->nama_skrining }}</strong> pada {{ $hasil->tanggal_skrining->format('d M Y') }}</p>
     </div>
     <div class="d-flex gap-2" style="position: relative; z-index: 2;">
-        <a href="{{ route('pasien.skrining.hasil.download', $hasil) }}" class="btn btn-light text-primary border-0 shadow-sm fw-bold">
-            <i class="fa-solid fa-file-pdf me-1"></i> Unduh Laporan PDF
+        <a href="{{ route('pasien.skrining.riwayat') }}" class="btn btn-light bg-opacity-25 text-primary border-0 shadow-none fw-bold">
+            <i class="fa-solid fa-clock-rotate-left me-1"></i> Riwayat
         </a>
-        <a href="{{ route('pasien.dashboard') }}" class="btn btn-light bg-opacity-25 text-white border-0 shadow-none fw-bold">
-            <i class="fa-solid fa-home me-1"></i> Kembali ke Beranda
+        <a href="{{ route('pasien.skrining.hasil.download', $hasil) }}" class="btn btn-light text-primary border-0 shadow-sm fw-bold">
+            <i class="fa-solid fa-file-pdf me-1"></i> Unduh PDF
+        </a>
+        <a href="{{ route('pasien.dashboard') }}" class="btn btn-light bg-opacity-25 text-primary border-0 shadow-none fw-bold d-none d-md-inline-block">
+            <i class="fa-solid fa-home me-1"></i> Beranda
         </a>
     </div>
 </section>
