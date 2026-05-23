@@ -64,7 +64,16 @@ class User extends Authenticatable
 
     public function getFotoProfilUrlAttribute(): ?string
     {
-        return $this->foto_profil ? url('uploads/profiles/'.$this->foto_profil) : null;
+        if (!$this->foto_profil) {
+            return null;
+        }
+
+        // Jika foto_profil adalah URL lengkap (misal dari Google)
+        if (filter_var($this->foto_profil, FILTER_VALIDATE_URL)) {
+            return $this->foto_profil;
+        }
+
+        return url('uploads/profiles/'.$this->foto_profil);
     }
 
     public function pasien()
