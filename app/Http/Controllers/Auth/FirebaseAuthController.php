@@ -24,20 +24,39 @@ class FirebaseAuthController extends Controller
 
             $auth = Firebase::auth();
             
-            // Diagnostik: Log project ID dan cuplikan token
+            // Diagnostik: Log project ID, cuplikan token, dan waktu server
             Log::info('Google Login Diagnostic', [
-                'project_id' => config('firebase.projects.app.credentials'),
+                'credentials_path' => config('firebase.projects.app.credentials'),
                 'token_preview' => substr($idToken, 0, 20) . '...',
+                'server_time' => date('Y-m-d H:i:s T'),
+                'php_timezone' => date_default_timezone_get(),
             ]);
 
             // 1. Verifikasi Token dari Firebase
-            // Menambahkan leeway (toleransi waktu) 5 menit untuk mengatasi perbedaan waktu server/client
-            $verifiedIdToken = $auth->verifyIdToken($idToken, false, 300);
-            $firebaseUser = $auth->getUser($verifiedIdToken->claims()->get('sub'));
+            Log::info('Step 1: Verifying ID Token');
+            try {
+                // Menambahkan leeway 5 menit
+                $verifiedIdToken = $auth->verifyIdToken($idToken, false, 300);
+                Log::info('Step 1 Success: Token Verified');
+            } catch (\Exception $e) {
+                Log::error('Step 1 Failure: verifyIdToken failed', ['error' => $e->getMessage()]);
+                throw $e;
+            }
+
+            // 2. Ambil data user dari Token Claims (lebih efisien daripada getUser)
+            $claims = $verifiedIdToken->claims();
+            $email = $claims->get('email');
+            $name = $claims->get('name') ?? $claims->get('display_name');
+            $photoUrl = $claims->get('picture') ?? $claims->get('photo_url');
             
-            $email = $firebaseUser->email;
-            $name = $firebaseUser->displayName;
-            $photoUrl = $firebaseUser->photoUrl;
+            Log::info('Data from claims', [
+                'email' => $email,
+                'name' => $name,
+            ]);
+
+            if (!$email) {
+                return response()->json(['success' => false, 'message' => 'Email tidak ditemukan dalam token'], 400);
+            }
 
             // 2. Cari atau Buat User
             $user = User::where('email', $email)->first();
