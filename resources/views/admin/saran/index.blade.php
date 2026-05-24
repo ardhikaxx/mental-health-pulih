@@ -33,11 +33,13 @@
                 <tr class="border-bottom">
                     <td class="px-4 text-center fw-medium">{{ $sarans->firstItem() + $loop->index }}</td>
                     <td class="px-4">
-                        <div class="fw-bold text-dark">{{ $saran->nama ?? ($saran->user->nama_lengkap ?? 'Anonim') }}</div>
-                        <div class="text-muted small">{{ $saran->email ?? ($saran->user->email ?? '-') }}</div>
-                        @if($saran->id_user)
-                            <span class="badge bg-primary bg-opacity-10 text-primary small px-2 py-0 rounded-pill" style="font-size: 0.65rem;">User Terdaftar</span>
-                        @endif
+                        <div class="d-flex flex-column align-items-start gap-1">
+                            <div class="fw-bold text-dark">{{ $saran->nama ?? ($saran->user->nama_lengkap ?? 'Anonim') }}</div>
+                            <div class="text-muted small">{{ $saran->email ?? ($saran->user->email ?? '-') }}</div>
+                            @if($saran->id_user)
+                                <span class="badge bg-primary bg-opacity-10 text-primary border border-primary border-opacity-25 mt-1" style="font-size: 0.7rem; padding: 0.35rem 0.6rem;">User Terdaftar</span>
+                            @endif
+                        </div>
                     </td>
                     <td class="px-4 text-dark" style="line-height: 1.5;">
                         {{ \Illuminate\Support\Str::limit($saran->pesan, 150) }}
