@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\LaporanMasalah;
+use App\Models\SaranMasukan;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class BantuanDetailController extends Controller
 {
@@ -33,25 +36,38 @@ class BantuanDetailController extends Controller
 
     public function simpanLaporan(Request $request)
     {
-        $request->validate([
+        $validated = $request->validate([
             'judul' => 'required|string|max:255',
             'deskripsi' => 'required|string',
             'kategori' => 'required|string',
         ]);
 
-        // Logic to save or send email
+        LaporanMasalah::create([
+            'id_user' => Auth::id(), // Can be null if guest, based on migration
+            'kategori' => $validated['kategori'],
+            'judul' => $validated['judul'],
+            'deskripsi' => $validated['deskripsi'],
+            'status_laporan' => 'pending',
+        ]);
+
         return back()->with('success', 'Laporan Anda telah kami terima. Terima kasih atas laporannya.');
     }
 
     public function simpanSaran(Request $request)
     {
-        $request->validate([
+        $validated = $request->validate([
             'nama' => 'required|string|max:255',
             'email' => 'required|email',
             'pesan' => 'required|string',
         ]);
 
-        // Logic to save or send email
+        SaranMasukan::create([
+            'id_user' => Auth::id(),
+            'nama' => $validated['nama'],
+            'email' => $validated['email'],
+            'pesan' => $validated['pesan'],
+        ]);
+
         return back()->with('success', 'Terima kasih atas saran dan masukan Anda!');
     }
 }
