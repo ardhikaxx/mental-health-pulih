@@ -78,9 +78,9 @@
 
     <div class="row g-4">
         <div class="col-lg-5">
-            <div class="card shadow-sm p-4 h-100 bg-primary bg-opacity-10 border-start border-primary border-4">
-                <h5 class="fw-bold mb-3 text-primary"><i class="fa-solid fa-circle-info me-2"></i> Keterangan Hasil</h5>
-                <p class="text-dark opacity-75 mb-0" style="line-height: 1.6; font-size: 1.05rem;">
+            <div class="card shadow-sm p-4 h-100 bg-primary text-white border-start border-white border-4">
+                <h5 class="fw-bold mb-3 text-white"><i class="fa-solid fa-circle-info me-2"></i> Keterangan Hasil</h5>
+                <p class="text-white opacity-75 mb-0" style="line-height: 1.6; font-size: 1.05rem;">
                     {{ $hasil->keterangan_hasil }}
                 </p>
             </div>
