@@ -59,33 +59,6 @@
                             </form>
                         </div>
                     </td>
-                </tr>
-
-                <!-- Modal View -->
-                <div class="modal fade" id="view-saran-{{ $saran->id_saran }}" tabindex="-1" aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-centered">
-                        <div class="modal-content border-0 shadow-lg rounded-4">
-                            <div class="modal-header border-bottom-0 pb-0">
-                                <h5 class="modal-title fw-bold">Isi Saran / Masukan</h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body p-4">
-                                <div class="mb-4">
-                                    <label class="text-muted small fw-bold text-uppercase d-block mb-1">Dari</label>
-                                    <div class="text-dark fw-bold">{{ $saran->nama ?? ($saran->user->nama_lengkap ?? 'Anonim') }}</div>
-                                    <div class="text-muted small">{{ $saran->email ?? ($saran->user->email ?? '-') }}</div>
-                                </div>
-                                <div class="mb-0">
-                                    <label class="text-muted small fw-bold text-uppercase d-block mb-1">Pesan</label>
-                                    <div class="p-3 bg-light rounded-3 text-dark" style="white-space: pre-wrap; line-height: 1.6;">{{ $saran->pesan }}</div>
-                                </div>
-                            </div>
-                            <div class="modal-footer border-top-0 pt-0">
-                                <button type="button" class="btn btn-secondary border-0 bg-light text-dark px-4 fw-bold" data-bs-dismiss="modal">Tutup</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
             @empty
                 <tr><td colspan="5" class="text-center py-5 text-muted">Belum ada saran atau masukan.</td></tr>
             @endforelse
@@ -97,4 +70,33 @@
         {{ $sarans->links('pagination::bootstrap-5') }}
     </div>
 </div>
+
+<!-- Modal View Saran -->
+@foreach ($sarans as $saran)
+    <div class="modal fade" id="view-saran-{{ $saran->id_saran }}" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content border-0 shadow-lg rounded-4">
+                <div class="modal-header border-bottom-0 pb-0">
+                    <h5 class="modal-title fw-bold">Isi Saran / Masukan</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body p-4">
+                    <div class="mb-4">
+                        <label class="text-muted small fw-bold text-uppercase d-block mb-1">Dari</label>
+                        <div class="text-dark fw-bold">{{ $saran->nama ?? ($saran->user->nama_lengkap ?? 'Anonim') }}</div>
+                        <div class="text-muted small">{{ $saran->email ?? ($saran->user->email ?? '-') }}</div>
+                    </div>
+                    <div class="mb-0">
+                        <label class="text-muted small fw-bold text-uppercase d-block mb-1">Pesan</label>
+                        <div class="p-3 bg-light rounded-3 text-dark" style="white-space: pre-wrap; line-height: 1.6;">{{ $saran->pesan }}</div>
+                    </div>
+                </div>
+                <div class="modal-footer border-top-0 pt-0">
+                    <button type="button" class="btn btn-secondary border-0 bg-light text-dark px-4 fw-bold" data-bs-dismiss="modal">Tutup</button>
+                </div>
+            </div>
+        </div>
+    </div>
+@endforeach
+
 @endsection
