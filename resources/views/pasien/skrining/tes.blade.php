@@ -38,7 +38,7 @@
                         <div class="row g-3">
                             @foreach ($pertanyaan->jawaban as $jawaban)
                                 <div class="col-sm-6">
-                                    <label class="answer-option d-block h-100 p-3 rounded-4 border border-2 cursor-pointer transition-all bg-light hover-bg-white" style="cursor: pointer;">
+                                    <label class="answer-option d-block h-100 p-3 rounded-4 border border-2 cursor-pointer transition-all bg-light" style="cursor: pointer;">
                                         <input type="radio" name="jawaban[{{ $pertanyaan->id_pertanyaan }}]" value="{{ $jawaban->id_jawaban }}" class="d-none answer-radio" data-question-index="{{ $index }}" onchange="this.closest('.row').querySelectorAll('.answer-option').forEach(el => { el.classList.remove('border-primary', 'bg-primary'); el.classList.add('border-light', 'bg-light'); let span = el.querySelector('span'); span.classList.remove('text-white'); span.classList.add('text-dark'); }); this.closest('.answer-option').classList.remove('border-light', 'bg-light'); this.closest('.answer-option').classList.add('border-primary', 'bg-primary'); let selectedSpan = this.closest('.answer-option').querySelector('span'); selectedSpan.classList.remove('text-dark'); selectedSpan.classList.add('text-white'); handleAnswerSelection();">
                                         <div class="d-flex align-items-center gap-2 h-100">
                                             <div class="radio-custom rounded-circle border border-2 d-flex align-items-center justify-content-center flex-shrink-0 bg-white" style="width: 20px; height: 20px;">
@@ -92,8 +92,14 @@
 
 <style>
     .transition-all { transition: all 0.2s ease; }
-    .hover-bg-white:hover { background-color: #fff !important; border-color: #dee2e6 !important; }
     
+    /* Inactive State Hover */
+    .answer-option:not(.bg-primary):hover { background-color: #fff !important; border-color: #dee2e6 !important; }
+    
+    /* Active/Checked State (Prevents hover overriding white text) */
+    .answer-option.bg-primary:hover { background-color: var(--primary-green) !important; border-color: var(--primary-green) !important; }
+    .answer-option.bg-primary:hover span { color: white !important; }
+
     .answer-option input:checked ~ div .radio-custom { border-color: var(--primary-green) !important; }
     .answer-option input:checked ~ div .radio-custom .radio-dot { display: block !important; }
     
