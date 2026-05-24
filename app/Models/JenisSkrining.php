@@ -14,4 +14,13 @@ class JenisSkrining extends Model
     {
         return $this->hasMany(PertanyaanSkrining::class, 'id_jenis_skrining', 'id_jenis_skrining')->orderBy('urutan');
     }
+
+    public function getGambarUrlAttribute(): ?string
+    {
+        if (!$this->gambar) {
+            return null;
+        }
+
+        return url('uploads/skrining/' . $this->gambar);
+    }
 }

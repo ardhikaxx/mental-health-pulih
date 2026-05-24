@@ -6,10 +6,27 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form action="{{ $action }}" method="POST">
+                <form action="{{ $action }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     @if ($method !== 'POST') @method($method) @endif
                     <div class="row g-3">
+                        <div class="col-12 text-center mb-3">
+                            <div class="position-relative d-inline-block">
+                                <img id="preview-{{ $id }}" 
+                                     src="{{ $item?->gambar_url ?: asset('assets/no-image.png') }}" 
+                                     onerror="this.onerror=null;this.src='{{ asset('assets/no-image.png') }}';"
+                                     class="rounded-3 object-fit-cover shadow-sm border" 
+                                     style="width: 120px; height: 120px; cursor: pointer;"
+                                     onclick="document.getElementById('input-{{ $id }}').click()">
+                                <div class="position-absolute bottom-0 end-0 bg-primary text-white rounded-circle d-flex align-items-center justify-content-center shadow" 
+                                     style="width: 32px; height: 32px; transform: translate(25%, 25%); cursor: pointer;"
+                                     onclick="document.getElementById('input-{{ $id }}').click()">
+                                    <i class="fa-solid fa-camera fa-xs"></i>
+                                </div>
+                            </div>
+                            <input type="file" id="input-{{ $id }}" name="gambar" class="d-none" accept="image/*" onchange="previewImage(this, 'preview-{{ $id }}')">
+                            <div class="small text-muted mt-2">Format: JPG, PNG (Max 2MB)</div>
+                        </div>
                         <div class="col-md-6">
                             <label class="form-label fw-semibold">Nama Skrining</label>
                             <input class="form-control bg-light border-0" name="nama_skrining" value="{{ old('nama_skrining', $item?->nama_skrining) }}" required>

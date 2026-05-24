@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\JenisSkrining;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
 
 class SkriningController extends Controller
 {
@@ -32,7 +33,20 @@ class SkriningController extends Controller
             'deskripsi' => 'nullable|string',
             'panduan_pengelolaan' => 'nullable|string',
             'status' => 'required|in:draft,publish',
+            'gambar' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
+
+        if ($request->hasFile('gambar')) {
+            $directory = storage_path('uploads/skrining');
+            if (! File::exists($directory)) {
+                File::makeDirectory($directory, 0755, true);
+            }
+
+            $file = $request->file('gambar');
+            $filename = 'skrining_'.time().'_'.uniqid().'.'.$file->extension();
+            $file->move($directory, $filename);
+            $validated['gambar'] = $filename;
+        }
 
         JenisSkrining::create($validated + [
             'dibuat_oleh' => auth()->id(),
@@ -49,7 +63,27 @@ class SkriningController extends Controller
             'deskripsi' => 'nullable|string',
             'panduan_pengelolaan' => 'nullable|string',
             'status' => 'required|in:draft,publish',
+            'gambar' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
+
+        if ($request->hasFile('gambar')) {
+            $directory = storage_path('uploads/skrining');
+            if (! File::exists($directory)) {
+                File::makeDirectory($directory, 0755, true);
+            }
+
+            if ($skrining->gambar) {
+                $oldPath = storage_path('uploads/skrining/'.$skrining->gambar);
+                if (File::exists($oldPath)) {
+                    File::delete($oldPath);
+                }
+            }
+
+            $file = $request->file('gambar');
+            $filename = 'skrining_'.time().'_'.uniqid().'.'.$file->extension();
+            $file->move($directory, $filename);
+            $validated['gambar'] = $filename;
+        }
 
         $skrining->update($validated);
 
@@ -58,6 +92,13 @@ class SkriningController extends Controller
 
     public function destroy(JenisSkrining $skrining)
     {
+        if ($skrining->gambar) {
+            $path = storage_path('uploads/skrining/'.$skrining->gambar);
+            if (File::exists($path)) {
+                File::delete($path);
+            }
+        }
+        
         $skrining->delete();
 
         return back()->with('success', 'Jenis skrining berhasil dihapus.');

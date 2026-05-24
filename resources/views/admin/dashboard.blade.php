@@ -423,6 +423,10 @@
     .content-img.video { background: #fff1f2; color: #f43f5e; }
     .content-title { font-weight: 700; font-size: 14px; color: var(--text-main); display: block; max-width: 250px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 
+    @media (max-width: 768px) {
+        .content-title { white-space: normal; line-height: 1.3; max-width: 100%; }
+    }
+
     .tag-simple { font-size: 12px; font-weight: 600; color: var(--text-muted); background: #f8fafc; padding: 4px 10px; border-radius: 6px; }
     .text-date, .text-duration { font-size: 13px; color: var(--text-muted); }
 
@@ -510,18 +514,38 @@
         .grid-4 { grid-template-columns: repeat(2, 1fr) !important; gap: 15px !important; }
         .premium-stat-card { padding: 20px; gap: 12px; }
     }
+    @media (max-width: 768px) {
+        .modern-table thead th:nth-child(2),
+        .modern-table thead th:nth-child(3),
+        .modern-table tbody td:nth-child(2),
+        .modern-table tbody td:nth-child(3) {
+            display: none;
+        }
+        .content-title { max-width: 180px; }
+    }
     @media (max-width: 576px) {
         .grid-4 { grid-template-columns: 1fr !important; }
         .banner-content h1 { font-size: 28px; }
-        .premium-table-wrapper { overflow-x: auto; -webkit-overflow-scrolling: touch; border-radius: 12px; }
-        .modern-table { min-width: 600px; }
+        .premium-table-wrapper { overflow-x: visible; }
+        .modern-table { min-width: 100%; }
+        .modern-table td { padding: 12px 8px; }
         .premium-card { padding: 20px 15px; }
         .card-header-flex { flex-direction: column; gap: 10px; align-items: flex-start; }
         .action-grid-premium { grid-template-columns: repeat(2, 1fr); gap: 10px; }
-        .quick-btn { padding: 15px 10px; }
+        .quick-btn { padding: 15px 10px; border-radius: 14px; }
         .quick-btn i { font-size: 18px; }
         .quick-btn span { font-size: 11px; }
         .premium-stat-card { flex-direction: row; text-align: left; }
+        
+        .content-title { max-width: 140px; font-size: 13px; }
+        .status-pill { padding: 2px 8px; font-size: 10px; }
+        
+        .header-info h2 { font-size: 18px; }
+        .header-info p { font-size: 12px; }
+        
+        .modern-timeline { gap: 18px; }
+        .entry-content h6 { font-size: 13px; }
+        .entry-content p { font-size: 12px; }
     }
     @media (max-width: 400px) {
         .action-grid-premium { grid-template-columns: 1fr; }
@@ -529,6 +553,7 @@
         .banner-content h1 { font-size: 24px; }
         .card-icon { width: 44px; height: 44px; font-size: 18px; }
         .data-value { font-size: 20px; }
+        .content-title { max-width: 120px; }
     }
 </style>
 @endsection

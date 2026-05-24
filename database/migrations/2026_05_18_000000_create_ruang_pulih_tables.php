@@ -96,6 +96,7 @@ return new class extends Migration
             $table->string('nama_skrining');
             $table->string('jenis_penyakit');
             $table->text('deskripsi')->nullable();
+            $table->string('gambar')->nullable();
             $table->enum('status', ['draft', 'publish'])->default('draft');
             $table->integer('jumlah_pertanyaan')->default(0);
             $table->text('panduan_pengelolaan')->nullable();

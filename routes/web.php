@@ -66,6 +66,22 @@ Route::get('/uploads/profiles/{filename}', function (string $filename) {
     ]);
 })->name('uploads.profiles.legacy');
 
+Route::get('/uploads/skrining/{filename}', function (string $filename) {
+    if ($filename !== basename($filename)) {
+        abort(404);
+    }
+
+    $path = storage_path('uploads/skrining/'.$filename);
+
+    if (! File::exists($path) || ! File::isFile($path)) {
+        abort(404);
+    }
+
+    return response()->file($path, [
+        'Cache-Control' => 'public, max-age=604800',
+    ]);
+})->name('uploads.skrining.show');
+
 Route::get('/edukasi', [EdukasiPublikController::class, 'index'])->name('edukasi.index');
 Route::get('/edukasi/video/{slug}', [EdukasiPublikController::class, 'video'])->name('edukasi.video');
 Route::get('/edukasi/{slug}', [EdukasiPublikController::class, 'show'])->name('edukasi.show');

@@ -42,7 +42,15 @@
             @forelse ($skrining as $item)
                 <tr class="border-bottom">
                     <td class="px-4 text-center fw-medium">{{ $skrining->firstItem() + $loop->index }}</td>
-                    <td class="px-4 fw-bold text-dark">{{ $item->nama_skrining }}</td>
+                    <td class="px-4">
+                        <div class="d-flex align-items-center gap-3">
+                            <img src="{{ $item->gambar_url ?: asset('assets/no-image.png') }}" 
+                                 onerror="this.onerror=null;this.src='{{ asset('assets/no-image.png') }}';"
+                                 class="rounded-2 object-fit-cover border" 
+                                 style="width: 45px; height: 45px;">
+                            <span class="fw-bold text-dark">{{ $item->nama_skrining }}</span>
+                        </div>
+                    </td>
                     <td class="px-4">
                         <span class="badge bg-primary bg-opacity-10 text-primary px-3 py-2 rounded-pill">{{ $item->jenis_penyakit }}</span>
                     </td>
@@ -94,6 +102,20 @@
         </div>
     @endif
 </div>
+
+@push('scripts')
+<script>
+    function previewImage(input, previewId) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function(e) {
+                document.getElementById(previewId).src = e.target.result;
+            }
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+</script>
+@endpush
 
 <!-- Modal Panduan -->
 <div class="modal fade" id="panduan" tabindex="-1" aria-labelledby="panduanLabel" aria-hidden="true">
