@@ -26,7 +26,7 @@
                 </div>
             </div>
             
-            <div class="card-body bg-light overflow-auto p-4 d-flex flex-column gap-3" style="flex: 1;">
+            <div class="card-body bg-light overflow-auto p-4 d-flex flex-column gap-3" style="flex: 1;" id="chatContainer">
                 @forelse ($konsultasi->chat as $chat)
                     @if ($chat->id_pengirim === auth()->id())
                         <div class="d-flex flex-column align-items-end">
@@ -89,10 +89,19 @@
             </div>
             
             <div class="card-footer bg-white border-top p-3">
-                <form method="POST" enctype="multipart/form-data" action="{{ route('psikolog.konsultasi.chat.send', $konsultasi) }}">
+                <form method="POST" enctype="multipart/form-data" action="{{ route('psikolog.konsultasi.chat.send', $konsultasi) }}" id="chatForm">
                     @csrf
+                    <!-- File Preview Indicator -->
+                    <div id="filePreviewContainer" class="mb-2 d-none">
+                        <div class="d-inline-flex align-items-center bg-light border rounded-pill px-3 py-1 gap-2 shadow-sm">
+                            <i class="fa-solid fa-file-circle-check text-primary"></i>
+                            <small id="fileNameDisplay" class="fw-bold text-dark text-truncate" style="max-width: 200px;"></small>
+                            <button type="button" class="btn-close ms-1" style="font-size: 0.6rem;" onclick="clearFileInput()"></button>
+                        </div>
+                    </div>
+
                     <div class="input-group">
-                        <input type="file" name="file_lampiran" class="form-control d-none" id="file_lampiran">
+                        <input type="file" name="file_lampiran" class="form-control d-none" id="file_lampiran" onchange="handleFileSelect(this)">
                         <label class="input-group-text bg-light border text-muted cursor-pointer" for="file_lampiran" title="Tambah Lampiran" style="cursor: pointer;">
                             <i class="fa-solid fa-paperclip"></i>
                         </label>
@@ -139,6 +148,46 @@
             chatContainer.scrollTop = chatContainer.scrollHeight;
         }
     });
+
+    function handleFileSelect(input) {
+        const container = document.getElementById('filePreviewContainer');
+        const nameDisplay = document.getElementById('fileNameDisplay');
+        
+        if (input.files && input.files[0]) {
+            const file = input.files[0];
+            
+            // Re-check size just in case
+            if (file.size > 2 * 1024 * 1024) {
+                container.classList.add('d-none');
+                return;
+            }
+
+            nameDisplay.textContent = file.name;
+            container.classList.remove('d-none');
+            
+            // Visual pulse effect
+            container.classList.add('animate-pulse');
+            setTimeout(() => container.classList.remove('animate-pulse'), 500);
+        } else {
+            container.classList.add('d-none');
+        }
+    }
+
+    function clearFileInput() {
+        const input = document.getElementById('file_lampiran');
+        input.value = '';
+        document.getElementById('filePreviewContainer').classList.add('d-none');
+    }
 </script>
+<style>
+    @keyframes pulse {
+        0% { transform: scale(1); }
+        50% { transform: scale(1.05); }
+        100% { transform: scale(1); }
+    }
+    .animate-pulse {
+        animation: pulse 0.3s ease-in-out;
+    }
+</style>
 @endpush
 @endsection

@@ -114,10 +114,19 @@
                         <i class="fa-solid fa-lock me-2"></i> Sesi konsultasi ini telah selesai. Anda tidak dapat mengirim pesan lagi.
                     </div>
                 @else
-                    <form method="POST" enctype="multipart/form-data" action="{{ route('pasien.konsultasi.chat.send', $konsultasi) }}">
+                    <form method="POST" enctype="multipart/form-data" action="{{ route('pasien.konsultasi.chat.send', $konsultasi) }}" id="chatForm">
                         @csrf
+                        <!-- File Preview Indicator -->
+                        <div id="filePreviewContainer" class="mb-2 d-none">
+                            <div class="d-inline-flex align-items-center bg-light border rounded-pill px-3 py-1 gap-2 shadow-sm">
+                                <i class="fa-solid fa-file-circle-check text-primary"></i>
+                                <small id="fileNameDisplay" class="fw-bold text-dark text-truncate" style="max-width: 200px;"></small>
+                                <button type="button" class="btn-close ms-1" style="font-size: 0.6rem;" onclick="clearFileInput()"></button>
+                            </div>
+                        </div>
+
                         <div class="input-group">
-                            <input type="file" name="file_lampiran" class="form-control d-none" id="file_lampiran">
+                            <input type="file" name="file_lampiran" class="form-control d-none" id="file_lampiran" onchange="handleFileSelect(this)">
                             <label class="input-group-text bg-light border text-muted cursor-pointer px-3" for="file_lampiran" title="Tambah Lampiran" style="cursor: pointer;">
                                 <i class="fa-solid fa-paperclip fs-5"></i>
                             </label>
@@ -138,8 +147,51 @@
     // Auto-scroll to bottom of chat
     document.addEventListener("DOMContentLoaded", function() {
         var chatContainer = document.getElementById("chatContainer");
-        chatContainer.scrollTop = chatContainer.scrollHeight;
+        if (chatContainer) {
+            chatContainer.scrollTop = chatContainer.scrollHeight;
+        }
     });
+
+    function handleFileSelect(input) {
+        const container = document.getElementById('filePreviewContainer');
+        const nameDisplay = document.getElementById('fileNameDisplay');
+        
+        if (input.files && input.files[0]) {
+            const file = input.files[0];
+            
+            // Re-check size just in case (already handled globally but good for UI flow)
+            if (file.size > 2 * 1024 * 1024) {
+                // Global script will clear it and show alert, so we just hide our UI
+                container.classList.add('d-none');
+                return;
+            }
+
+            nameDisplay.textContent = file.name;
+            container.classList.remove('d-none');
+            
+            // Visual pulse effect
+            container.classList.add('animate-pulse');
+            setTimeout(() => container.classList.remove('animate-pulse'), 500);
+        } else {
+            container.classList.add('d-none');
+        }
+    }
+
+    function clearFileInput() {
+        const input = document.getElementById('file_lampiran');
+        input.value = '';
+        document.getElementById('filePreviewContainer').classList.add('d-none');
+    }
 </script>
+<style>
+    @keyframes pulse {
+        0% { transform: scale(1); }
+        50% { transform: scale(1.05); }
+        100% { transform: scale(1); }
+    }
+    .animate-pulse {
+        animation: pulse 0.3s ease-in-out;
+    }
+</style>
 @endpush
 @endsection
