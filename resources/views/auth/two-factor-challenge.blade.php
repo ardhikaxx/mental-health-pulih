@@ -2,7 +2,7 @@
 
 @section('form')
     <h2 class="auth-title">Verifikasi 2 Langkah</h2>
-    <p class="auth-subtitle">Selesaikan tantangan CAPTCHA di bawah ini dalam waktu <strong class="text-danger">10 detik</strong> untuk melanjutkan.</p>
+    <p class="auth-subtitle">Selesaikan tantangan CAPTCHA di bawah ini dalam waktu <strong class="text-danger">15 detik</strong> untuk melanjutkan.</p>
 
     <div class="text-center mb-4 mt-4">
         <div class="p-3 bg-light rounded-4 d-inline-block border">
@@ -10,7 +10,7 @@
         </div>
         <div class="mt-3">
             <span class="badge bg-danger rounded-pill px-3 py-2 fw-bold" style="font-size: 14px;">
-                Sisa Waktu: <span id="timer">10</span> detik
+                Sisa Waktu: <span id="timer">15</span> detik
             </span>
         </div>
     </div>
@@ -42,7 +42,7 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            let timeLeft = 10;
+            let timeLeft = 15;
             const timerElement = document.getElementById('timer');
             
             const countdown = setInterval(() => {

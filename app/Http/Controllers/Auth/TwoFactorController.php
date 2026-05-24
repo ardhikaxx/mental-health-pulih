@@ -98,10 +98,10 @@ class TwoFactorController extends Controller
             return redirect()->route('login')->withErrors(['email' => 'Sesi verifikasi tidak valid.']);
         }
 
-        // Check if 10 seconds have passed
-        if (now()->timestamp - $generatedTime > 10) {
+        // Check if 15 seconds have passed
+        if (now()->timestamp - $generatedTime > 15) {
             $request->session()->forget(['2fa_user_id', '2fa_remember']);
-            return redirect()->route('login')->withErrors(['email' => 'Waktu verifikasi telah habis (10 detik). Silakan login kembali.']);
+            return redirect()->route('login')->withErrors(['email' => 'Waktu verifikasi telah habis (15 detik). Silakan login kembali.']);
         }
 
         if (strtoupper($request->captcha) !== $expectedCode) {
