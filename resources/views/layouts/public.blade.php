@@ -297,6 +297,22 @@
                 toggle.querySelector('i').classList.replace('fa-times', 'fa-bars');
             }
         });
+
+        // Global Image Size Validation
+        document.addEventListener('change', function(event) {
+            if (event.target.type === 'file') {
+                const file = event.target.files[0];
+                if (file && file.size > 2 * 1024 * 1024) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Ukuran Gambar Terlalu Besar',
+                        text: 'Maksimal ukuran gambar adalah 2 MB. Silakan pilih gambar yang lebih kecil.',
+                        confirmButtonColor: '#005c34',
+                    });
+                    event.target.value = ''; // Clear the input
+                }
+            }
+        });
     </script>
     @stack('scripts')
 </body>
