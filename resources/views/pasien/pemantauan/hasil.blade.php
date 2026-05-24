@@ -100,7 +100,16 @@
                                 <tr class="border-bottom">
                                     <td class="px-4 text-muted fw-semibold">{{ $loop->iteration }}</td>
                                     <td class="px-4 text-dark">{{ $jawaban->pertanyaan->pertanyaan }}</td>
-                                    <td class="px-4 text-center fw-bold text-primary">{{ $jawaban->nilai_jawaban }}</td>
+                                    <td class="px-4 text-center fw-bold text-primary">
+                                        @php
+                                            $labels = $jawaban->pertanyaan->sentimen === 'positif' ? [
+                                                3 => 'Tidak Pernah', 2 => 'Jarang', 1 => 'Sering', 0 => 'Selalu'
+                                            ] : [
+                                                0 => 'Tidak Pernah', 1 => 'Jarang', 2 => 'Sering', 3 => 'Selalu'
+                                            ];
+                                        @endphp
+                                        {{ $labels[$jawaban->nilai_jawaban] ?? $jawaban->nilai_jawaban }}
+                                    </td>
                                 </tr>
                             @endforeach
                         </tbody>
@@ -212,9 +221,9 @@
                         scales: {
                             y: {
                                 beginAtZero: true,
-                                max: 15,
+                                max: 25,
                                 ticks: {
-                                    stepSize: 3,
+                                    stepSize: 5,
                                     font: {
                                         family: "'Plus Jakarta Sans', sans-serif",
                                         size: 11

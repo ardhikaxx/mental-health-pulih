@@ -132,11 +132,11 @@ class PemantauanController extends Controller
 
     private function kondisi(int $total): array
     {
-        if ($total <= 3) {
+        if ($total <= 8) {
             return ['baik', ':)'];
         }
 
-        if ($total <= 7) {
+        if ($total <= 16) {
             return ['sedang', ':|'];
         }
 

@@ -219,11 +219,11 @@ class DatabaseSeeder extends Seeder
         foreach ([
             'Apakah kamu merasa nyaman dengan dirimu sendiri?',
             'Apakah kamu merasa stres akhir-akhir ini?',
-            'Apakah kamu sering mimpi buruk tentang kejadian tertentu?',
+            'Apakah kamu mimpi buruk tentang kejadian tertentu?',
             'Apakah kamu takut ditinggalkan orang terdekat?',
-            'Apakah emosimu sering naik turun dengan cepat?',
+            'Apakah emosimu naik turun dengan cepat?',
             'Apakah kamu merasa sulit membedakan kenyataan dan pikiran?',
-            'Apakah kamu sering merasa cemas berlebihan?',
+            'Apakah kamu merasa cemas berlebihan?',
             'Apakah kamu merasa tidak berharga atau putus asa?',
         ] as $index => $teks) {
             PertanyaanPemantauan::updateOrCreate([
@@ -502,11 +502,11 @@ class DatabaseSeeder extends Seeder
 
     private function kondisiPemantauan(int $total): array
     {
-        if ($total <= 3) {
+        if ($total <= 8) {
             return ['baik', ':)'];
         }
 
-        if ($total <= 7) {
+        if ($total <= 16) {
             return ['sedang', ':|'];
         }
 

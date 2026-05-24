@@ -49,12 +49,20 @@
                             </h4>
                             
                             <div class="row g-3">
-                                @foreach ([
-                                    0 => ['Tidak Sama Sekali', 'fa-face-smile', 'text-success'], 
-                                    1 => ['Ringan', 'fa-face-meh', 'text-primary'], 
-                                    2 => ['Sedang', 'fa-face-frown', 'text-warning'], 
-                                    3 => ['Sangat Berat', 'fa-face-sad-cry', 'text-danger']
-                                ] as $nilai => [$label, $iconClass, $textColorClass])
+                                @php
+                                    $options = $item->sentimen === 'positif' ? [
+                                        3 => ['Tidak Pernah', 'fa-face-sad-cry', 'text-danger'], 
+                                        2 => ['Jarang', 'fa-face-frown', 'text-warning'], 
+                                        1 => ['Sering', 'fa-face-smile', 'text-primary'], 
+                                        0 => ['Selalu', 'fa-face-laugh-beam', 'text-success']
+                                    ] : [
+                                        0 => ['Tidak Pernah', 'fa-face-laugh-beam', 'text-success'], 
+                                        1 => ['Jarang', 'fa-face-smile', 'text-primary'], 
+                                        2 => ['Sering', 'fa-face-frown', 'text-warning'], 
+                                        3 => ['Selalu', 'fa-face-sad-cry', 'text-danger']
+                                    ];
+                                @endphp
+                                @foreach ($options as $nilai => [$label, $iconClass, $textColorClass])
                                     <div class="col-sm-6 col-md-3">
                                         <label class="answer-option d-flex flex-column align-items-center justify-content-center h-100 p-4 rounded-4 border-2 cursor-pointer transition-all bg-light hover-bg-white text-center" style="cursor: pointer;">
                                             <input type="radio" name="jawaban[{{ $item->id_pertanyaan_pemantauan }}]" value="{{ $nilai }}" class="d-none answer-radio" data-question-index="{{ $index }}" data-text-color="{{ $textColorClass }}" onchange="handleAnswerSelection(this)">
