@@ -152,12 +152,27 @@
                 <h5 class="fw-bold mb-4 pb-3 border-bottom"><i class="fa-regular fa-bell text-primary me-2"></i> Pesan & Notifikasi</h5>
                 <div class="d-flex flex-column gap-3">
                     @forelse ($notifikasi as $item)
-                        <div class="p-3 bg-light rounded-4 border border-light-subtle transition-hover">
-                            <div class="d-flex justify-content-between align-items-center mb-2">
-                                <strong class="text-dark small d-block">{{ $item->judul_notifikasi }}</strong>
-                                <span class="bg-primary rounded-circle d-inline-block" style="width: 0.5rem; height: 0.5rem;"></span>
+                        <div class="p-3 {{ $item->status_baca ? 'bg-light' : 'bg-primary bg-opacity-10 border-primary border-opacity-25' }} rounded-4 border transition-hover position-relative">
+                            <div class="d-flex justify-content-between align-items-start mb-1">
+                                <strong class="text-dark small d-block pr-3">{{ $item->judul_notifikasi }}</strong>
+                                @if(!$item->status_baca)
+                                    <span class="bg-primary rounded-circle shadow-sm" style="width: 0.5rem; height: 0.5rem; flex-shrink: 0;"></span>
+                                @endif
                             </div>
-                            <p class="text-muted mb-0" style="font-size: 0.8rem; line-height: 1.5;">{{ $item->isi_notifikasi }}</p>
+                            <p class="text-muted mb-2" style="font-size: 0.8rem; line-height: 1.5;">{{ $item->isi_notifikasi }}</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <span class="text-muted small" style="font-size: 0.7rem;">
+                                    <i class="fa-regular fa-clock me-1"></i>{{ $item->created_at->diffForHumans() }}
+                                </span>
+                                @if(!$item->status_baca)
+                                    <form action="{{ route('pasien.notifikasi.baca', $item) }}" method="POST">
+                                        @csrf @method('PATCH')
+                                        <button type="submit" class="btn btn-link p-0 text-primary small text-decoration-none fw-bold" style="font-size: 0.7rem;">
+                                            Tandai dibaca
+                                        </button>
+                                    </form>
+                                @endif
+                            </div>
                         </div>
                     @empty
                         <div class="text-center text-muted fst-italic py-3">

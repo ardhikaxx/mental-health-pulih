@@ -56,6 +56,15 @@ class DashboardController extends Controller
         return back()->with('success', 'Mood harian berhasil disimpan.');
     }
 
+    public function markAsRead(Notifikasi $notifikasi)
+    {
+        abort_unless($notifikasi->id_user === auth()->id(), 403);
+
+        $notifikasi->update(['status_baca' => true]);
+
+        return back()->with('success', 'Notifikasi ditandai sebagai dibaca.');
+    }
+
     private function pasien(): TbPasien
     {
         return TbPasien::firstOrCreate([

@@ -188,6 +188,7 @@ Route::middleware(['auth', 'role:psikolog'])->prefix('psikolog')->name('psikolog
 Route::middleware(['auth', 'role:pasien'])->prefix('pasien')->name('pasien.')->group(function () {
     Route::get('/dashboard', [PasienDashboardController::class, 'index'])->name('dashboard');
     Route::post('/dashboard/mood', [PasienDashboardController::class, 'mood'])->name('dashboard.mood');
+    Route::patch('/notifikasi/{notifikasi}/baca', [PasienDashboardController::class, 'markAsRead'])->name('notifikasi.baca');
 
     Route::get('/skrining', [PasienSkriningController::class, 'index'])->name('skrining.index');
     Route::get('/skrining/riwayat', [PasienSkriningController::class, 'riwayat'])->name('skrining.riwayat');
