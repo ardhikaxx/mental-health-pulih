@@ -73,48 +73,6 @@
                             </form>
                         </div>
                     </td>
-                </tr>
-
-                <!-- Modal Detail & Update Status -->
-                <div class="modal fade" id="view-laporan-{{ $laporan->id_laporan }}" tabindex="-1" aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-centered">
-                        <div class="modal-content border-0 shadow-lg rounded-4">
-                            <div class="modal-header border-bottom-0 pb-0">
-                                <h5 class="modal-title fw-bold">Detail Laporan</h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body p-4">
-                                <div class="mb-4">
-                                    <label class="text-muted small fw-bold text-uppercase d-block mb-1">Judul Laporan</label>
-                                    <div class="text-dark fw-bold fs-5">{{ $laporan->judul }}</div>
-                                </div>
-                                <div class="mb-4">
-                                    <label class="text-muted small fw-bold text-uppercase d-block mb-1">Kategori</label>
-                                    <div class="text-dark text-capitalize">{{ $laporan->kategori }}</div>
-                                </div>
-                                <div class="mb-4">
-                                    <label class="text-muted small fw-bold text-uppercase d-block mb-1">Deskripsi Masalah</label>
-                                    <div class="p-3 bg-light rounded-3 text-dark" style="white-space: pre-wrap;">{{ $laporan->deskripsi }}</div>
-                                </div>
-                                
-                                <form action="{{ route('admin.laporan.status', $laporan) }}" method="POST">
-                                    @csrf @method('PATCH')
-                                    <div class="mb-0">
-                                        <label class="text-muted small fw-bold text-uppercase d-block mb-2">Update Status Penanganan</label>
-                                        <div class="d-flex gap-2">
-                                            <select class="form-select border-0 bg-light" name="status_laporan">
-                                                <option value="pending" @selected($laporan->status_laporan === 'pending')>Pending</option>
-                                                <option value="diproses" @selected($laporan->status_laporan === 'diproses')>Diproses</option>
-                                                <option value="selesai" @selected($laporan->status_laporan === 'selesai')>Selesai</option>
-                                            </select>
-                                            <button type="submit" class="btn btn-primary px-4 fw-bold rounded-3">Update</button>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                </div>
             @empty
                 <tr><td colspan="6" class="text-center py-5 text-muted">Belum ada laporan masalah.</td></tr>
             @endforelse
@@ -126,4 +84,48 @@
         {{ $laporans->links('pagination::bootstrap-5') }}
     </div>
 </div>
+
+<!-- Modals Detail & Update Status -->
+@foreach ($laporans as $laporan)
+    <div class="modal fade" id="view-laporan-{{ $laporan->id_laporan }}" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content border-0 shadow-lg rounded-4">
+                <div class="modal-header border-bottom-0 pb-0">
+                    <h5 class="modal-title fw-bold">Detail Laporan</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body p-4">
+                    <div class="mb-4">
+                        <label class="text-muted small fw-bold text-uppercase d-block mb-1">Judul Laporan</label>
+                        <div class="text-dark fw-bold fs-5">{{ $laporan->judul }}</div>
+                    </div>
+                    <div class="mb-4">
+                        <label class="text-muted small fw-bold text-uppercase d-block mb-1">Kategori</label>
+                        <div class="text-dark text-capitalize">{{ $laporan->kategori }}</div>
+                    </div>
+                    <div class="mb-4">
+                        <label class="text-muted small fw-bold text-uppercase d-block mb-1">Deskripsi Masalah</label>
+                        <div class="p-3 bg-light rounded-3 text-dark" style="white-space: pre-wrap;">{{ $laporan->deskripsi }}</div>
+                    </div>
+                    
+                    <form action="{{ route('admin.laporan.status', $laporan) }}" method="POST">
+                        @csrf @method('PATCH')
+                        <div class="mb-0">
+                            <label class="text-muted small fw-bold text-uppercase d-block mb-2">Update Status Penanganan</label>
+                            <div class="d-flex gap-2">
+                                <select class="form-select border-0 bg-light" name="status_laporan">
+                                    <option value="pending" @selected($laporan->status_laporan === 'pending')>Pending</option>
+                                    <option value="diproses" @selected($laporan->status_laporan === 'diproses')>Diproses</option>
+                                    <option value="selesai" @selected($laporan->status_laporan === 'selesai')>Selesai</option>
+                                </select>
+                                <button type="submit" class="btn btn-primary px-4 fw-bold rounded-3">Update</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+@endforeach
+
 @endsection
