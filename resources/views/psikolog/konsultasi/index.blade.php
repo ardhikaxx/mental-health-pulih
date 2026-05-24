@@ -92,7 +92,7 @@
                             <form action="{{ route('psikolog.konsultasi.reject', $item) }}" method="POST" class="flex-grow-1">
                                 @csrf @method('PATCH')
                                 <input type="hidden" name="catatan_psikolog" value="Jadwal belum dapat diterima.">
-                                <button class="btn btn-danger w-100 shadow-sm fw-semibold" type="submit" onclick="return confirm('Tolak permintaan ini?')"><i class="fa-solid fa-xmark me-1"></i> Tolak</button>
+                                <button class="btn btn-danger w-100 shadow-sm fw-semibold" type="submit" onclick="confirmDelete(event, 'Tolak permintaan ini?')"><i class="fa-solid fa-xmark me-1"></i> Tolak</button>
                             </form>
                         @endif
                         @if (in_array($item->status_konsultasi, ['disetujui','terjadwal'], true))

@@ -137,7 +137,7 @@
                     Menghapus akun akan menghilangkan semua data profesional dan riwayat konsultasi Anda secara permanen.
                 </p>
                 
-                <form method="POST" action="{{ route('psikolog.profile.destroy') }}" onsubmit="return confirm('Apakah Anda yakin ingin menghapus akun profesional ini?')">
+                <form method="POST" action="{{ route('psikolog.profile.destroy') }}" onsubmit="confirmDelete(event, 'Apakah Anda yakin ingin menghapus akun profesional ini?')">
                     @csrf @method('DELETE')
                     <div class="mb-3">
                         <input class="form-control border-0" type="password" name="password" placeholder="Password untuk konfirmasi" required>

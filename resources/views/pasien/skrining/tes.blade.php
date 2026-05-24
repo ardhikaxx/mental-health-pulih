@@ -6,7 +6,7 @@
         <h1 class="mb-2 fw-bold"><i class="fa-solid fa-file-signature me-2"></i> {{ $skrining->nama_skrining }}</h1>
         <p class="mb-0 opacity-75">{{ $skrining->deskripsi }}</p>
     </div>
-    <a href="{{ route('pasien.skrining.pilih') }}" class="btn btn-light bg-opacity-25 text-primary border-0 shadow-none fw-bold" style="position: relative; z-index: 2;" onclick="return confirm('Yakin ingin membatalkan tes? Jawaban Anda tidak akan disimpan.')">
+    <a href="{{ route('pasien.skrining.pilih') }}" class="btn btn-light bg-opacity-25 text-primary border-0 shadow-none fw-bold" style="position: relative; z-index: 2;" onclick="confirmDelete(event, 'Yakin ingin membatalkan tes? Jawaban Anda tidak akan disimpan.')">
         <i class="fa-solid fa-arrow-left me-1"></i> Batal Tes
     </a>
 </section>

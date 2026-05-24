@@ -74,7 +74,7 @@
                             <a class="btn btn-sm btn-light text-warning rounded-circle" style="width: 35px; height: 35px; display: flex; align-items: center; justify-content: center;" href="#edit-konten-{{ $konten->id_konten }}" data-bs-toggle="modal" data-bs-target="#edit-konten-{{ $konten->id_konten }}" title="Edit">
                                 <i class="fa-solid fa-pen-to-square"></i>
                             </a>
-                            <form action="{{ route('admin.edukasi.destroy', $konten) }}" method="POST" onsubmit="return confirm('Hapus konten ini secara permanen?')">
+                            <form action="{{ route('admin.edukasi.destroy', $konten) }}" method="POST" onsubmit="confirmDelete(event, 'Hapus konten ini secara permanen?')">
                                 @csrf @method('DELETE')
                                 <button class="btn btn-sm btn-light text-danger rounded-circle" style="width: 35px; height: 35px; display: flex; align-items: center; justify-content: center;" type="submit" title="Hapus">
                                     <i class="fa-solid fa-trash"></i>

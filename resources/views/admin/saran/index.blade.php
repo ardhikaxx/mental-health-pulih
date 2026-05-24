@@ -53,7 +53,7 @@
                             <button class="btn btn-sm btn-light text-primary rounded-circle" style="width: 35px; height: 35px; display: flex; align-items: center; justify-content: center;" data-bs-toggle="modal" data-bs-target="#view-saran-{{ $saran->id_saran }}" title="Lihat">
                                 <i class="fa-solid fa-eye"></i>
                             </button>
-                            <form action="{{ route('admin.saran.destroy', $saran) }}" method="POST" onsubmit="return confirm('Hapus saran ini?')">
+                            <form action="{{ route('admin.saran.destroy', $saran) }}" method="POST" onsubmit="confirmDelete(event, 'Hapus saran ini?')">
                                 @csrf @method('DELETE')
                                 <button class="btn btn-sm btn-light text-danger rounded-circle" style="width: 35px; height: 35px; display: flex; align-items: center; justify-content: center;" type="submit" title="Hapus">
                                     <i class="fa-solid fa-trash"></i>

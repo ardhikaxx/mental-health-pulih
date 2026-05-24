@@ -77,7 +77,7 @@
                             <a class="btn btn-sm btn-light text-warning rounded-circle" style="width: 35px; height: 35px; display: flex; align-items: center; justify-content: center;" href="#edit-psikolog-{{ $psikolog->id_psikolog }}" data-bs-toggle="modal" data-bs-target="#edit-psikolog-{{ $psikolog->id_psikolog }}" title="Edit">
                                 <i class="fa-solid fa-pen-to-square"></i>
                             </a>
-                            <form action="{{ route('admin.psikolog.destroy', $psikolog) }}" method="POST" onsubmit="return confirm('Nonaktifkan psikolog ini secara permanen?')">
+                            <form action="{{ route('admin.psikolog.destroy', $psikolog) }}" method="POST" onsubmit="confirmDelete(event, 'Nonaktifkan psikolog ini secara permanen?')">
                                 @csrf @method('DELETE')
                                 <button class="btn btn-sm btn-light text-danger rounded-circle" style="width: 35px; height: 35px; display: flex; align-items: center; justify-content: center;" type="submit" title="Hapus">
                                     <i class="fa-solid fa-trash"></i>

@@ -345,6 +345,32 @@
     }
 
     sidebarOverlay.addEventListener('click', toggleSidebar);
+
+    function confirmDelete(event, message) {
+        event.preventDefault();
+        const element = event.currentTarget;
+        
+        Swal.fire({
+            title: 'Apakah Anda Yakin?',
+            text: message,
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#6c757d',
+            confirmButtonText: 'Ya, Lanjutkan',
+            cancelButtonText: 'Batal'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                if (element.tagName === 'FORM') {
+                    element.submit();
+                } else if (element.tagName === 'A') {
+                    window.location.href = element.href;
+                } else if (element.tagName === 'BUTTON' && element.form) {
+                    element.form.submit();
+                }
+            }
+        });
+    }
 </script>
 
 @stack('scripts')

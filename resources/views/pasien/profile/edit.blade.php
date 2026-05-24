@@ -90,7 +90,7 @@
                 Setelah akun kamu dihapus, semua riwayat skrining, konsultasi, dan pemantauan mental akan dihapus secara permanen. Silakan masukkan password kamu untuk mengonfirmasi.
             </p>
             
-            <form method="POST" action="{{ route('pasien.profile.destroy') }}" onsubmit="return confirm('Apakah kamu yakin ingin menghapus akun ini secara permanen?')">
+            <form method="POST" action="{{ route('pasien.profile.destroy') }}" onsubmit="confirmDelete(event, 'Apakah kamu yakin ingin menghapus akun ini secara permanen?')">
                 @csrf @method('DELETE')
                 <div class="mb-3">
                     <input class="form-control border-0" type="password" name="password" placeholder="Password saat ini" required>

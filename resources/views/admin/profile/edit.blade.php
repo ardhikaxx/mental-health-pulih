@@ -82,7 +82,7 @@
                 Setelah akun Anda dihapus, semua data dan sumber daya yang terkait akan dihapus secara permanen. Silakan masukkan password Anda untuk mengonfirmasi.
             </p>
             
-            <form method="POST" action="{{ route('admin.profile.destroy') }}" onsubmit="return confirm('Apakah Anda yakin ingin menghapus akun ini secara permanen?')">
+            <form method="POST" action="{{ route('admin.profile.destroy') }}" onsubmit="confirmDelete(event, 'Apakah Anda yakin ingin menghapus akun ini secara permanen?')">
                 @csrf @method('DELETE')
                 <div class="mb-3">
                     <input class="form-control border-0" type="password" name="password" placeholder="Password saat ini" required>

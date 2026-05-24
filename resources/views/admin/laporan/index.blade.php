@@ -65,7 +65,7 @@
                             <button class="btn btn-sm btn-light text-primary rounded-circle" style="width: 35px; height: 35px; display: flex; align-items: center; justify-content: center;" data-bs-toggle="modal" data-bs-target="#view-laporan-{{ $laporan->id_laporan }}" title="Detail">
                                 <i class="fa-solid fa-eye"></i>
                             </button>
-                            <form action="{{ route('admin.laporan.destroy', $laporan) }}" method="POST" onsubmit="return confirm('Hapus laporan ini?')">
+                            <form action="{{ route('admin.laporan.destroy', $laporan) }}" method="POST" onsubmit="confirmDelete(event, 'Hapus laporan ini?')">
                                 @csrf @method('DELETE')
                                 <button class="btn btn-sm btn-light text-danger rounded-circle" style="width: 35px; height: 35px; display: flex; align-items: center; justify-content: center;" type="submit" title="Hapus">
                                     <i class="fa-solid fa-trash"></i>

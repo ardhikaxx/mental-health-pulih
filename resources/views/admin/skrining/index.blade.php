@@ -73,7 +73,7 @@
                             <a class="btn btn-sm btn-light text-warning rounded-circle" style="width: 35px; height: 35px; display: flex; align-items: center; justify-content: center;" href="#edit-skrining-{{ $item->id_jenis_skrining }}" data-bs-toggle="modal" data-bs-target="#edit-skrining-{{ $item->id_jenis_skrining }}" title="Edit Skrining">
                                 <i class="fa-solid fa-pen-to-square"></i>
                             </a>
-                            <form action="{{ route('admin.skrining.destroy', $item) }}" method="POST" onsubmit="return confirm('Hapus skrining ini secara permanen?')">
+                            <form action="{{ route('admin.skrining.destroy', $item) }}" method="POST" onsubmit="confirmDelete(event, 'Hapus skrining ini secara permanen?')">
                                 @csrf @method('DELETE')
                                 <button class="btn btn-sm btn-light text-danger rounded-circle" style="width: 35px; height: 35px; display: flex; align-items: center; justify-content: center;" type="submit" title="Hapus">
                                     <i class="fa-solid fa-trash"></i>

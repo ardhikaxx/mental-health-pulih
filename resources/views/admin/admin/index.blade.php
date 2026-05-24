@@ -69,7 +69,7 @@
                                 <i class="fa-solid fa-pen-to-square"></i>
                             </a>
                             @if ($admin->id_user !== auth()->id())
-                                <form action="{{ route('admin.admin.destroy', $admin) }}" method="POST" onsubmit="return confirm('Nonaktifkan admin ini secara permanen?')">
+                                <form action="{{ route('admin.admin.destroy', $admin) }}" method="POST" onsubmit="confirmDelete(event, 'Nonaktifkan admin ini secara permanen?')">
                                     @csrf @method('DELETE')
                                     <button class="btn btn-sm btn-light text-danger rounded-circle" style="width: 35px; height: 35px; display: flex; align-items: center; justify-content: center;" type="submit" title="Hapus">
                                         <i class="fa-solid fa-trash"></i>
