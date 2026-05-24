@@ -39,10 +39,10 @@
                             @foreach ($pertanyaan->jawaban as $jawaban)
                                 <div class="col-sm-6">
                                     <label class="answer-option d-block h-100 p-3 rounded-4 border border-2 cursor-pointer transition-all bg-light hover-bg-white" style="cursor: pointer;">
-                                        <input type="radio" name="jawaban[{{ $pertanyaan->id_pertanyaan }}]" value="{{ $jawaban->id_jawaban }}" class="d-none answer-radio" data-question-index="{{ $index }}" onchange="this.closest('.row').querySelectorAll('.answer-option').forEach(el => { el.classList.remove('border-primary', 'bg-primary', 'bg-opacity-10'); el.classList.add('border-light', 'bg-light'); }); this.closest('.answer-option').classList.remove('border-light', 'bg-light'); this.closest('.answer-option').classList.add('border-primary', 'bg-primary', 'bg-opacity-10'); handleAnswerSelection();">
+                                        <input type="radio" name="jawaban[{{ $pertanyaan->id_pertanyaan }}]" value="{{ $jawaban->id_jawaban }}" class="d-none answer-radio" data-question-index="{{ $index }}" onchange="this.closest('.row').querySelectorAll('.answer-option').forEach(el => { el.classList.remove('border-primary', 'bg-primary'); el.classList.add('border-light', 'bg-light'); let span = el.querySelector('span'); span.classList.remove('text-white'); span.classList.add('text-dark'); }); this.closest('.answer-option').classList.remove('border-light', 'bg-light'); this.closest('.answer-option').classList.add('border-primary', 'bg-primary'); let selectedSpan = this.closest('.answer-option').querySelector('span'); selectedSpan.classList.remove('text-dark'); selectedSpan.classList.add('text-white'); handleAnswerSelection();">
                                         <div class="d-flex align-items-center gap-2 h-100">
-                                            <div class="radio-custom rounded-circle border border-2 d-flex align-items-center justify-content-center flex-shrink-0" style="width: 20px; height: 20px;">
-                                                <div class="radio-dot bg-primary rounded-circle d-none" style="width: 10px; height: 10px;"></div>
+                                            <div class="radio-custom rounded-circle border border-2 d-flex align-items-center justify-content-center flex-shrink-0 bg-white" style="width: 20px; height: 20px;">
+                                                <div class="radio-dot rounded-circle d-none" style="width: 10px; height: 10px; background-color: var(--primary-green);"></div>
                                             </div>
                                             <span class="fw-semibold text-dark">{{ $jawaban->teks_jawaban }}</span>
                                         </div>
@@ -96,7 +96,6 @@
     
     .answer-option input:checked ~ div .radio-custom { border-color: var(--primary-green) !important; }
     .answer-option input:checked ~ div .radio-custom .radio-dot { display: block !important; }
-    .answer-option input:checked ~ div span { color: var(--primary-green) !important; }
     
     .fade-enter-active { animation: fadeIn 0.3s ease-out forwards; }
     @keyframes fadeIn {
