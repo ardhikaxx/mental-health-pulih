@@ -4,7 +4,7 @@
 <div class="content-page">
     <article class="card card-body">
         <div class="muted">Beranda &gt; Edukasi &gt; {{ $konten->judul_konten }}</div>
-        <img class="content-cover" src="{{ $konten->thumbnail ? asset('storage/'.$konten->thumbnail) : asset('assets/images/artikel13.png') }}" alt="{{ $konten->judul_konten }}">
+        <img class="content-cover" src="{{ $konten->thumbnail_url ?? asset('assets/images/artikel13.png') }}" alt="{{ $konten->judul_konten }}">
         <h1 style="font-size:42px; line-height:1.15; margin-bottom:12px;">{{ $konten->judul_konten }}</h1>
         <p class="muted" style="margin-bottom:24px;">
             {{ $konten->kategori->nama_kategori ?? 'Edukasi' }} -

@@ -44,6 +44,11 @@
                         </div>
                         <div class="col-md-6">
                             <label class="form-label fw-semibold">Thumbnail</label>
+                            @if($konten?->thumbnail_url)
+                                <div class="mb-2">
+                                    <img src="{{ $konten->thumbnail_url }}" alt="Thumbnail" class="rounded shadow-sm" style="height: 60px; width: 100px; object-fit: cover;">
+                                </div>
+                            @endif
                             <input class="form-control bg-light border-0" type="file" name="thumbnail" accept=".jpg,.jpeg,.png">
                         </div>
                         <div class="col-md-6">

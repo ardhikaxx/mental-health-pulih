@@ -14,6 +14,15 @@ class KontenEdukasi extends Model
         'tanggal_publish' => 'datetime',
     ];
 
+    public function getThumbnailUrlAttribute(): ?string
+    {
+        if (!$this->thumbnail) {
+            return null;
+        }
+
+        return url('uploads/edukasi/' . basename($this->thumbnail));
+    }
+
     public function kategori()
     {
         return $this->belongsTo(KategoriEdukasi::class, 'id_kategori', 'id_kategori');

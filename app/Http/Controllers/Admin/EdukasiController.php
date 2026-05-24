@@ -8,6 +8,7 @@ use App\Models\KontenEdukasi;
 use App\Models\Notifikasi;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
 
 class EdukasiController extends Controller
@@ -44,7 +45,17 @@ class EdukasiController extends Controller
             'status' => 'required|in:draft,publish',
         ]);
 
-        $thumbnail = $request->file('thumbnail')?->store('edukasi', 'public');
+        $thumbnail = null;
+        if ($request->hasFile('thumbnail')) {
+            $directory = storage_path('uploads/edukasi');
+            if (!File::exists($directory)) {
+                File::makeDirectory($directory, 0755, true);
+            }
+            $file = $request->file('thumbnail');
+            $filename = 'edu_'.time().'_'.uniqid().'.'.$file->extension();
+            $file->move($directory, $filename);
+            $thumbnail = $filename;
+        }
 
         $konten = KontenEdukasi::create([
             'id_kategori' => $validated['id_kategori'],
@@ -80,7 +91,27 @@ class EdukasiController extends Controller
             'status' => 'required|in:draft,publish',
         ]);
 
-        $thumbnail = $request->file('thumbnail')?->store('edukasi', 'public') ?? $edukasi->thumbnail;
+        $thumbnail = $edukasi->thumbnail;
+        if ($request->hasFile('thumbnail')) {
+            $directory = storage_path('uploads/edukasi');
+            if (!File::exists($directory)) {
+                File::makeDirectory($directory, 0755, true);
+            }
+            
+            // Delete old thumbnail
+            if ($edukasi->thumbnail) {
+                $oldPath = storage_path('uploads/edukasi/'.$edukasi->thumbnail);
+                if (File::exists($oldPath)) {
+                    File::delete($oldPath);
+                }
+            }
+
+            $file = $request->file('thumbnail');
+            $filename = 'edu_'.time().'_'.uniqid().'.'.$file->extension();
+            $file->move($directory, $filename);
+            $thumbnail = $filename;
+        }
+
         $wasDraft = $edukasi->status !== 'publish';
 
         $edukasi->update([

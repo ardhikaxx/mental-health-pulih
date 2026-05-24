@@ -26,8 +26,8 @@
 <div class="row g-4">
     <div class="col-lg-8">
         <div class="card border-0 p-4">
-            @if ($edukasi->thumbnail)
-                <img src="{{ asset('storage/'.$edukasi->thumbnail) }}" alt="{{ $edukasi->judul_konten }}" class="w-100 rounded-4 shadow-sm mb-4" style="max-height: 450px; object-fit: cover;">
+            @if ($edukasi->thumbnail_url)
+                <img src="{{ $edukasi->thumbnail_url }}" alt="{{ $edukasi->judul_konten }}" class="w-100 rounded-4 shadow-sm mb-4" style="max-height: 450px; object-fit: cover;">
             @else
                 <div class="w-100 rounded-4 shadow-sm mb-4 bg-light d-flex align-items-center justify-content-center" style="height: 300px;">
                     <i class="fa-solid fa-image fa-4x text-muted opacity-50"></i>

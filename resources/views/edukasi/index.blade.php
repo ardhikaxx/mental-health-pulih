@@ -97,7 +97,7 @@
 <div class="grid-3">
     @forelse ($artikels as $artikel)
         <a class="card article-card" href="{{ route('edukasi.show', $artikel->slug) }}">
-            <img src="{{ $artikel->thumbnail ? asset('storage/'.$artikel->thumbnail) : asset('assets/no-image.png') }}" alt="{{ $artikel->judul_konten }}">
+            <img src="{{ $artikel->thumbnail_url ?? asset('assets/no-image.png') }}" alt="{{ $artikel->judul_konten }}">
             <div class="card-body">
                 <h3>{{ $artikel->judul_konten }}</h3>
                 <p class="muted">{{ \Illuminate\Support\Str::limit(strip_tags($artikel->isi_artikel), 115) }}</p>
@@ -131,7 +131,7 @@
         @foreach ($videos as $video)
             <a class="card video-card" href="{{ route('edukasi.video', $video->slug) }}">
                 <div style="position:relative;">
-                    <img src="{{ $video->thumbnail ? asset('storage/'.$video->thumbnail) : asset('assets/no-image.png') }}" alt="{{ $video->judul_konten }}">
+                    <img src="{{ $video->thumbnail_url ?? asset('assets/no-image.png') }}" alt="{{ $video->judul_konten }}">
                     <span class="play-btn"><i class="fa-solid fa-play" style="font-size:8px;margin-right:4px;"></i> Play</span>
                 </div>
                 <div class="card-body">
