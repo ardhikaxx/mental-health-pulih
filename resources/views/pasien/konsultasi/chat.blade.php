@@ -53,14 +53,14 @@
                                 @if ($chat->file_lampiran)
                                     <div class="mt-2">
                                         @if ($chat->is_image)
-                                            <a href="{{ $chat->file_url }}" target="_blank">
-                                                <img src="{{ $chat->file_url }}" alt="Lampiran" class="img-fluid rounded-3 mb-2 shadow-sm border border-white border-2" style="max-height: 250px;">
-                                            </a>
+                                            <div class="cursor-pointer" onclick="showAttachmentDetail('{{ $chat->file_url }}', 'image', '{{ basename($chat->file_lampiran) }}')">
+                                                <img src="{{ $chat->file_url }}" alt="Lampiran" class="img-fluid rounded-3 mb-2 shadow-sm border border-white border-2 hover-opacity-75 transition-all" style="max-height: 250px; cursor: pointer;">
+                                            </div>
                                         @else
-                                            <div class="p-2 bg-white bg-opacity-25 rounded-3">
-                                                <a href="{{ $chat->file_url }}" target="_blank" class="text-white text-decoration-none d-flex align-items-center gap-2 small fw-semibold">
+                                            <div class="p-2 bg-white bg-opacity-25 rounded-3 cursor-pointer" onclick="showAttachmentDetail('{{ $chat->file_url }}', 'file', '{{ basename($chat->file_lampiran) }}')">
+                                                <div class="text-white text-decoration-none d-flex align-items-center gap-2 small fw-semibold">
                                                     <i class="fa-solid fa-paperclip"></i> Lampiran Terkirim
-                                                </a>
+                                                </div>
                                             </div>
                                         @endif
                                     </div>
@@ -79,14 +79,14 @@
                                 @if ($chat->file_lampiran)
                                     <div class="mt-2">
                                         @if ($chat->is_image)
-                                            <a href="{{ $chat->file_url }}" target="_blank">
-                                                <img src="{{ $chat->file_url }}" alt="Lampiran" class="img-fluid rounded-3 mb-2 shadow-sm border" style="max-height: 250px;">
-                                            </a>
+                                            <div class="cursor-pointer" onclick="showAttachmentDetail('{{ $chat->file_url }}', 'image', '{{ basename($chat->file_lampiran) }}')">
+                                                <img src="{{ $chat->file_url }}" alt="Lampiran" class="img-fluid rounded-3 mb-2 shadow-sm border hover-opacity-75 transition-all" style="max-height: 250px; cursor: pointer;">
+                                            </div>
                                         @else
-                                            <div class="p-2 bg-light rounded-3 border">
-                                                <a href="{{ $chat->file_url }}" target="_blank" class="text-primary text-decoration-none d-flex align-items-center gap-2 small fw-semibold">
+                                            <div class="p-2 bg-light rounded-3 border cursor-pointer" onclick="showAttachmentDetail('{{ $chat->file_url }}', 'file', '{{ basename($chat->file_lampiran) }}')">
+                                                <div class="text-primary text-decoration-none d-flex align-items-center gap-2 small fw-semibold">
                                                     <i class="fa-solid fa-file-arrow-down"></i> Unduh Lampiran
-                                                </a>
+                                                </div>
                                             </div>
                                         @endif
                                     </div>
@@ -142,6 +142,32 @@
     </div>
 </div>
 
+<!-- Attachment Detail Modal -->
+<div class="modal fade" id="attachmentModal" tabindex="-1" aria-labelledby="attachmentModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content border-0 shadow-lg rounded-4">
+            <div class="modal-header border-0 pb-0">
+                <h6 class="modal-title fw-bold" id="attachmentModalLabel">Detail Lampiran</h6>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body text-center p-4">
+                <div id="imagePreview" class="d-none mb-3">
+                    <img src="" id="fullImage" class="img-fluid rounded-3 shadow-sm border" alt="Preview Image">
+                </div>
+                <div id="fileInfo" class="d-none py-5 bg-light rounded-4 mb-3 border">
+                    <i class="fa-solid fa-file-lines fa-4x text-primary opacity-50 mb-3"></i>
+                    <h6 id="fileNameTitle" class="fw-bold text-dark px-3 text-break"></h6>
+                </div>
+                <div class="d-grid gap-2">
+                    <a href="" id="downloadBtn" class="btn btn-primary fw-bold py-3 rounded-pill" download>
+                        <i class="fa-solid fa-download me-2"></i> Unduh Lampiran Sekarang
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 @push('scripts')
 <script>
     // Auto-scroll to bottom of chat
@@ -151,6 +177,32 @@
             chatContainer.scrollTop = chatContainer.scrollHeight;
         }
     });
+
+    function showAttachmentDetail(url, type, name) {
+        const modal = new bootstrap.Modal(document.getElementById('attachmentModal'));
+        const imagePreview = document.getElementById('imagePreview');
+        const fileInfo = document.getElementById('fileInfo');
+        const fullImage = document.getElementById('fullImage');
+        const fileNameTitle = document.getElementById('fileNameTitle');
+        const downloadBtn = document.getElementById('downloadBtn');
+
+        // Reset
+        imagePreview.classList.add('d-none');
+        fileInfo.classList.add('d-none');
+        
+        if (type === 'image') {
+            fullImage.src = url;
+            imagePreview.classList.remove('d-none');
+        } else {
+            fileNameTitle.textContent = name;
+            fileInfo.classList.remove('d-none');
+        }
+
+        downloadBtn.href = url;
+        downloadBtn.setAttribute('download', name);
+        
+        modal.show();
+    }
 
     function handleFileSelect(input) {
         const container = document.getElementById('filePreviewContainer');
