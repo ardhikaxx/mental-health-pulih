@@ -98,6 +98,22 @@ Route::get('/uploads/edukasi/{filename}', function (string $filename) {
     ]);
 })->name('uploads.edukasi.show');
 
+Route::get('/uploads/chat/{filename}', function (string $filename) {
+    if ($filename !== basename($filename)) {
+        abort(404);
+    }
+
+    $path = storage_path('uploads/chat/'.$filename);
+
+    if (! File::exists($path) || ! File::isFile($path)) {
+        abort(404);
+    }
+
+    return response()->file($path, [
+        'Cache-Control' => 'public, max-age=31536000',
+    ]);
+})->name('uploads.chat.show');
+
 Route::get('/edukasi', [EdukasiPublikController::class, 'index'])->name('edukasi.index');
 Route::get('/edukasi/video/{slug}', [EdukasiPublikController::class, 'video'])->name('edukasi.video');
 Route::get('/edukasi/{slug}', [EdukasiPublikController::class, 'show'])->name('edukasi.show');

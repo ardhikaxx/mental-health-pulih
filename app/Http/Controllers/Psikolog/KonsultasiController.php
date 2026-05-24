@@ -8,6 +8,7 @@ use App\Models\Konsultasi;
 use App\Models\Notifikasi;
 use App\Models\TbPsikolog;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
 
 class KonsultasiController extends Controller
 {
@@ -117,10 +118,25 @@ class KonsultasiController extends Controller
 
         $validated = $request->validate([
             'pesan' => 'required_without:file_lampiran|nullable|string',
-            'file_lampiran' => 'nullable|file|mimes:jpg,jpeg,png,pdf|max:2048',
+            'file_lampiran' => 'nullable|file|mimes:jpg,jpeg,png,pdf,docx,xlsx|max:2048',
         ]);
 
-        $file = $request->file('file_lampiran')?->store('chat', 'public');
+        $filename = null;
+        $tipePesan = 'teks';
+
+        if ($request->hasFile('file_lampiran')) {
+            $directory = storage_path('uploads/chat');
+            if (!File::exists($directory)) {
+                File::makeDirectory($directory, 0755, true);
+            }
+
+            $file = $request->file('file_lampiran');
+            $extension = strtolower($file->extension());
+            $filename = 'chat_'.time().'_'.uniqid().'.'.$extension;
+            $file->move($directory, $filename);
+            
+            $tipePesan = in_array($extension, ['jpg', 'jpeg', 'png', 'gif', 'webp']) ? 'gambar' : 'file';
+        }
 
         if (in_array($konsultasi->status_konsultasi, ['disetujui', 'terjadwal'], true)) {
             $konsultasi->update(['status_konsultasi' => 'berlangsung']);
@@ -130,8 +146,8 @@ class KonsultasiController extends Controller
             'id_konsultasi' => $konsultasi->id_konsultasi,
             'id_pengirim' => auth()->id(),
             'pesan' => $validated['pesan'] ?? null,
-            'tipe_pesan' => $file ? 'file' : 'teks',
-            'file_lampiran' => $file,
+            'tipe_pesan' => $tipePesan,
+            'file_lampiran' => $filename,
             'waktu_kirim' => now(),
         ]);
 

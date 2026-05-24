@@ -31,12 +31,22 @@
                     @if ($chat->id_pengirim === auth()->id())
                         <div class="d-flex flex-column align-items-end">
                             <div class="bg-primary text-white p-3 rounded-4 shadow-sm" style="max-width: 75%; border-bottom-right-radius: 4px;">
-                                <p class="mb-1">{{ $chat->pesan }}</p>
+                                @if ($chat->pesan)
+                                    <p class="mb-1">{{ $chat->pesan }}</p>
+                                @endif
                                 @if ($chat->file_lampiran)
-                                    <div class="mt-2 p-2 bg-white bg-opacity-25 rounded-3">
-                                        <a href="{{ asset('storage/'.$chat->file_lampiran) }}" target="_blank" class="text-white text-decoration-none d-flex align-items-center gap-2">
-                                            <i class="fa-solid fa-paperclip"></i> Lampiran
-                                        </a>
+                                    <div class="mt-2">
+                                        @if ($chat->is_image)
+                                            <a href="{{ $chat->file_url }}" target="_blank">
+                                                <img src="{{ $chat->file_url }}" alt="Lampiran" class="img-fluid rounded-3 mb-2 shadow-sm border border-white border-2" style="max-height: 250px;">
+                                            </a>
+                                        @else
+                                            <div class="p-2 bg-white bg-opacity-25 rounded-3">
+                                                <a href="{{ $chat->file_url }}" target="_blank" class="text-white text-decoration-none d-flex align-items-center gap-2">
+                                                    <i class="fa-solid fa-paperclip"></i> Lampiran
+                                                </a>
+                                            </div>
+                                        @endif
                                     </div>
                                 @endif
                             </div>
@@ -46,12 +56,22 @@
                         <div class="d-flex flex-column align-items-start">
                             <div class="bg-white border p-3 rounded-4 shadow-sm" style="max-width: 75%; border-bottom-left-radius: 4px;">
                                 <strong class="d-block mb-1 text-primary small">{{ $chat->pengirim->nama_lengkap }}</strong>
-                                <p class="mb-1 text-dark">{{ $chat->pesan }}</p>
+                                @if ($chat->pesan)
+                                    <p class="mb-1 text-dark">{{ $chat->pesan }}</p>
+                                @endif
                                 @if ($chat->file_lampiran)
-                                    <div class="mt-2 p-2 bg-light rounded-3 border">
-                                        <a href="{{ asset('storage/'.$chat->file_lampiran) }}" target="_blank" class="text-primary text-decoration-none d-flex align-items-center gap-2">
-                                            <i class="fa-solid fa-paperclip"></i> Lampiran
-                                        </a>
+                                    <div class="mt-2">
+                                        @if ($chat->is_image)
+                                            <a href="{{ $chat->file_url }}" target="_blank">
+                                                <img src="{{ $chat->file_url }}" alt="Lampiran" class="img-fluid rounded-3 mb-2 shadow-sm border" style="max-height: 250px;">
+                                            </a>
+                                        @else
+                                            <div class="p-2 bg-light rounded-3 border">
+                                                <a href="{{ $chat->file_url }}" target="_blank" class="text-primary text-decoration-none d-flex align-items-center gap-2">
+                                                    <i class="fa-solid fa-paperclip"></i> Lampiran
+                                                </a>
+                                            </div>
+                                        @endif
                                     </div>
                                 @endif
                             </div>
@@ -76,7 +96,7 @@
                         <label class="input-group-text bg-light border text-muted cursor-pointer" for="file_lampiran" title="Tambah Lampiran" style="cursor: pointer;">
                             <i class="fa-solid fa-paperclip"></i>
                         </label>
-                        <input type="text" class="form-control border bg-light" name="pesan" placeholder="Ketik pesan di sini..." autocomplete="off" required>
+                        <input type="text" class="form-control border bg-light" name="pesan" placeholder="Ketik pesan di sini..." autocomplete="off">
                         <button class="btn btn-primary px-4 fw-bold shadow-sm" type="submit">
                             <i class="fa-solid fa-paper-plane me-1"></i> Kirim
                         </button>
@@ -109,4 +129,16 @@
         </div>
     </div>
 </div>
+
+@push('scripts')
+<script>
+    // Auto-scroll to bottom of chat
+    document.addEventListener("DOMContentLoaded", function() {
+        var chatContainer = document.getElementById("chatContainer");
+        if (chatContainer) {
+            chatContainer.scrollTop = chatContainer.scrollHeight;
+        }
+    });
+</script>
+@endpush
 @endsection
