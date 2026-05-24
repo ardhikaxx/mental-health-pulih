@@ -21,8 +21,8 @@
         </div>
         <div class="banner-visual">
             <div class="glass-widget">
-                <span class="widget-label">Total Pengguna</span>
-                <span class="widget-value">{{ $stats['pasien'] + $stats['psikolog'] }}</span>
+                <span class="widget-label">Total Pasien</span>
+                <span class="widget-value">{{ $stats['pasien'] }}</span>
                 <div class="widget-trend">
                     <i class="fa-solid fa-chart-line"></i>
                     <span>+12.5% Bulan ini</span>
