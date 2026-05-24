@@ -187,7 +187,7 @@
         .content-page { display: grid; grid-template-columns: minmax(0, 1fr) 340px; gap: 34px; margin-top: 24px; }
         .content-body { font-size: 19px; line-height: 1.7; }
         .content-body p { margin-bottom: 16px; }
-        .content-cover { width: 100%; max-height: 460px; object-fit: cover; border-radius: 12px; margin: 16px 0 24px; }
+        .content-cover { width: 100%; max-height: 460px; object-fit: contain; border-radius: 12px; margin: 16px 0 24px; background: #f0f0f0; }
         .footer-space { height: 40px; }
         @media (max-width: 1000px) {
             .public-wrap { width: calc(100% - 30px); }
