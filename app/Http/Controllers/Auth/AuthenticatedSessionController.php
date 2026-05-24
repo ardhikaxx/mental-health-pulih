@@ -30,13 +30,6 @@ class AuthenticatedSessionController extends Controller
 
         if ($user && \Illuminate\Support\Facades\Hash::check($request->password, $user->password)) {
             if ($user->two_factor_enabled) {
-                // Prepare 2FA
-                $code = rand(1000, 9999);
-                $user->update([
-                    'two_factor_code' => $code,
-                    'two_factor_expires_at' => now()->addMinutes(10),
-                ]);
-
                 $request->session()->put('2fa_user_id', $user->id_user);
                 $request->session()->put('2fa_remember', $request->boolean('remember'));
 

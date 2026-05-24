@@ -2,100 +2,62 @@
 
 @section('form')
     <h2 class="auth-title">Verifikasi 2 Langkah</h2>
-    <p class="auth-subtitle">Salin kode keamanan 4 digit di bawah ini untuk melanjutkan.</p>
+    <p class="auth-subtitle">Selesaikan tantangan CAPTCHA di bawah ini dalam waktu <strong class="text-danger">10 detik</strong> untuk melanjutkan.</p>
 
-    <div class="text-center mb-5 mt-4">
-        <div class="code-display-container">
-            @foreach(str_split((string)$code) as $digit)
-                <div class="digit-box shadow-sm">
-                    {{ $digit }}
-                </div>
-            @endforeach
+    <div class="text-center mb-4 mt-4">
+        <div class="p-3 bg-light rounded-4 d-inline-block border">
+            <img src="{{ route('two-factor.captcha') }}" alt="CAPTCHA Challenge" class="rounded-3" style="filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));">
         </div>
-        <div class="small fw-bold text-uppercase opacity-50 tracking-widest mt-3 pulse-animation" style="letter-spacing: 2px; font-size: 10px; color: var(--primary-green);">
-            Security Token Active
+        <div class="mt-3">
+            <span class="badge bg-danger rounded-pill px-3 py-2 fw-bold" style="font-size: 14px;">
+                Sisa Waktu: <span id="timer">10</span> detik
+            </span>
         </div>
     </div>
 
-    @if (session('success'))
-        <div class="alert alert-success border-0 rounded-4 mb-4 small text-center" style="background: rgba(34, 197, 94, 0.1); color: #166534;">
-            {{ session('success') }}
+    @error('email')
+        <div class="alert alert-danger border-0 rounded-4 mb-4 small text-center" style="background: rgba(220, 53, 69, 0.1); color: #b02a37;">
+            {{ $message }}
         </div>
-    @endif
+    @enderror
 
-    <form action="{{ route('two-factor.login') }}" method="POST">
+    <form id="captcha-form" action="{{ route('two-factor.login') }}" method="POST">
         @csrf
         <div class="form-group">
-            <label>Kode Konfirmasi</label>
+            <label>Masukkan Teks CAPTCHA</label>
             <div class="input-box">
-                <i class="fa-solid fa-shield-lock"></i>
-                <input type="text" name="code" placeholder="Masukkan 4 digit di atas" required autofocus maxlength="4" autocomplete="off" style="letter-spacing: 5px; font-weight: 700; text-align: center; padding-left: 0;">
+                <i class="fa-solid fa-shield-halved"></i>
+                <input type="text" name="captcha" placeholder="Teks tidak membedakan huruf besar/kecil" required autofocus autocomplete="off" style="text-align: center; padding-left: 0; font-weight: bold; letter-spacing: 2px;">
             </div>
-            @error('code')
+            @error('captcha')
                 <small style="color: #e53e3e; font-size: 12px; margin-top: 4px; display: block;">{{ $message }}</small>
             @enderror
         </div>
         <button type="submit" class="btn-submit">Verifikasi & Login</button>
     </form>
 
-    <div class="divider">atau</div>
-    
-    <form action="{{ route('two-factor.resend') }}" method="POST">
-        @csrf
-        <button type="submit" class="google-btn" style="border: none; background: #f8fafc; cursor: pointer; width: 100%;">
-            <i class="fa-solid fa-rotate"></i> Ganti Kode Baru
-        </button>
-    </form>
-
-    <div class="auth-footer">
+    <div class="auth-footer mt-4">
         Bermasalah dengan akun? <a href="{{ route('bantuan.index') }}">Hubungi Bantuan</a>
     </div>
 
-    <style>
-        .code-display-container {
-            display: flex;
-            justify-content: center;
-            gap: 12px;
-            margin-bottom: 10px;
-        }
-        .digit-box {
-            width: 54px;
-            height: 64px;
-            background: #fff;
-            border: 2px solid var(--primary-green);
-            border-radius: 14px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 28px;
-            font-weight: 800;
-            color: var(--primary-green);
-            transition: all 0.3s ease;
-        }
-        .digit-box:hover {
-            transform: translateY(-5px);
-            background: var(--bs-primary-bg-subtle);
-            box-shadow: 0 10px 15px -3px rgba(0, 92, 52, 0.1);
-        }
-        .pulse-animation {
-            animation: pulse-op 2s infinite;
-        }
-        @keyframes pulse-op {
-            0% { opacity: 0.3; }
-            50% { opacity: 0.7; }
-            100% { opacity: 0.3; }
-        }
-
-        @media (max-width: 576px) {
-            .code-display-container {
-                gap: 8px;
-            }
-            .digit-box {
-                width: 46px;
-                height: 56px;
-                font-size: 22px;
-                border-radius: 10px;
-            }
-        }
-    </style>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            let timeLeft = 10;
+            const timerElement = document.getElementById('timer');
+            
+            const countdown = setInterval(() => {
+                timeLeft--;
+                timerElement.innerText = timeLeft;
+                
+                if (timeLeft <= 0) {
+                    clearInterval(countdown);
+                    // Disable form to prevent submitting expired captcha
+                    document.getElementById('captcha-form').querySelector('button').disabled = true;
+                    // Auto redirect to login
+                    window.location.href = "{{ route('login') }}";
+                }
+            }, 1000);
+        });
+    </script>
 @endsection
+

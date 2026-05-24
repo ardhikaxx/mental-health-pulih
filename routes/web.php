@@ -112,6 +112,7 @@ Route::middleware('guest')->group(function () {
     Route::post('/reset-password-custom', [ForgotPasswordController::class, 'reset'])->name('password.update.custom');
 
     Route::get('/two-factor-challenge', [TwoFactorController::class, 'showChallenge'])->name('two-factor.login');
+    Route::get('/two-factor-captcha', [TwoFactorController::class, 'generateCaptchaImage'])->name('two-factor.captcha');
     Route::post('/two-factor-challenge', [TwoFactorController::class, 'verify']);
     Route::post('/two-factor-resend', [TwoFactorController::class, 'resend'])->name('two-factor.resend');
 });

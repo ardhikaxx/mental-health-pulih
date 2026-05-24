@@ -95,7 +95,18 @@ class FirebaseAuthController extends Controller
                 }
             }
 
-            // 3. Login-kan di Laravel
+            // 3. Check for 2FA before login
+            if ($user->two_factor_enabled) {
+                $request->session()->put('2fa_user_id', $user->id_user);
+                $request->session()->put('2fa_remember', true); // Or however you want to handle Google remember
+
+                return response()->json([
+                    'success' => true,
+                    'redirect' => route('two-factor.login'),
+                ]);
+            }
+
+            // 4. Login-kan di Laravel
             Auth::login($user);
 
             return response()->json([
